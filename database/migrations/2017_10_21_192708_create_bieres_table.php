@@ -14,6 +14,8 @@ class CreateBieresTable extends Migration
     public function up()
     {
         Schema::create('bieres', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('id');
             $table->string('nom');
             $table->float('degre');

@@ -14,6 +14,8 @@ class CreateActionFamillesTable extends Migration
     public function up()
     {
         Schema::create('action_familles', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('id');
             $table->integer('association_id')->unsigned();
             $table->integer('famille_id')->unsigned();
