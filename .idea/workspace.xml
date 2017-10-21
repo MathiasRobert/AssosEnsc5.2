@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3c11653d-bf48-40c7-9e9a-96009907c7fb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/.htaccess" afterPath="$PROJECT_DIR$/public/.htaccess" />
-    </list>
+    <list default="true" id="3c11653d-bf48-40c7-9e9a-96009907c7fb" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -346,7 +344,7 @@
       <updated>1508527757109</updated>
       <workItem from="1508527758496" duration="7758000" />
       <workItem from="1508626691785" duration="678000" />
-      <workItem from="1508628467810" duration="407000" />
+      <workItem from="1508628467810" duration="535000" />
     </task>
     <task id="LOCAL-00001" summary="Site en version 5.2">
       <created>1508626418938</created>
@@ -366,7 +364,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8843000" />
+    <option name="totallyTimeSpent" value="8971000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
