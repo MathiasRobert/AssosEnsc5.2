@@ -8,7 +8,7 @@
                     <i class="material-icons">assignment</i>
                 </div>
                 <div class="card-header card-header-button">
-                    <a href="{{ route('bieres.create') }}" class="btn btn-primary">
+                    <a href="{{ route('admin.bieres.create') }}" class="btn btn-primary">
                         <i class="material-icons">add_circle</i> Ajouter une bière
                     </a>
                 </div>
@@ -46,7 +46,7 @@
                                             <td>{{ $biere->couleur }}</td>
                                             <td>{{ $biere->prix }}</td>
                                             <td class="text-right">
-                                                <a href="{{ route('bieres.edit', $biere->id) }}" class="btn btn-simple btn-info btn-icon"><i
+                                                <a href="{{ route('admin.bieres.edit', $biere->id) }}" class="btn btn-simple btn-info btn-icon"><i
                                                             class="material-icons">edit</i></a>
                                                 <button data-id="{{ $biere->id }}" data-token="{{ csrf_token() }}" class="btn btn-simple btn-danger btn-icon remove-biere"><i
                                                             class="material-icons">close</i></button>

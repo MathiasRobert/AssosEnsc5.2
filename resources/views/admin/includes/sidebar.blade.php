@@ -27,13 +27,13 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                 <div class="collapse" id="collapseExample">
                     <ul class="nav">
                         <li>
-                            <a href="{{ route('associations.edit', 'infos') }}">Mes informations</a>
+                            <a href="{{ route('admin.associations.edit', 'infos') }}">Mes informations</a>
                         </li>
                         <li>
-                            <a href="{{ route('associations.edit', 'equipe') }}">Mon équipe</a>
+                            <a href="{{ route('admin.associations.edit', 'equipe') }}">Mon équipe</a>
                         </li>
                         <li>
-                            <a href="{{ route('associations.edit', 'parametres') }}">Paramètres</a>
+                            <a href="{{ route('admin.associations.edit', 'parametres') }}">Paramètres</a>
                         </li>
                     </ul>
                 </div>
@@ -46,26 +46,26 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                     <p>Dashboard</p>
                 </a>
             </li>
-            <li class="@if(Route::currentRouteName() === 'articles.index') active @endif">
-                <a href="{{ route('articles.index') }}">
+            <li class="@if(Route::currentRouteName() === 'admin.articles.index') active @endif">
+                <a href="{{ route('admin.articles.index') }}">
                     <i class="material-icons">image</i>
                     <p>Articles</p>
                 </a>
             </li>
-            <li class="@if(Route::currentRouteName() === 'evenements.index') active @endif">
-                <a href="{{ route('evenements.index') }}">
+            <li class="@if(Route::currentRouteName() === 'admin.evenements.index') active @endif">
+                <a href="{{ route('admin.evenements.index') }}">
                     <i class="material-icons">apps</i>
                     <p>Evenements</p>
                 </a>
             </li>
-            <li class="@if(Route::currentRouteName() === 'actionsFamilles.index') active @endif">
-                <a href="{{ route('actionsFamilles.index') }}">
+            <li class="@if(Route::currentRouteName() === 'admin.actionsFamilles.index') active @endif">
+                <a href="{{ route('admin.actionsFamilles.index') }}">
                     <i class="material-icons">games</i>
                     <p>Jeux des familles</p>
                 </a>
             </li>
-            <li class="@if(Route::currentRouteName() === 'bieres.index') active @endif">
-                <a href="{{ route('bieres.index') }}">
+            <li class="@if(Route::currentRouteName() === 'admin.bieres.index') active @endif">
+                <a href="{{ route('admin.bieres.index') }}">
                     <i class="material-icons">local_drink</i>
                     <p>Bières</p>
                 </a>

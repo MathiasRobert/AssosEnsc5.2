@@ -35,8 +35,8 @@ class UsersController extends Controller
         return 'success';
     }
 
-    // public function current(Request $request){
-    //     return Auth::user();
-    // }
+     public function current(Request $request){
+         return Auth::user();
+     }
 
 }

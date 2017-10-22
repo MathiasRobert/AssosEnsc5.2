@@ -23,31 +23,23 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::get('api/users/current', 'UsersController@current');
 
 
 
+Route::get('api/admin/evenements/{id}/comments', 'EvenementController@getComments');
+Route::get('api/admin/articles/{id}/comments', 'ArticleControllerApi@getComments');
 
-//
-//Route::get('users/current', 'UserController@current');
-//
-//
-//
-//Route::get('admin/evenements/{id}/comments', 'EvenementController@getComments');
-//Route::get('admin/articles/{id}/comments', 'ArticleControllerApi@getComments');
-//
-//
-//Route::get('admin/getAllCategoriesArticle', 'ArticleControllerApi@getAllCategoriesArticle');
-//Route::get('admin/getAllCategoriesEvenement', 'EvenementController@getAllCategoriesEvenement');
-//Route::get('admin/getCurrentAssociation', 'AssociationController@getCurrentAssociation');
-//
-//Route::post('inscription', 'InscriptionController@inscription');
-//Route::post('desinscription', 'InscriptionController@desinscription');
-//Route::resource('admin/articles', 'ArticleControllerApi');
-//Route::resource('admin/evenements', 'EvenementController');
-//Route::resource('comments', 'CommentController');
+
+Route::get('api/admin/getAllCategoriesArticle', 'ArticleControllerApi@getAllCategoriesArticle');
+Route::get('api/admin/getAllCategoriesEvenement', 'EvenementController@getAllCategoriesEvenement');
+Route::get('api/admin/getCurrentAssociation', 'AssociationController@getCurrentAssociation');
+
+Route::post('api/inscription', 'InscriptionController@inscription');
+Route::post('api/desinscription', 'InscriptionController@desinscription');
+Route::resource('api/admin/articles', 'ArticleControllerApi');
+Route::resource('api/admin/evenements', 'EvenementController');
+Route::resource('api/comments', 'CommentController');
 
 Route::get('/', ['uses' => 'PagesController@home']);
 
@@ -63,7 +55,7 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('admin', ['uses' => 'AdminController@dashboard'])->name('admin');
-    Route::get('admin/associations/{tab}', ['uses' => 'AdminController@association']);
+    Route::get('admin/associations/{tab}', 'AdminController@association');
     Route::resource('admin/articles', 'ArticleController', ['except' => ['show']]);
     Route::resource('admin/evenements', 'EvenementController', ['except' => ['show']]);
     Route::resource('admin/actionsFamilles', 'ActionFamilleController', ['except' => ['show']]);

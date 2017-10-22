@@ -18,9 +18,9 @@
                     Dashboard
                 @elseif(Route::currentRouteName() === 'admin.association')
                     Gestion de l'association
-                @elseif(Route::currentRouteName() === 'articles.index')
+                @elseif(Route::currentRouteName() === 'admin.articles.index')
                     Listes des articles
-                @elseif(Route::currentRouteName() === 'evenements.index')
+                @elseif(Route::currentRouteName() === 'admin.evenements.index')
                     Listes des évènements
                 @endif
             </a>

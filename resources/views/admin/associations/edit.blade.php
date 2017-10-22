@@ -40,7 +40,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form action="{{ route('associations.update', $association->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.associations.update', $association->id) }}" method="post" enctype="multipart/form-data">
                         {!! csrf_field() !!}
                         {{ method_field('PUT') }}
                         <div class="row">
@@ -137,7 +137,7 @@
                     </form>
                 </div>
                 <div class="tab-pane {{ !empty($tab) && $tab == 'equipe' ? 'active' : '' }}" id="equipe">
-                    <a href="{{ route('membres.create') }}" class="btn btn-primary">
+                    <a href="{{ route('admin.membres.create') }}" class="btn btn-primary">
                         <i class="material-icons">add_circle</i> Ajouter un membre
                     </a>
                     <table id="datatables"
@@ -161,7 +161,7 @@
                                 <td>{{ $membre->poste }}</td>
                                 <td>{{ $membre->email }}</td>
                                 <td class="text-right">
-                                    <a href="{{ route('membres.edit', $membre->id) }}" class="btn btn-simple btn-info btn-icon"><i
+                                    <a href="{{ route('admin.membres.edit', $membre->id) }}" class="btn btn-simple btn-info btn-icon"><i
                                                 class="material-icons">edit</i></a>
                                     <button data-id="{{ $membre->id }}" data-token="{{ csrf_token() }}" class="btn btn-simple btn-danger btn-icon remove-membre"><i
                                                 class="material-icons">close</i></button>

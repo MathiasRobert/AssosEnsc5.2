@@ -8,7 +8,7 @@
                     <i class="material-icons">assignment</i>
                 </div>
                 <div class="card-header card-header-button">
-                    <a href="{{ route('articles.create') }}" class="btn btn-primary">
+                    <a href="{{ route('admin.articles.create') }}" class="btn btn-primary">
                         <i class="material-icons">add_circle</i> Ajouter un article
                     </a>
                 </div>
@@ -44,7 +44,7 @@
                                             <td>{{ $article->created_at }}</td>
                                             <td>{{ $article->updated_at }}</td>
                                             <td class="text-right">
-                                                <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-simple btn-info btn-icon"><i
+                                                <a href="{{ route('admin.articles.edit', $article->id) }}" class="btn btn-simple btn-info btn-icon"><i
                                                             class="material-icons">edit</i></a>
                                                 <button data-id="{{ $article->id }}" data-token="{{ csrf_token() }}" class="btn btn-simple btn-danger btn-icon remove-article"><i
                                                             class="material-icons">close</i></button>

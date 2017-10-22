@@ -12,7 +12,7 @@
     @endif
     <div class="col-md-12">
         <div class="card">
-            <form id="TypeValidation" class="form-horizontal" action="{{ route('articles.store') }}" method="post" enctype="multipart/form-data">
+            <form id="TypeValidation" class="form-horizontal" action="{{ route('admin.articles.store') }}" method="post" enctype="multipart/form-data">
                 {!! csrf_field() !!}
                 <div class="card-header card-header-with-icons" data-background-color="purple">
                     <h4 class="card-title">Ajouter un article</h4>

@@ -12,7 +12,7 @@
     @endif
     <div class="col-md-12">
         <div class="card">
-            <form id="TypeValidation" class="form-horizontal" action="{{ route('actionsFamilles.store') }}"
+            <form id="TypeValidation" class="form-horizontal" action="{{ route('admin.actionsFamilles.store') }}"
                   method="post" enctype="multipart/form-data">
                 {!! csrf_field() !!}
                 <div class="card-header card-header-with-icons" data-background-color="purple">

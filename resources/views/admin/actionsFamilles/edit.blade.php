@@ -12,7 +12,7 @@
     @endif
     <div class="col-md-12">
         <div class="card">
-            <form id="TypeValidation" class="form-horizontal" action="{{ route('actionsFamilles.update', $action->id) }}"
+            <form id="TypeValidation" class="form-horizontal" action="{{ route('admin.actionsFamilles.update', $action->id) }}"
                   method="post" enctype="multipart/form-data">
                 {!! csrf_field() !!}
                 {{ method_field('PUT') }}
