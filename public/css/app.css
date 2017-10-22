@@ -358,6 +358,20 @@ body .main-product {
   }
 }
 
+.avatar-nav {
+  position: absolute;
+  max-width: 110px;
+  display: none;
+}
+
+.avatar {
+  position: absolute;
+  left: 45%;
+  z-index: 1031;
+  max-width: 110px;
+  margin: -70px auto 0;
+}
+
 /*
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
     background-color: rgba(255,255,255,.2);

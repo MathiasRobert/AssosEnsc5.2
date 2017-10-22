@@ -43,6 +43,9 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <div class="avatar-nav">
+                <img alt="Circle Image" class="rounded-circle img-raised" src="@if(isset($association)){{asset($association->logo) }}@endif">
+            </div>
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -113,9 +116,6 @@
 
 <footer class="footer">
     <div class="container">
-        @if(Auth::guest())
-            <a href="{{ route('logintest') }}" class="btn">Connexion test</a>
-        @endif
         <div class="copyright">
             &copy; AssosENSC
             <script>
@@ -124,7 +124,7 @@
             , Réalisé par
             <a href="http://www.linkedin.com/in/mathias-robert-7a5589148" target="_blank">Mathias Robert</a>,
              avec l'aide de
-            <a href="https://www.linkedin.com/in/emmanuel-patrois-716365a8/" target="_blank">Emmanuel Patrois</a>
+            <a href="https://www.linkedin.com/in/emmanuel-patrois-716365a8/" target="_blank">Emmanuel Patrois</a>.
         </div>
     </div>
 </footer>

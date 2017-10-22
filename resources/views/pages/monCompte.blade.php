@@ -36,7 +36,9 @@
                             <p>Famille :</p>
                         </div>
                         <div class="col-md-10">
-                            <p>{{ $user->famille->nom }}</p>
+                            @if(isset($user->famille))
+                                <p>{{ $user->famille->nom }}</p>
+                            @endif
                         </div>
                         <div class="col-md-10">
                             <h4>Mes actions (prochainement)</h4>
