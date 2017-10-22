@@ -98,9 +98,9 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-block">
-                                    <h4 class="card-title text-center">
+                                    <h3 class="card-title text-center">
                                         Classement des familles
-                                    </h4>
+                                    </h3>
                                     <p class="card-description">
                                         <ul class="graph-familles">
                                             @foreach($familles as $f)
@@ -118,21 +118,23 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-block">
-                                    <h4 class="card-title text-center">
+                                    <h3 class="card-title text-center">
                                         <i class="fa fa-beer" aria-hidden="true"></i>
                                          Calabar <i class="fa fa-beer" aria-hidden="true"></i>
 
-                                    </h4>
-                                    <p class="card-description">
-                                        <ul class="graph-familles">
-                                            @foreach($familles as $f)
-                                                <li class="{{ $f->nom }}"
-                                                    style="width: {{ $f->pourcentage + 20}}%">{{ $f->points }}</li>
-                                            @endforeach
-                                        </ul>
+                                    </h3>
+                                    <p class="">
+                                        Lundi : 17h-19h<br>
+                                        Mardi : 17h-19h<br>
+                                        Mercredi : 17h-19h
+                                        {{--<ul class="liste-bieres">--}}
+                                            {{--@foreach($bieres as $b)--}}
+                                                {{--<li>{{ $b->nom }}</li>--}}
+                                            {{--@endforeach--}}
+                                        {{--</ul>--}}
                                     </p>
                                     <div class="card-footer pull-right">
-                                        <a href="/famille" class="btn btn-default">Détail</a>
+                                        <a href="/calabar" class="btn btn-default">Détail</a>
                                     </div>
                                 </div>
                             </div>

@@ -81,7 +81,8 @@ class PagesController extends Controller
         {
             $f->pourcentage = round((float)($f->points/$max) * 100 );
         }
-        return view('pages.home', compact( 'associations', 'evenements', 'articles', 'familles'));
+        $bieres = Biere::all();
+        return view('pages.home', compact( 'associations', 'evenements', 'articles', 'familles', 'bieres'));
     }
 
     public function calabar()

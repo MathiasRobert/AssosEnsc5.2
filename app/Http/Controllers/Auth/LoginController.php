@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Association;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Request;
 use Auth;
 use App\User;
 use Socialite;
 use Google_Client;
+use Session;
 
 
 class LoginController extends Controller
@@ -20,6 +21,7 @@ class LoginController extends Controller
      */
     public function redirectToProvider()
     {
+        Session::flash('url',Request::server('HTTP_REFERER'));
         return Socialite::driver('google')
             ->scopes(['openid', 'profile', 'email'])->with(['hd' => 'ensc.fr'])->redirect();
     }
@@ -47,7 +49,7 @@ class LoginController extends Controller
 
         $authUser = $this->findOrCreateUser($user);
         Auth::login($authUser, true);
-        return redirect()->back();
+        return redirect(Session::get('url'));
     }
 
     /**
@@ -76,7 +78,7 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function logout(Request $request)
+    public function logout(\Illuminate\Http\Request $request)
     {
         Auth::logout();
         $request->session()->flush();
