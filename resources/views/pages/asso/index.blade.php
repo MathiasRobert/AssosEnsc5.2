@@ -77,7 +77,7 @@
             var pos = $(".avatar").position();
             $(".avatar-nav").css({
                 position: "absolute",
-                left: (pos.left) - width/2 + 1 + "px"
+                left: (pos.left) - width/2 + 5 + "px"
             });
         });
 
@@ -97,13 +97,15 @@
 
         // lors du chargement de la page
             // on positionne le logo de l'association
-            $(".avatar-nav").css({
-                position: "absolute",
-                left: (pos.left) - width/2 + 5 + "px"
-            });
+
             $(".avatar").css({
                 top: (mainPos.top - ($(".avatar").outerHeight())/2) + "px"
             });
+        var pos = $(".avatar").position();
+        $(".avatar-nav").css({
+            position: "absolute",
+            left: (pos.left) - width/2 + 5 + "px"
+        });
 
 
             if(($('.avatar-nav').css("display") == "none") && ($(window).scrollTop() > $('.avatar').offset().top -10)) {
