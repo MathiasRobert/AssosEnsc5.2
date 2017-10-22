@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Jean Patrick',
             'email' => 'bde@ensc.fr',
             'avatar' => 'http://lorempixel.com/600/600/people/',
+            'famille_id' => '1',
         ]);
 
         for ($i=0; $i < 20 ; $i++) { 

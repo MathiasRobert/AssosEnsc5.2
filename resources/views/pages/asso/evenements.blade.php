@@ -29,7 +29,7 @@
                         </td>
                         <td>
                             <div class="img-container">
-                                <img src="{!! $e->affiche !!}" alt="affiche">
+                                <img src="{!! asset($e->affiche) !!}" alt="affiche">
                             </div>
                         </td>
                         <td class="td-name">

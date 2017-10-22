@@ -24,6 +24,7 @@ class AssociationsTableSeeder extends Seeder
         	'description_courte' => "Le BDE gère ta vie étudiante en t'organisant des soirées de folieeeee !",
       		'description_longue' => null,
         	'logo' => "/images/bde.jpg",
+        	'photo' => "/images/pong.jpg",
         ]);
 
         Association::create([
@@ -37,6 +38,7 @@ class AssociationsTableSeeder extends Seeder
         	'description_courte' => "Le BDS te permet de faire un peu de sport pour entretenir ton corps alcolisé !",
       		'description_longue' => null,
         	'logo' => "/images/bds.jpg",
+            'photo' => "/images/pong.jpg",
         ]);
 
 
@@ -51,6 +53,7 @@ class AssociationsTableSeeder extends Seeder
         	'description_courte' => "Le BDA illumine tes journées et te fait découvrir des monts et merveilles.",
       		'description_longue' => null,
         	'logo' => "/images/bda.jpg",
+            'photo' => "/images/pong.jpg",
         ]);
 
         Association::create([
@@ -64,6 +67,7 @@ class AssociationsTableSeeder extends Seeder
         	'description_courte' => "La JE te propose des repas hors de prix et te fait gagner plein de sous sous",
       		'description_longue' => null,
         	'logo' => "/images/je.jpg",
+            'photo' => "/images/pong.jpg",
         ]);
 
 
@@ -78,6 +82,7 @@ class AssociationsTableSeeder extends Seeder
         	'description_courte' => "Un président grandiose !",
       		'description_longue' => null,
         	'logo' => "/images/adcog.jpg",
+            'photo' => "/images/pong.jpg",
         ]);
 
 

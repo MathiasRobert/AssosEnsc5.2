@@ -13,7 +13,7 @@
                 <div class="card card-profile card-plain">
                     <div class="card-avatar">
                         <a href="#pablo">
-                            <img class="img img-raised" src="{!! $m->photo !!}">
+                            <img class="img img-raised" src="{!! asset($m->photo) !!}">
                         </a>
                     </div>
                     <div class="card-block">

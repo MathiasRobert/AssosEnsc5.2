@@ -8,7 +8,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="card-image">
-                                    <img class="img img-raised" src="{{ $article->image }}">
+                                    <img class="img img-raised" src="{{ asset($article->image) }}">
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -17,7 +17,7 @@
                                     <a href="{{ route('articles.show', $article->id) }}">{{ $article->titre }}</a>
                                 </h3>
                                 <p class="card-description">{{ $article->texte }} …<a href="{{ route('articles.show', $article->id) }}"> Lire Plus </a></p>
-                                <p class="author">
+                                <p class="dateIlya">
                                     {{ $article->created_at }}
                                 </p>
                             </div>

@@ -91,8 +91,12 @@ class AssociationController extends Controller
         $association = Association::find($id);
         $association->fill($request->all());
         if (isset($request->logo) && $request->file('logo')->isValid()) {
-            $association->logo = $request->logo->store('public/images/'.$association->id.'/logo');
-            $association->logo = '/storage/'.substr($association->logo, 7);
+            $imageName = $association->id .'.'.$request->file('logo')->getClientOriginalExtension();
+            $association->logo = $request->logo->move('uploads/associations/logo', $imageName);
+        }
+        if (isset($request->photo) && $request->file('photo')->isValid()) {
+            $imageName = $association->id .'.'.$request->file('photo')->getClientOriginalExtension();
+            $association->photo = $request->photo->move('uploads/associations/photo', $imageName);
         }
         $association->save();
         return redirect('admin/associations/infos/edit');

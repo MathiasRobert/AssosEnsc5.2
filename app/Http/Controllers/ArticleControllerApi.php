@@ -56,13 +56,9 @@ class ArticleControllerApi extends Controller
 
         $article->save();
 
-        if(isset($request->image))
-        {
-            $destinationPath = public_path().'/storage/images/articles/'.$article->id;
-            $extension       = Input::file('image')->getClientOriginalExtension(); // getting image extension
-            $fileName        = time().'.'.$extension; // renameing image
-            Input::file('image')->move($destinationPath, $fileName);
-            $article->image = '/storage/images/articles/'.$article->id.'/'.$fileName;
+        if (isset($request->image) && $request->file('image')->isValid()) {
+            $imageName = $article->id .'.'.$request->file('image')->getClientOriginalExtension();
+            $article->image = $request->image->move('uploads/articles', $imageName);
         }
 
         $article->save();
@@ -91,38 +87,16 @@ class ArticleControllerApi extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreArticleRequest $request, $id)
     {
-        // validate
-        // read more on validation at http://laravel.com/docs/validation
-        $rules = array(
-            'titre'       => 'required',
-            'texte'      => 'required',
-            'image' => 'required',
-            'categorie' => 'required'
-        );
-        $validator = Validator::make(Input::all(), $rules);
-
-        // process the login
-        if ($validator->fails()) {
-            return redirect('admin/articles/create')
-                ->withErrors($validator);
-        } else {
-            // store
-            $association = Association::where('email', Auth::user()->email)->first();
-
-            $article = Article::find($id);
-            $article->titre     = $request->get('titre');
-            $article->texte     = $request->get('texte');
-            $article->image     = $request->get('image');
-            $article->categorie_id     = $request->get('categorie');
-            $article->association_id = $association->id;
-            $article->save();
-
-            // redirect
-            //Session::flash('message', 'Successfully created nerd!');
-            return redirect('admin/articles');
+        $article = Article::find($id);
+        $article->fill($request->all());
+        if (isset($request->image) && $request->file('image')->isValid()) {
+            $imageName = $article->id .'.'.$request->file('image')->getClientOriginalExtension();
+            $article->image = $request->image->move('uploads/articles', $imageName);
         }
+        $article->save();
+        return $article;
     }
 
     /**

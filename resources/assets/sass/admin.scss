@@ -1,0 +1,35 @@
+.navbar {
+  .navbar-nav {
+    .profile-photo {
+      padding: 0;
+      .profile-photo-small {
+        height: 40px;
+        width: 40px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+    > li > .profile-photo {
+      margin: 5px 2px;
+    }
+  }
+}
+
+@media (min-width: 768px){
+  .form-inline .form-group {
+    vertical-align: inherit;
+  }
+}
+
+.card-header-button {
+  float: right;
+  position: relative;
+  z-index:5 !important;
+}
+
+.dataTable {
+  .img {
+    width: auto;
+    max-width: 80px;
+  }
+}

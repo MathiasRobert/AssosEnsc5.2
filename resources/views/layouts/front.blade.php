@@ -6,6 +6,8 @@
     <meta name="author" content="Mathias Robert <3 Le plus beau">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
+    @yield('meta')
+
 
     <title>Assos ENSC</title>
 
@@ -75,10 +77,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                             <li>
-                                <a class="dropdown-item" href="#">Mon compte</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Mes événements</a>
+                                <a class="dropdown-item" href="/monCompte">Mon compte</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
@@ -112,7 +111,23 @@
 
 </div>
 
-
+<footer class="footer">
+    <div class="container">
+        @if(Auth::guest())
+            <a href="{{ route('logintest') }}" class="btn">Connexion test</a>
+        @endif
+        <div class="copyright">
+            &copy; AssosENSC
+            <script>
+                document.write(new Date().getFullYear())
+            </script>
+            , Réalisé par
+            <a href="http://www.linkedin.com/in/mathias-robert-7a5589148" target="_blank">Mathias Robert</a>,
+             avec l'aide de
+            <a href="https://www.linkedin.com/in/emmanuel-patrois-716365a8/" target="_blank">Emmanuel Patrois</a>
+        </div>
+    </div>
+</footer>
 
 <!--   Core JS Files   -->
 <script src="/js/jquery.min.js" type="text/javascript"></script>

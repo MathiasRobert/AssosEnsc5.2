@@ -1,9 +1,13 @@
 @extends('layouts.front')
 
+@section('meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('header')
     <div class="page-header page-header-small">
         <div class="page-header-image" data-parallax="true"
-             style="background-image: url('{{ $article->image }}'); transform: translate3d(0px, 0px, 0px);">
+             style="background-image: url('{{ asset($article->image) }}'); transform: translate3d(0px, 0px, 0px);">
         </div>
         <div class="content-center">
             <div class="row">
@@ -31,7 +35,10 @@
         <section id="comments-section">
 
             <div class="cmt-body">
-                <div class="form-group is-empty"><textarea class="form-control" placeholder="Commenter cet évenement..." rows="6" v-model="commentText"></textarea><span class="material-input"></span></div>
+                <div class="form-group is-empty">
+                    <textarea class="form-control" placeholder="Commenter cet évenement..." rows="6" v-model="commentText"></textarea>
+                    <span class="material-input"></span>
+                </div>
                 <div class="cmt-footer text-right">
                     <button class="btn btn-primary" v-on:click="postComment" v-bind:disabled="commentText==''">Commenter</button>
                 </div>
@@ -116,7 +123,7 @@
 
         Vue.config.devtools = true;
         Vue.config.debug = true;
-
+        Vue.http.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;
 
         var userService = {
             currentUser : null,

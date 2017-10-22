@@ -40,7 +40,7 @@
                                         <tbody>
                                         @foreach($evenements as $evenement)
                                             <tr>
-                                                <td><img class="img img-responsive" src="{{ $evenement->affiche }}"/></td>
+                                                <td><img class="img img-responsive" src="{{ asset($evenement->affiche) }}"/></td>
                                                 <td>{{ $evenement->titre }}</td>
                                                 <td>{{ $evenement->categorie->nom }}</td>
                                                 <td>{{ $evenement->lieu }}</td>

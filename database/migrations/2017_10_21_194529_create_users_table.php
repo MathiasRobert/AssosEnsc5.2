@@ -23,8 +23,15 @@ class CreateUsersTable extends Migration
             $table->string('avatar');
             $table->string('promo')->nullable();
             $table->string('td')->nullable();
+            $table->integer('famille_id')->unsigned()->nullable();
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::table('users', function($table) {
+            $table->engine = 'InnoDB';
+
+            $table->foreign('famille_id')->references('id')->on('familles');
         });
     }
 

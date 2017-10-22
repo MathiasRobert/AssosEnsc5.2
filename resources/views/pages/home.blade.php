@@ -37,7 +37,7 @@
                                             </td>
                                             <td>
                                                 <div class="img-container">
-                                                    <img src="{!! $e->affiche !!}" alt="affiche">
+                                                    <img src="{!! asset($e->affiche) !!}" alt="affiche">
                                                 </div>
                                             </td>
                                             <td class="td-name">
@@ -65,10 +65,10 @@
                             <div class="row">
                                 @foreach($articles as $a)
                                     <div class="col-md-4">
-                                        <div class="card card-blog">
+                                        <div class="card card-blog clickable-card" data-href='{{ route('articles.show', $a->id) }}'>
                                             <div class="card-image">
                                                 <a href="#pablo">
-                                                    <img class="img rounded" src="{{ $a->image }}">
+                                                    <img class="img rounded" src="{{ asset($a->image) }}">
                                                 </a>
                                             </div>
                                             <div class="card-block">
@@ -77,12 +77,10 @@
                                                     {{ $a->titre }}
                                                 </h5>
                                                 <p class="card-description">
-                                                    {{ $a->texte }} …<a href="{{ route('articles.show', $a->id) }}">
-                                                        Lire
-                                                        Plus </a>
+                                                    {{ $a->texte }} …
                                                 </p>
                                                 <div class="card-footer">
-                                                    <div class="stats stats-right author">
+                                                    <div class="stats stats-right dateIlya">
                                                         <i class="now-ui-icons tech_watch-time"></i> {{ $a->created_at }}
                                                     </div>
                                                 </div>
@@ -142,25 +140,8 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
-    <footer class="footer">
-        <div class="container">
-            @if(Auth::guest())
-                <a href="{{ route('logintest') }}" class="btn">Connexion test</a>
-            @endif
-            <div class="copyright">
-                &copy;
-                <script>
-                    document.write(new Date().getFullYear())
-                </script>
-                , Réalisé par
-                <a href="http://www.linkedin.com/in/mathias-robert-7a5589148" target="_blank">Mathias Robert</a>.
-            </div>
-        </div>
-    </footer>
 
 @endsection
 

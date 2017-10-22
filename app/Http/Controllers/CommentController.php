@@ -122,13 +122,6 @@ class CommentController extends Controller
     {
         $Comment = Comment::find($id);
         $Comment->fill($request->all());
-
-        // return $request->all();
-
-        if (isset($request->affiche) && $request->file('affiche')->isValid()) {
-            $Comment->affiche = '/storage/'.$request->affiche->store('images/Comments/'.$Comment->id);
-            // $Comment->affiche = '/storage/'.substr($Comment->affiche, 7);
-        }
         $Comment->save();
 
         if($request->ajax()){

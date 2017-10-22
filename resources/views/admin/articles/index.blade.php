@@ -38,7 +38,7 @@
                                         <tbody>
                                         @foreach($articles as $article)
                                         <tr>
-                                            <td><img class="img img-responsive" src="{{ $article->image }}"/></td>
+                                            <td><img class="img img-responsive" src="{{ asset($article->image) }}"/></td>
                                             <td>{{ $article->titre }}</td>
                                             <td>{{ $article->categorie->nom }}</td>
                                             <td>{{ $article->created_at }}</td>

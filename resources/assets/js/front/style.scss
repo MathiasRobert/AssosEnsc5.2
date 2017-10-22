@@ -1,0 +1,23 @@
+@import "variables.scss";
+
+body{
+	font-family: 'Lato';
+	background: #edecec;
+}
+
+.main-navbar {
+    
+    background: white;
+
+    .navbar-nav>li.nav-item>a.nav-link {
+        color: #404040;
+        /*line-height: 35px;*/
+        /*transition: all 700ms;*/
+        font-size: 20px;
+    }
+
+    .navbar-nav>li.nav-item>a.nav-link:hover,.navbar-nav>li.nav-item>a.nav-link:focus,.navbar-nav>li.nav-item>a.nav-link.router-link-exact-active {
+        color: $mainColor;
+    }
+
+}

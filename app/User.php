@@ -13,7 +13,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'avatar', 'google_id'
+        'name', 'email', 'avatar', 'google_id', 'famille_id'
     ];
 
     /**
@@ -24,6 +24,14 @@ class User extends Authenticatable
     protected $hidden = [
         'remember_token'
     ];
+
+    /**
+     * Get the famille that owns the usser.
+     */
+    public function famille()
+    {
+        return $this->belongsTo('App\Famille');
+    }
 
     public function isAdmin(){
         return (Auth::check() && Association::where('email', '=', Auth::user()->email)->first());

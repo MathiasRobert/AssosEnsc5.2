@@ -13,6 +13,7 @@ use App\Association;
 use Carbon\Carbon;
 use Jenssegers\Date\Date;
 use DB;
+use Auth;
 
 class PagesController extends Controller
 {
@@ -104,5 +105,12 @@ class PagesController extends Controller
             $f->pourcentage = round((float)($f->points/$max) * 100 );
         }
         return view('pages.famille', compact('familles', 'actions'));
+    }
+
+    public function monCompte()
+    {
+        $user = Auth::user();
+        $famille = $user->famille;
+        return view('pages.monCompte', compact('user', 'famille'));
     }
 }

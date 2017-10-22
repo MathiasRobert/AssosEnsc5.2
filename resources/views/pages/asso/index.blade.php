@@ -7,7 +7,7 @@
 @section('header')
 
     <div class="page-header page-header-small">
-        <div class="page-header-image" data-parallax="true" style="background-image: url('/images/bdeCouv.jpg');">
+        <div class="page-header-image" data-parallax="true" style="background-image: url('{{ asset($association->photo) }}');">
         </div>
         <div class="content-center">
             <h1 class="title">{!! $association->nom !!}</h1>

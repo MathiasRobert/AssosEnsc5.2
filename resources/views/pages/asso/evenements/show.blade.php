@@ -1,5 +1,8 @@
 @extends('layouts.front')
 
+@section('meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 
 @section('content')
 
@@ -7,7 +10,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-sm-6">
-                    <img class="img-responsive" src="{!! $evenement->affiche !!}">
+                    <img class="img-responsive" src="{!! asset($evenement->affiche) !!}">
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <h2 class="title"> 
@@ -76,7 +79,7 @@
                           <div class="comment-text-container left relative">
                             <div class="comment-user-date-wrap ui-corner">
                               <a class="user-name-link bold js-mini-profile" data-id="44063465" href="https://www.behance.net/seb90grado8237">@{{comment.user.name}}</a>
-                              <span class="comment-date js-format-timestamp" data-timestamp="1501963744">@{{comment.updated_at}}</span>
+                              <span class="comment-date js-format-timestamp dateIlya" data-timestamp="1501963744">@{{comment.updated_at}}</span>
                             </div>
                             <div class="comment-text-wrap"><div class="comment-text" v-html="comment.texte">@{{comment.texte}}</div></div>
                           </div>
@@ -163,6 +166,7 @@
 
     Vue.config.devtools = true;
     Vue.config.debug = true;
+    Vue.http.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;
 
 
     var userService = {

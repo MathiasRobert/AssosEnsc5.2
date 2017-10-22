@@ -26,6 +26,7 @@ class CreateAssociationsTable extends Migration
             $table->string('description_courte')->nullable();
             $table->text('description_longue')->nullable();
             $table->string('logo');
+            $table->string('photo');
             $table->timestamps();
         });
 

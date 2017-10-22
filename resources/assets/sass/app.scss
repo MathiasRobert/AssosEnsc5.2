@@ -1,2 +1,373 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+/*// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+*/
+//colors
+$black_20: rgba(0, 0, 0, 0.2);
+$white: #ffffff;
+
+.wrapper {
+  margin-top: 60px;
+}
+
+.page-header-carousel {
+  height: 60vh;
+}
+
+.main {
+  padding-top: 10px;
+}
+
+.main-raised {
+  .section {
+    padding-top: 0px;
+  }
+}
+
+.card-title {
+  text-transform: capitalize;
+}
+
+@media(min-width: 768px) {
+  .navbar-nav {
+    > li {
+      > .dropdown-menu {
+        //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+        transform: scale(0);
+        //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+        transition: all 370ms cubic-bezier(0.34, 1.61, 0.7, 1);
+        opacity: 0;
+        filter: alpha(opacity=0);
+        visibility: hidden;
+        display: block;
+        &:before {
+          border-bottom: 11px solid $black_20;
+          border-left: 11px solid transparent;
+          border-right: 11px solid transparent;
+          content: "";
+          display: inline-block;
+          position: absolute;
+          left: 12px;
+          top: -11px;
+        }
+        &:after {
+          border-bottom: 11px solid $white;
+          border-left: 11px solid transparent;
+          border-right: 11px solid transparent;
+          content: "";
+          display: inline-block;
+          position: absolute;
+          left: 12px;
+          top: -10px;
+        }
+      }
+      &.open > .dropdown-menu {
+        //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+        transform: scale(1);
+        //Instead of the line below you could use @include transform-origin($origin-x, $origin-y, $origin-z, $only3d)
+        transform-origin: 29px -50px;
+        opacity: 1;
+        filter: alpha(opacity=100);
+        visibility: visible;
+      }
+    }
+    &.navbar-right > li > .dropdown-menu {
+      &:before {
+        left: auto;
+        right: 12px;
+      }
+      &:after {
+        left: auto;
+        right: 12px;
+      }
+    }
+  }
+  .dropdown {
+    .dropdown-menu {
+      //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+      transform: scale(0);
+      //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+      transition: all 370ms cubic-bezier(0.34, 1.61, 0.7, 1);
+      opacity: 0;
+      filter: alpha(opacity=0);
+      visibility: hidden;
+      display: block;
+    }
+    &.open .dropdown-menu {
+      //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+      transform: scale(1);
+      //Instead of the line below you could use @include transform-origin($origin-x, $origin-y, $origin-z, $only3d)
+      transform-origin: 29px -50px;
+      opacity: 1;
+      filter: alpha(opacity=100);
+      visibility: visible;
+    }
+  }
+}
+
+.navbar {
+  .navbar-nav {
+    .profile-photo {
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      .profile-photo-small {
+        height: 40px;
+        width: 40px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+    > li > .profile-photo {
+      margin: 5px 2px;
+    }
+  }
+}
+
+body {
+  .main-product {
+    padding: 40px;
+  }
+}
+
+.table {
+  .td-actions {
+    .btn {
+      width: 200px;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding: 18px 36px;
+    }
+  }
+  .text-date {
+    text-transform: capitalize;
+  }
+  .numJour {
+    font-size: 25px;
+  }
+  .clickable-row:hover {
+    cursor: pointer;
+    transform: scale(1.015);
+    background-color: whitesmoke;
+  }
+  .clickable-row {
+    transition: all .2s ease-in-out;
+  }
+}
+
+.clickable-card:hover {
+  cursor: pointer;
+  transform: scale(1.015);
+}
+.clickable-card {
+  transition: all .2s ease-in-out;
+}
+
+.tr-actions {
+  .Rouge {
+    background: #F44336;
+  }
+  .Vert {
+    background: #4CAF50;
+  }
+  .Bleu {
+    background: #2196F3;
+  }
+  .Jaune {
+    background: #FFEB3B;
+  }
+  .Orange {
+    background: #FF9800;
+  }
+}
+
+.section-asso {
+  padding-top: 20px;
+}
+
+.date-eve {
+  text-transform: capitalize;
+}
+
+.graph-familles {
+  list-style: none;
+  padding-left: 0px;
+  width: 80%;
+  li {
+    height: 35px;
+    color: white;
+    text-align: right;
+    font-size: 14px;
+    line-height: 35px;
+    padding: 0px 20px;
+    margin-bottom: 5px;
+    transition: all .1s ease-in-out;
+  }
+  li:hover {
+    transform: scale(1.05);
+  }
+  .Rouge {
+    background: #F44336;
+  }
+  .Vert {
+    background: #4CAF50;
+  }
+  .Bleu {
+    background: #2196F3;
+  }
+  .Jaune {
+    background: #FDD835;
+  }
+  .Orange {
+    background: #FF9800;
+  }
+}
+
+#chart {
+  position: relative;
+  margin-top: 40px;
+  width: 500px;
+  height: 200px;
+  .points-graph {
+    position: relative;
+    left : 10px;
+    bottom: -100%;
+  }
+  .Rouge {
+    background: #F44336;
+    box-shadow: 1px -1px #D32F2F, 2px -2px #D32F2F, 3px -3px #D32F2F, 4px -4px #D32F2F, 5px -5px #D32F2F, 6px -6px #D32F2F, 7px -7px #D32F2F, 8px -8px #D32F2F, 9px -9px #D32F2F, 10px -10px #D32F2F;
+  }
+  .Vert {
+    background: #4CAF50;
+    box-shadow: 1px -1px #388E3C, 2px -2px #388E3C, 3px -3px #388E3C, 4px -4px #388E3C, 5px -5px #388E3C, 6px -6px #388E3C, 7px -7px #388E3C, 8px -8px #388E3C, 9px -9px #388E3C, 10px -10px #388E3C;
+  }
+  .Bleu {
+    background: #2196F3;
+    box-shadow: 1px -1px #1976D2, 2px -2px #1976D2, 3px -3px #1976D2, 4px -4px #1976D2, 5px -5px #1976D2, 6px -6px #1976D2, 7px -7px #1976D2, 8px -8px #1976D2, 9px -9px #1976D2, 10px -10px #1976D2;
+  }
+  .Jaune {
+    background: #FFEB3B;
+    box-shadow: 1px -1px #FBC02D, 2px -2px #FBC02D, 3px -3px #FBC02D, 4px -4px #FBC02D, 5px -5px #FBC02D, 6px -6px #FBC02D, 7px -7px #FBC02D, 8px -8px #FBC02D, 9px -9px #FBC02D, 10px -10px #FBC02D;
+  }
+  .Orange {
+    background: #FF9800;
+    box-shadow: 1px -1px #F57C00, 2px -2px #F57C00, 3px -3px #F57C00, 4px -4px #F57C00, 5px -5px #F57C00, 6px -6px #F57C00, 7px -7px #F57C00, 8px -8px #F57C00, 9px -9px #F57C00, 10px -10px #F57C00;
+  }
+}
+
+@-webkit-keyframes bargrowth {
+  0% {
+    max-height: 0%;
+  }
+  100% {
+    max-height: 100%;
+  }
+}
+
+@keyframes bargrowth {
+  0% {
+    max-height: 0%;
+  }
+  100% {
+    max-height: 100%;
+  }
+}
+
+@-webkit-keyframes monter {
+  0% {
+    bottom: 10%;
+  }
+  100% {
+    bottom: 110%;
+  }
+}
+
+@keyframes monter {
+  0% {
+    bottom: 10%;
+  }
+  100% {
+    bottom: 110%;
+  }
+}
+
+.bar {
+  -webkit-animation: bargrowth 1000ms ease;
+  animation: bargrowth 1000ms ease;
+  position: absolute;
+  bottom: 0;
+  display: inline-block;
+}
+
+.crown {
+  position: absolute;
+  bottom: 110%;
+  left: 60px;
+  z-index: 100;
+  -webkit-animation: monter 1000ms ease;
+  animation: monter 1000ms ease;
+}
+
+.classement-familles {
+  padding-bottom: 40px;
+  .title {
+    padding-bottom: 60px;
+  }
+}
+
+@media(max-width: 767px) {
+  #chart {
+    display: none;
+  }
+  #chart-inline {
+    list-style: decimal;
+    li {
+      padding-bottom: 10px;
+      font-size: large;
+      .nombre-points {
+        font-size: large;
+      }
+    }
+    .Rouge {
+      background: #F44336;
+    }
+    .Vert {
+      background: #4CAF50;
+    }
+    .Bleu {
+      background: #2196F3;
+    }
+    .Jaune {
+      background: #FFEB3B;
+    }
+    .Orange {
+      background: #FF9800;
+    }
+  }
+}
+
+@media(min-width: 768px) {
+  #chart-inline {
+    display: none;
+  }
+}
+
+
+/*
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    background-color: rgba(255,255,255,.2);
+    transition: background-color .1s .2s;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}*/

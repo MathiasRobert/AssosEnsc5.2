@@ -44,10 +44,10 @@
                         {!! csrf_field() !!}
                         {{ method_field('PUT') }}
                         <div class="row">
-                            <div class="col-md-12 text-center">
+                            <div class="col-md-4 col-sm-12 text-center">
                                 <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                     <div class="fileinput-new thumbnail img-circle">
-                                        <img src="{{ $association->logo }}" alt="...">
+                                        <img src="{{ asset($association->logo) }}" alt="...">
                                     </div>
                                     <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
                                     <div>
@@ -57,6 +57,23 @@
                                                         <input type="file" name="logo">
                                                     </span>
                                         <br>
+                                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+                                           data-dismiss="fileinput"><i class="fa fa-times"></i> Supprimer</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-sm-12 text-center">
+                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail">
+                                        <img src="{{ asset($association->photo) }}" alt="...">
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                    <div>
+                                    <span class="btn btn-primary btn-round btn-file">
+                                        <span class="fileinput-new">Selectionner une image</span>
+                                        <span class="fileinput-exists">Changer</span>
+                                        <input type="file" name="photo">
+                                    </span>
                                         <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
                                            data-dismiss="fileinput"><i class="fa fa-times"></i> Supprimer</a>
                                     </div>
@@ -155,7 +172,7 @@
                         <tbody>
                         @foreach($membres as $membre)
                             <tr>
-                                <td><img class="img img-responsive" src="{{ $membre->photo }}"/></td>
+                                <td><img class="img img-responsive" src="{{ asset($membre->photo) }}"/></td>
                                 <td>{{ $membre->nom }}</td>
                                 <td>{{ $membre->prenom }}</td>
                                 <td>{{ $membre->poste }}</td>

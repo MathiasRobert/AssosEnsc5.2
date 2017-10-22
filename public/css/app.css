@@ -142,6 +142,16 @@ body .main-product {
   transition: all .2s ease-in-out;
 }
 
+.clickable-card:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.015);
+  transform: scale(1.015);
+}
+
+.clickable-card {
+  transition: all .2s ease-in-out;
+}
+
 .tr-actions .Rouge {
   background: #F44336;
 }

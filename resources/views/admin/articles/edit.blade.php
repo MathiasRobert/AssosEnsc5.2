@@ -23,7 +23,7 @@
                         <div class="col-sm-12 text-center">
                             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                 <div class="fileinput-new thumbnail">
-                                    <img src="{{ $article->image }}" alt="...">
+                                    <img src="{{ asset($article->image) }}" alt="...">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"></div>
                                 <div>

@@ -60,8 +60,8 @@ class ArticleController extends Controller
         $article->image = '/images/image_placeholder.jpg';
         $article->save();
         if (isset($request->image) && $request->file('image')->isValid()) {
-            $article->image = $request->image->store('public/images/'.$article->association_id.'/articles/'.$article->id);
-            $article->image = '/storage/'.substr($article->image, 7);
+            $imageName = $article->id .'.'.$request->file('image')->getClientOriginalExtension();
+            $article->image = $request->image->move('uploads/articles', $imageName);
         }
         $article->save();
         return redirect('admin/articles');
@@ -92,8 +92,8 @@ class ArticleController extends Controller
         $article = Article::find($id);
         $article->fill($request->all());
         if (isset($request->image) && $request->file('image')->isValid()) {
-            $article->image = $request->image->store('public/images/'.$article->association_id.'/articles/'.$article->id);
-            $article->image = '/storage/'.substr($article->image, 7);
+            $imageName = $article->id .'.'.$request->file('image')->getClientOriginalExtension();
+            $article->image = $request->image->move('uploads/articles', $imageName);
         }
         $article->save();
         return redirect('admin/articles');

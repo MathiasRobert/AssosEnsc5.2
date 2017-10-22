@@ -42,7 +42,6 @@ class EvenementController extends Controller
         } else {
             return view('admin.evenements.index', compact('evenements', 'association'));
         }
-        // return $evenements;
         $evenements = $association->evenements->all();
         return view('admin.evenements.index', compact('evenements', 'association'));
     }
@@ -95,8 +94,8 @@ class EvenementController extends Controller
         $evenement->affiche = '/images/image_placeholder.jpg';
         $evenement->save();
         if (isset($request->affiche) && $request->file('affiche')->isValid()) {
-            $evenement->affiche = '/storage/' . $request->affiche->store('images/evenements/' . $evenement->id);
-            // $evenement->affiche = '/storage/'.substr($evenement->affiche, 7);
+            $imageName = $evenement->id .'.'.$request->file('affiche')->getClientOriginalExtension();
+            $evenement->affiche = $request->affiche->move('uploads/evenements', $imageName);
         }
         $evenement->save();
 
@@ -129,11 +128,9 @@ class EvenementController extends Controller
         $evenement = Evenement::find($id);
         $evenement->fill($request->all());
 
-        // return $request->all();
-
         if (isset($request->affiche) && $request->file('affiche')->isValid()) {
-            $evenement->affiche = '/storage/' . $request->affiche->store('images/evenements/' . $evenement->id);
-            // $evenement->affiche = '/storage/'.substr($evenement->affiche, 7);
+            $imageName = $evenement->id .'.'.$request->file('affiche')->getClientOriginalExtension();
+            $evenement->affiche = $request->affiche->move('uploads/evenements', $imageName);
         }
         $evenement->save();
 

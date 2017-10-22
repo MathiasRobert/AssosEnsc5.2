@@ -23,7 +23,7 @@
                         <div class="col-sm-12 text-center">
                             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                 <div class="fileinput-new thumbnail">
-                                    <img src="{{ $evenement->affiche }}" alt="...">
+                                    <img src="{{ asset($evenement->affiche) }}" alt="...">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"></div>
                                 <div>

@@ -45,8 +45,8 @@ class MembreController extends Controller
         $membre->photo = '/images/default-avatar.png';
         $membre->save();
         if (isset($request->photo) && $request->file('photo')->isValid()) {
-            $membre->photo = $request->photo->store('public/images/'.$membre->association_id.'/membres/'.$membre->id);
-            $membre->photo = '/storage/'.substr($membre->photo, 7);
+            $imageName = $membre->id .'.'.$request->file('photo')->getClientOriginalExtension();
+            $membre->photo = $request->photo->move('uploads/membres', $imageName);
         }
         $membre->save();
         return redirect('admin/association/equipe/edit');

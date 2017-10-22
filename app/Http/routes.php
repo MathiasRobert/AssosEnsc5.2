@@ -23,6 +23,11 @@ use Illuminate\Http\Request;
 |
 */
 
+
+Route::get('api/user', function (Request $request) {
+    return $request->user();
+});
+
 Route::get('api/users/current', 'UsersController@current');
 
 
@@ -48,6 +53,7 @@ Route::resource('evenements', 'EvenementController', ['only' => ['show']]);
 Route::resource('articles', 'ArticleController', ['only' => ['show']]);
 Route::get('/calabar', ['uses' => 'PagesController@calabar']);
 Route::get('/famille', ['uses' => 'PagesController@famille']);
+Route::get('/monCompte', ['uses' => 'PagesController@monCompte']);
 
 Route::get('login/google', 'Auth\LoginController@redirectToProvider')->name('login');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');

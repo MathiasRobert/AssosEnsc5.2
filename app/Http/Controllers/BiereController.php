@@ -54,9 +54,8 @@ class BiereController extends Controller
         $biere->image = '/images/image_placeholder.jpg';
         $biere->save();
         if (isset($request->image) && $request->file('image')->isValid()) {
-            $biere->image = $request->image->store('images/bieres');
-            $request->image->move(public_path('/storage/images/bieres'), $biere->image);
-            $biere->image = "storage/".$biere->image;
+            $imageName = $biere->id .'.'.$request->file('image')->getClientOriginalExtension();
+            $biere->image = $request->image->move('uploads/bieres', $imageName);
         }
         $biere->save();
         return redirect('admin/bieres');
@@ -87,9 +86,8 @@ class BiereController extends Controller
         $biere->fill($request->all());
 
         if (isset($request->image) && $request->file('image')->isValid()) {
-            $biere->image = $request->image->store('images/bieres');
-            $request->image->move(public_path('/storage/images/bieres'), $biere->image);
-            $biere->image = "storage/".$biere->image;
+            $imageName = $biere->id .'.'.$request->file('image')->getClientOriginalExtension();
+            $biere->image = $request->image->move('uploads/bieres', $imageName);
         }
 
         $biere->save();

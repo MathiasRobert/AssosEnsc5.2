@@ -187,152 +187,6 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 },{}],3:[function(require,module,exports){
-var Vue // late bind
-var version
-var map = window.__VUE_HOT_MAP__ = Object.create(null)
-var installed = false
-var isBrowserify = false
-var initHookName = 'beforeCreate'
-
-exports.install = function (vue, browserify) {
-  if (installed) return
-  installed = true
-
-  Vue = vue.__esModule ? vue.default : vue
-  version = Vue.version.split('.').map(Number)
-  isBrowserify = browserify
-
-  // compat with < 2.0.0-alpha.7
-  if (Vue.config._lifecycleHooks.indexOf('init') > -1) {
-    initHookName = 'init'
-  }
-
-  exports.compatible = version[0] >= 2
-  if (!exports.compatible) {
-    console.warn(
-      '[HMR] You are using a version of vue-hot-reload-api that is ' +
-      'only compatible with Vue.js core ^2.0.0.'
-    )
-    return
-  }
-}
-
-/**
- * Create a record for a hot module, which keeps track of its constructor
- * and instances
- *
- * @param {String} id
- * @param {Object} options
- */
-
-exports.createRecord = function (id, options) {
-  var Ctor = null
-  if (typeof options === 'function') {
-    Ctor = options
-    options = Ctor.options
-  }
-  makeOptionsHot(id, options)
-  map[id] = {
-    Ctor: Vue.extend(options),
-    instances: []
-  }
-}
-
-/**
- * Make a Component options object hot.
- *
- * @param {String} id
- * @param {Object} options
- */
-
-function makeOptionsHot (id, options) {
-  injectHook(options, initHookName, function () {
-    map[id].instances.push(this)
-  })
-  injectHook(options, 'beforeDestroy', function () {
-    var instances = map[id].instances
-    instances.splice(instances.indexOf(this), 1)
-  })
-}
-
-/**
- * Inject a hook to a hot reloadable component so that
- * we can keep track of it.
- *
- * @param {Object} options
- * @param {String} name
- * @param {Function} hook
- */
-
-function injectHook (options, name, hook) {
-  var existing = options[name]
-  options[name] = existing
-    ? Array.isArray(existing)
-      ? existing.concat(hook)
-      : [existing, hook]
-    : [hook]
-}
-
-function tryWrap (fn) {
-  return function (id, arg) {
-    try { fn(id, arg) } catch (e) {
-      console.error(e)
-      console.warn('Something went wrong during Vue component hot-reload. Full reload required.')
-    }
-  }
-}
-
-exports.rerender = tryWrap(function (id, options) {
-  var record = map[id]
-  if (!options) {
-    record.instances.slice().forEach(function (instance) {
-      instance.$forceUpdate()
-    })
-    return
-  }
-  if (typeof options === 'function') {
-    options = options.options
-  }
-  record.Ctor.options.render = options.render
-  record.Ctor.options.staticRenderFns = options.staticRenderFns
-  record.instances.slice().forEach(function (instance) {
-    instance.$options.render = options.render
-    instance.$options.staticRenderFns = options.staticRenderFns
-    instance._staticTrees = [] // reset static trees
-    instance.$forceUpdate()
-  })
-})
-
-exports.reload = tryWrap(function (id, options) {
-  var record = map[id]
-  if (options) {
-    if (typeof options === 'function') {
-      options = options.options
-    }
-    makeOptionsHot(id, options)
-    if (version[1] < 2) {
-      // preserve pre 2.2 behavior for global mixin handling
-      record.Ctor.extendOptions = options
-    }
-    var newCtor = record.Ctor.super.extend(options)
-    record.Ctor.options = newCtor.options
-    record.Ctor.cid = newCtor.cid
-    record.Ctor.prototype = newCtor.prototype
-    if (newCtor.release) {
-      // temporary global mixin strategy used in < 2.0.0-alpha.6
-      newCtor.release()
-    }
-  }
-  record.instances.slice().forEach(function (instance) {
-    if (instance.$vnode && instance.$vnode.context) {
-      instance.$vnode.context.$forceUpdate()
-    } else {
-      console.warn('Root or manually mounted instance modified. Full reload required.')
-    }
-  })
-})
-
-},{}],4:[function(require,module,exports){
 /*!
  * vue-resource v1.3.4
  * https://github.com/pagekit/vue-resource
@@ -1902,10 +1756,10 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 module.exports = plugin;
 
-},{"got":1}],5:[function(require,module,exports){
+},{"got":1}],4:[function(require,module,exports){
 (function (process){
 /**
-  * vue-router v2.7.0
+  * vue-router v2.8.1
   * (c) 2017 Evan You
   * @license MIT
   */
@@ -1995,14 +1849,26 @@ var View = {
       }
     }
 
-    // also regiseter instance in prepatch hook
+    // also register instance in prepatch hook
     // in case the same component instance is reused across different routes
     ;(data.hook || (data.hook = {})).prepatch = function (_, vnode) {
       matched.instances[name] = vnode.componentInstance;
     };
 
     // resolve props
-    data.props = resolveProps(route, matched.props && matched.props[name]);
+    var propsToPass = data.props = resolveProps(route, matched.props && matched.props[name]);
+    if (propsToPass) {
+      // clone to prevent mutation
+      propsToPass = data.props = extend({}, propsToPass);
+      // pass non-declared props as attrs
+      var attrs = data.attrs = data.attrs || {};
+      for (var key in propsToPass) {
+        if (!component.props || !(key in component.props)) {
+          attrs[key] = propsToPass[key];
+          delete propsToPass[key];
+        }
+      }
+    }
 
     return h(component, data, children)
   }
@@ -2027,6 +1893,13 @@ function resolveProps (route, config) {
         );
       }
   }
+}
+
+function extend (to, from) {
+  for (var key in from) {
+    to[key] = from[key];
+  }
+  return to
 }
 
 /*  */
@@ -2060,8 +1933,7 @@ function resolveQuery (
     parsedQuery = {};
   }
   for (var key in extraQuery) {
-    var val = extraQuery[key];
-    parsedQuery[key] = Array.isArray(val) ? val.slice() : val;
+    parsedQuery[key] = extraQuery[key];
   }
   return parsedQuery
 }
@@ -2138,12 +2010,18 @@ function createRoute (
   router
 ) {
   var stringifyQuery$$1 = router && router.options.stringifyQuery;
+
+  var query = location.query || {};
+  try {
+    query = clone(query);
+  } catch (e) {}
+
   var route = {
     name: location.name || (record && record.name),
     meta: (record && record.meta) || {},
     path: location.path || '/',
     hash: location.hash || '',
-    query: location.query || {},
+    query: query,
     params: location.params || {},
     fullPath: getFullPath(location, stringifyQuery$$1),
     matched: record ? formatMatch(record) : []
@@ -2152,6 +2030,20 @@ function createRoute (
     route.redirectedFrom = getFullPath(redirectedFrom, stringifyQuery$$1);
   }
   return Object.freeze(route)
+}
+
+function clone (value) {
+  if (Array.isArray(value)) {
+    return value.map(clone)
+  } else if (value && typeof value === 'object') {
+    var res = {};
+    for (var key in value) {
+      res[key] = clone(value[key]);
+    }
+    return res
+  } else {
+    return value
+  }
 }
 
 // the starting route that represents the initial state
@@ -2207,6 +2099,8 @@ function isObjectEqual (a, b) {
   if ( a === void 0 ) a = {};
   if ( b === void 0 ) b = {};
 
+  // handle null value #1566
+  if (!a || !b) { return a === b }
   var aKeys = Object.keys(a);
   var bKeys = Object.keys(b);
   if (aKeys.length !== bKeys.length) {
@@ -2386,7 +2280,7 @@ function findAnchor (children) {
 var _Vue;
 
 function install (Vue) {
-  if (install.installed) { return }
+  if (install.installed && _Vue === Vue) { return }
   install.installed = true;
 
   _Vue = Vue;
@@ -2508,14 +2402,14 @@ function cleanPath (path) {
   return path.replace(/\/\//g, '/')
 }
 
-var index$1 = Array.isArray || function (arr) {
+var isarray = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
 
 /**
  * Expose `pathToRegexp`.
  */
-var index = pathToRegexp;
+var pathToRegexp_1 = pathToRegexp;
 var parse_1 = parse;
 var compile_1 = compile;
 var tokensToFunction_1 = tokensToFunction;
@@ -2692,7 +2586,7 @@ function tokensToFunction (tokens) {
         }
       }
 
-      if (index$1(value)) {
+      if (isarray(value)) {
         if (!token.repeat) {
           throw new TypeError('Expected "' + token.name + '" to not repeat, but received `' + JSON.stringify(value) + '`')
         }
@@ -2843,7 +2737,7 @@ function stringToRegexp (path, keys, options) {
  * @return {!RegExp}
  */
 function tokensToRegExp (tokens, keys, options) {
-  if (!index$1(keys)) {
+  if (!isarray(keys)) {
     options = /** @type {!Object} */ (keys || options);
     keys = [];
   }
@@ -2919,7 +2813,7 @@ function tokensToRegExp (tokens, keys, options) {
  * @return {!RegExp}
  */
 function pathToRegexp (path, keys, options) {
-  if (!index$1(keys)) {
+  if (!isarray(keys)) {
     options = /** @type {!Object} */ (keys || options);
     keys = [];
   }
@@ -2930,20 +2824,21 @@ function pathToRegexp (path, keys, options) {
     return regexpToRegexp(path, /** @type {!Array} */ (keys))
   }
 
-  if (index$1(path)) {
+  if (isarray(path)) {
     return arrayToRegexp(/** @type {!Array} */ (path), /** @type {!Array} */ (keys), options)
   }
 
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
 
-index.parse = parse_1;
-index.compile = compile_1;
-index.tokensToFunction = tokensToFunction_1;
-index.tokensToRegExp = tokensToRegExp_1;
+pathToRegexp_1.parse = parse_1;
+pathToRegexp_1.compile = compile_1;
+pathToRegexp_1.tokensToFunction = tokensToFunction_1;
+pathToRegexp_1.tokensToRegExp = tokensToRegExp_1;
 
 /*  */
 
+// $flow-disable-line
 var regexpCompileCache = Object.create(null);
 
 function fillParams (
@@ -2954,7 +2849,7 @@ function fillParams (
   try {
     var filler =
       regexpCompileCache[path] ||
-      (regexpCompileCache[path] = index.compile(path));
+      (regexpCompileCache[path] = pathToRegexp_1.compile(path));
     return filler(params || {}, { pretty: true })
   } catch (e) {
     if (process.env.NODE_ENV !== 'production') {
@@ -2974,7 +2869,9 @@ function createRouteMap (
 ) {
   // the path list is used to control path matching priority
   var pathList = oldPathList || [];
+  // $flow-disable-line
   var pathMap = oldPathMap || Object.create(null);
+  // $flow-disable-line
   var nameMap = oldNameMap || Object.create(null);
 
   routes.forEach(function (route) {
@@ -3016,8 +2913,12 @@ function addRouteRecord (
     );
   }
 
-  var normalizedPath = normalizePath(path, parent);
   var pathToRegexpOptions = route.pathToRegexpOptions || {};
+  var normalizedPath = normalizePath(
+    path,
+    parent,
+    pathToRegexpOptions.strict
+  );
 
   if (typeof route.caseSensitive === 'boolean') {
     pathToRegexpOptions.sensitive = route.caseSensitive;
@@ -3105,9 +3006,9 @@ function addRouteRecord (
 }
 
 function compileRouteRegex (path, pathToRegexpOptions) {
-  var regex = index(path, [], pathToRegexpOptions);
+  var regex = pathToRegexp_1(path, [], pathToRegexpOptions);
   if (process.env.NODE_ENV !== 'production') {
-    var keys = {};
+    var keys = Object.create(null);
     regex.keys.forEach(function (key) {
       warn(!keys[key.name], ("Duplicate param keys in route with path: \"" + path + "\""));
       keys[key.name] = true;
@@ -3116,8 +3017,8 @@ function compileRouteRegex (path, pathToRegexpOptions) {
   return regex
 }
 
-function normalizePath (path, parent) {
-  path = path.replace(/\/$/, '');
+function normalizePath (path, parent, strict) {
+  if (!strict) { path = path.replace(/\/$/, ''); }
   if (path[0] === '/') { return path }
   if (parent == null) { return path }
   return cleanPath(((parent.path) + "/" + path))
@@ -3389,6 +3290,8 @@ function resolveRecordPath (path, record) {
 var positionStore = Object.create(null);
 
 function setupScroll () {
+  // Fix for #1585 for Firefox
+  window.history.replaceState({ key: getStateKey() }, '');
   window.addEventListener('popstate', function (e) {
     saveScrollPosition();
     if (e.state && e.state.key) {
@@ -3420,25 +3323,21 @@ function handleScroll (
   router.app.$nextTick(function () {
     var position = getScrollPosition();
     var shouldScroll = behavior(to, from, isPop ? position : null);
+
     if (!shouldScroll) {
       return
     }
-    var isObject = typeof shouldScroll === 'object';
-    if (isObject && typeof shouldScroll.selector === 'string') {
-      var el = document.querySelector(shouldScroll.selector);
-      if (el) {
-        var offset = shouldScroll.offset && typeof shouldScroll.offset === 'object' ? shouldScroll.offset : {};
-        offset = normalizeOffset(offset);
-        position = getElementPosition(el, offset);
-      } else if (isValidPosition(shouldScroll)) {
-        position = normalizePosition(shouldScroll);
-      }
-    } else if (isObject && isValidPosition(shouldScroll)) {
-      position = normalizePosition(shouldScroll);
-    }
 
-    if (position) {
-      window.scrollTo(position.x, position.y);
+    if (typeof shouldScroll.then === 'function') {
+      shouldScroll.then(function (shouldScroll) {
+        scrollToPosition((shouldScroll), position);
+      }).catch(function (err) {
+        if (process.env.NODE_ENV !== 'production') {
+          assert(false, err.toString());
+        }
+      });
+    } else {
+      scrollToPosition(shouldScroll, position);
     }
   });
 }
@@ -3490,6 +3389,26 @@ function normalizeOffset (obj) {
 
 function isNumber (v) {
   return typeof v === 'number'
+}
+
+function scrollToPosition (shouldScroll, position) {
+  var isObject = typeof shouldScroll === 'object';
+  if (isObject && typeof shouldScroll.selector === 'string') {
+    var el = document.querySelector(shouldScroll.selector);
+    if (el) {
+      var offset = shouldScroll.offset && typeof shouldScroll.offset === 'object' ? shouldScroll.offset : {};
+      offset = normalizeOffset(offset);
+      position = getElementPosition(el, offset);
+    } else if (isValidPosition(shouldScroll)) {
+      position = normalizePosition(shouldScroll);
+    }
+  } else if (isObject && isValidPosition(shouldScroll)) {
+    position = normalizePosition(shouldScroll);
+  }
+
+  if (position) {
+    window.scrollTo(position.x, position.y);
+  }
 }
 
 /*  */
@@ -3587,7 +3506,7 @@ function resolveAsyncComponents (matched) {
         pending++;
 
         var resolve = once(function (resolvedDef) {
-          if (resolvedDef.__esModule && resolvedDef.default) {
+          if (isESModule(resolvedDef)) {
             resolvedDef = resolvedDef.default;
           }
           // save resolved on async factory in case it's used elsewhere
@@ -3651,6 +3570,14 @@ function flatMapComponents (
 
 function flatten (arr) {
   return Array.prototype.concat.apply([], arr)
+}
+
+var hasSymbol =
+  typeof Symbol === 'function' &&
+  typeof Symbol.toStringTag === 'symbol';
+
+function isESModule (obj) {
+  return obj.__esModule || (hasSymbol && obj[Symbol.toStringTag] === 'Module')
 }
 
 // in Webpack 2, require.ensure now also returns a Promise
@@ -3981,9 +3908,18 @@ var HTML5History = (function (History$$1) {
       setupScroll();
     }
 
+    var initLocation = getLocation(this.base);
     window.addEventListener('popstate', function (e) {
       var current = this$1.current;
-      this$1.transitionTo(getLocation(this$1.base), function (route) {
+
+      // Avoiding first `popstate` event dispatched in some browsers but first
+      // history route not updated since async guard at the same time.
+      var location = getLocation(this$1.base);
+      if (this$1.current === START && location === initLocation) {
+        return
+      }
+
+      this$1.transitionTo(location, function (route) {
         if (expectScroll) {
           handleScroll(router, route, current, true);
         }
@@ -4067,26 +4003,50 @@ var HashHistory = (function (History$$1) {
   HashHistory.prototype.setupListeners = function setupListeners () {
     var this$1 = this;
 
-    window.addEventListener('hashchange', function () {
+    var router = this.router;
+    var expectScroll = router.options.scrollBehavior;
+    var supportsScroll = supportsPushState && expectScroll;
+
+    if (supportsScroll) {
+      setupScroll();
+    }
+
+    window.addEventListener(supportsPushState ? 'popstate' : 'hashchange', function () {
+      var current = this$1.current;
       if (!ensureSlash()) {
         return
       }
       this$1.transitionTo(getHash(), function (route) {
-        replaceHash(route.fullPath);
+        if (supportsScroll) {
+          handleScroll(this$1.router, route, current, true);
+        }
+        if (!supportsPushState) {
+          replaceHash(route.fullPath);
+        }
       });
     });
   };
 
   HashHistory.prototype.push = function push (location, onComplete, onAbort) {
+    var this$1 = this;
+
+    var ref = this;
+    var fromRoute = ref.current;
     this.transitionTo(location, function (route) {
       pushHash(route.fullPath);
+      handleScroll(this$1.router, route, fromRoute, false);
       onComplete && onComplete(route);
     }, onAbort);
   };
 
   HashHistory.prototype.replace = function replace (location, onComplete, onAbort) {
+    var this$1 = this;
+
+    var ref = this;
+    var fromRoute = ref.current;
     this.transitionTo(location, function (route) {
       replaceHash(route.fullPath);
+      handleScroll(this$1.router, route, fromRoute, false);
       onComplete && onComplete(route);
     }, onAbort);
   };
@@ -4136,15 +4096,27 @@ function getHash () {
   return index === -1 ? '' : href.slice(index + 1)
 }
 
-function pushHash (path) {
-  window.location.hash = path;
-}
-
-function replaceHash (path) {
+function getUrl (path) {
   var href = window.location.href;
   var i = href.indexOf('#');
   var base = i >= 0 ? href.slice(0, i) : href;
-  window.location.replace((base + "#" + path));
+  return (base + "#" + path)
+}
+
+function pushHash (path) {
+  if (supportsPushState) {
+    pushState(getUrl(path));
+  } else {
+    window.location.hash = path;
+  }
+}
+
+function replaceHash (path) {
+  if (supportsPushState) {
+    replaceState(getUrl(path));
+  } else {
+    window.location.replace(getUrl(path));
+  }
 }
 
 /*  */
@@ -4246,7 +4218,7 @@ var VueRouter = function VueRouter (options) {
   }
 };
 
-var prototypeAccessors = { currentRoute: {} };
+var prototypeAccessors = { currentRoute: { configurable: true } };
 
 VueRouter.prototype.match = function match (
   raw,
@@ -4404,7 +4376,7 @@ function createHref (base, fullPath, mode) {
 }
 
 VueRouter.install = install;
-VueRouter.version = '2.7.0';
+VueRouter.version = '2.8.1';
 
 if (inBrowser && window.Vue) {
   window.Vue.use(VueRouter);
@@ -4413,7 +4385,7 @@ if (inBrowser && window.Vue) {
 module.exports = VueRouter;
 
 }).call(this,require('_process'))
-},{"_process":2}],6:[function(require,module,exports){
+},{"_process":2}],5:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v2.3.4
@@ -11555,7 +11527,7 @@ setTimeout(function () {
 module.exports = Vue$3;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":2}],7:[function(require,module,exports){
+},{"_process":2}],6:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 function noop () {}
@@ -11579,6 +11551,225 @@ exports.insert = function (css) {
     inserted[css] = false
   }
 }
+
+},{}],7:[function(require,module,exports){
+var Vue // late bind
+var version
+var map = (window.__VUE_HOT_MAP__ = Object.create(null))
+var installed = false
+var isBrowserify = false
+var initHookName = 'beforeCreate'
+
+exports.install = function (vue, browserify) {
+  if (installed) { return }
+  installed = true
+
+  Vue = vue.__esModule ? vue.default : vue
+  version = Vue.version.split('.').map(Number)
+  isBrowserify = browserify
+
+  // compat with < 2.0.0-alpha.7
+  if (Vue.config._lifecycleHooks.indexOf('init') > -1) {
+    initHookName = 'init'
+  }
+
+  exports.compatible = version[0] >= 2
+  if (!exports.compatible) {
+    console.warn(
+      '[HMR] You are using a version of vue-hot-reload-api that is ' +
+        'only compatible with Vue.js core ^2.0.0.'
+    )
+    return
+  }
+}
+
+/**
+ * Create a record for a hot module, which keeps track of its constructor
+ * and instances
+ *
+ * @param {String} id
+ * @param {Object} options
+ */
+
+exports.createRecord = function (id, options) {
+  var Ctor = null
+  if (typeof options === 'function') {
+    Ctor = options
+    options = Ctor.options
+  }
+  makeOptionsHot(id, options)
+  map[id] = {
+    Ctor: Ctor,
+    options: options,
+    instances: []
+  }
+}
+
+/**
+ * Make a Component options object hot.
+ *
+ * @param {String} id
+ * @param {Object} options
+ */
+
+function makeOptionsHot(id, options) {
+  if (options.functional) {
+    var render = options.render
+    options.render = function (h, ctx) {
+      var instances = map[id].instances
+      if (instances.indexOf(ctx.parent) < 0) {
+        instances.push(ctx.parent)
+      }
+      return render(h, ctx)
+    }
+  } else {
+    injectHook(options, initHookName, function() {
+      var record = map[id]
+      if (!record.Ctor) {
+        record.Ctor = this.constructor
+      }
+      record.instances.push(this)
+    })
+    injectHook(options, 'beforeDestroy', function() {
+      var instances = map[id].instances
+      instances.splice(instances.indexOf(this), 1)
+    })
+  }
+}
+
+/**
+ * Inject a hook to a hot reloadable component so that
+ * we can keep track of it.
+ *
+ * @param {Object} options
+ * @param {String} name
+ * @param {Function} hook
+ */
+
+function injectHook(options, name, hook) {
+  var existing = options[name]
+  options[name] = existing
+    ? Array.isArray(existing) ? existing.concat(hook) : [existing, hook]
+    : [hook]
+}
+
+function tryWrap(fn) {
+  return function (id, arg) {
+    try {
+      fn(id, arg)
+    } catch (e) {
+      console.error(e)
+      console.warn(
+        'Something went wrong during Vue component hot-reload. Full reload required.'
+      )
+    }
+  }
+}
+
+function updateOptions (oldOptions, newOptions) {
+  for (var key in oldOptions) {
+    if (!(key in newOptions)) {
+      delete oldOptions[key]
+    }
+  }
+  for (var key$1 in newOptions) {
+    oldOptions[key$1] = newOptions[key$1]
+  }
+}
+
+exports.rerender = tryWrap(function (id, options) {
+  var record = map[id]
+  if (!options) {
+    record.instances.slice().forEach(function (instance) {
+      instance.$forceUpdate()
+    })
+    return
+  }
+  if (typeof options === 'function') {
+    options = options.options
+  }
+  if (record.Ctor) {
+    record.Ctor.options.render = options.render
+    record.Ctor.options.staticRenderFns = options.staticRenderFns
+    record.instances.slice().forEach(function (instance) {
+      instance.$options.render = options.render
+      instance.$options.staticRenderFns = options.staticRenderFns
+      // reset static trees
+      if (instance._staticTrees) {
+        // pre 2.5 staticTrees are cached per-instance
+        instance._staticTrees = []
+      } else {
+        // post 2.5 staticTrees are cached on shared options
+        record.Ctor.options._staticTrees = []
+      }
+      instance.$forceUpdate()
+    })
+  } else {
+    // functional or no instance created yet
+    record.options.render = options.render
+    record.options.staticRenderFns = options.staticRenderFns
+
+    // handle functional component re-render
+    if (record.options.functional) {
+      // rerender with full options
+      if (Object.keys(options).length > 2) {
+        updateOptions(record.options, options)
+      } else {
+        // template-only rerender.
+        // need to inject the style injection code for CSS modules
+        // to work properly.
+        var injectStyles = record.options._injectStyles
+        if (injectStyles) {
+          var render = options.render
+          record.options.render = function (h, ctx) {
+            injectStyles.call(ctx)
+            return render(h, ctx)
+          }
+        }
+      }
+      record.options._Ctor = null
+      record.options._staticTrees = []
+      record.instances.slice().forEach(function (instance) {
+        instance.$forceUpdate()
+      })
+    }
+  }
+})
+
+exports.reload = tryWrap(function (id, options) {
+  var record = map[id]
+  if (options) {
+    if (typeof options === 'function') {
+      options = options.options
+    }
+    makeOptionsHot(id, options)
+    if (record.Ctor) {
+      if (version[1] < 2) {
+        // preserve pre 2.2 behavior for global mixin handling
+        record.Ctor.extendOptions = options
+      }
+      var newCtor = record.Ctor.super.extend(options)
+      record.Ctor.options = newCtor.options
+      record.Ctor.cid = newCtor.cid
+      record.Ctor.prototype = newCtor.prototype
+      if (newCtor.release) {
+        // temporary global mixin strategy used in < 2.0.0-alpha.6
+        newCtor.release()
+      }
+    } else {
+      updateOptions(record.options, options)
+    }
+  }
+  record.instances.slice().forEach(function (instance) {
+    if (instance.$vnode && instance.$vnode.context) {
+      instance.$vnode.context.$forceUpdate()
+    } else {
+      console.warn(
+        'Root or manually mounted instance modified. Full reload required.'
+      )
+    }
+  })
+})
 
 },{}],8:[function(require,module,exports){
 'use strict';
@@ -11620,7 +11811,7 @@ exports.default = {
   }
 };
 
-},{"vue":6}],9:[function(require,module,exports){
+},{"vue":5}],9:[function(require,module,exports){
 'use strict';
 
 var _vue = require('vue');
@@ -11698,7 +11889,7 @@ _userServices2.default.getCurrentUser().then(function () {
   });
 });
 
-},{"./front/app.vue":10,"./front/assos.vue":11,"./front/events.index.vue":12,"./front/events.show.vue":13,"./front/index.vue":14,"./front/user.services.js":15,"vue":6,"vue-resource":4,"vue-router":5}],10:[function(require,module,exports){
+},{"./front/app.vue":10,"./front/assos.vue":11,"./front/events.index.vue":12,"./front/events.show.vue":13,"./front/index.vue":14,"./front/user.services.js":15,"vue":5,"vue-resource":3,"vue-router":4}],10:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("/* line 3, resources/assets/js/front/style.scss */\nbody {\n  font-family: 'Lato';\n  background: #edecec; }\n\n/* line 8, resources/assets/js/front/style.scss */\n.main-navbar {\n  background: white; }\n  /* line 12, resources/assets/js/front/style.scss */\n  .main-navbar .navbar-nav > li.nav-item > a.nav-link {\n    color: #404040;\n    /*line-height: 35px;*/\n    /*transition: all 700ms;*/\n    font-size: 20px; }\n  /* line 19, resources/assets/js/front/style.scss */\n  .main-navbar .navbar-nav > li.nav-item > a.nav-link:hover, .main-navbar .navbar-nav > li.nav-item > a.nav-link:focus, .main-navbar .navbar-nav > li.nav-item > a.nav-link.router-link-exact-active {\n    color: #e96656; }\n\n/* line 309, stdin */\n.main-navbar {\n  margin-bottom: 0px; }\n\n/* line 313, stdin */\n.sidebar .nav li > a:hover, .sidebar .nav li > a:focus, .off-canvas-sidebar .nav li > a:hover, .off-canvas-sidebar .nav li > a:focus {\n  /*background-color: #9c27b0;*/ }\n\n/* line 317, stdin */\nul.nav a.router-link-active, ul.nav a:hover {\n  /*background-color: #9c27b0;*/ }\n\n/*----------------ANIMATION BETWEEN PAGES--------------------------------------*/\n/* line 324, stdin */\n.fade-enter-active, .fade-leave-active {\n  transition-property: opacity;\n  transition-duration: .45s; }\n\n/* line 329, stdin */\n.fade-enter-active {\n  transition-delay: .45s; }\n\n/* line 333, stdin */\n.fade-enter, .fade-leave-active {\n  opacity: 0; }\n\n/*----------------------LOADING ANIMATION---------------------------------------*/\n/* line 341, stdin */\n.ip-header {\n  position: fixed;\n  top: 0;\n  z-index: 100;\n  min-height: 480px;\n  width: 100%;\n  height: 100%;\n  background: #f1f1f1; }\n\n/* line 351, stdin */\n.ip-header h1 {\n  margin: 0; }\n\n/* line 355, stdin */\n.ip-logo,\n.ip-loader {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  cursor: default;\n  pointer-events: none; }\n\n/* line 364, stdin */\n.ip-logo {\n  top: 0;\n  height: 100%;\n  -webkit-transform: translate3d(0, 25%, 0);\n  transform: translate3d(0, 25%, 0); }\n\n/* line 371, stdin */\n.ip-loader {\n  /*bottom: 20%;*/ }\n\n/* line 375, stdin */\n.ip-header .ip-inner {\n  display: block;\n  margin: 0 auto; }\n\n/* line 380, stdin */\n.ip-header .ip-logo svg path {\n  /*fill: #ef6e7e;*/\n  fill: #e96656; }\n\n/* line 386, stdin */\n.ip-header .ip-loader svg path {\n  fill: none;\n  stroke-width: 6; }\n\n/* line 391, stdin */\n.ip-header .ip-loader svg path.ip-loader-circlebg {\n  stroke: #ddd; }\n\n/* line 395, stdin */\n.ip-header .ip-loader svg path.ip-loader-circle {\n  transition: stroke-dashoffset 0.2s;\n  stroke: #e96656; }\n\n/* Initial animation of header elements */\n/* line 402, stdin */\n.loading .ip-logo {\n  opacity: 1;\n  animation: animInitialHeader 1s cubic-bezier(0.7, 0, 0.3, 1) both; }\n\n/* line 407, stdin */\n.loading .ip-loader {\n  -webkit-animation-delay: 0.2s;\n  animation-delay: 0.2s; }\n\n@keyframes animInitialHeader {\n  from {\n    opacity: 0;\n    transform: translate3d(0, 800px, 0); } }\n\n/* Header elements when loading finishes */\n/* line 417, stdin */\n.loaded .ip-logo,\n.loaded .ip-loader {\n  opacity: 1; }\n\n/* line 423, stdin */\n.loaded .ip-loader {\n  animation: animLoadedLoader 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards; }\n\n@keyframes animLoadedLoader {\n  to {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0) scale3d(0.3, 0.3, 1); } }\n\n/* Change the color of the logo */\n/* line 432, stdin */\n.loaded .ip-logo svg path {\n  -webkit-transition: all 0.5s ease 0.3s;\n  transition: all 0.5s ease 0.3s; }\n\n/* Header animation when loading finishes */\n/* line 438, stdin */\n.loaded .ip-header {\n  /*-webkit-animation: animLoadedHeader 1s cubic-bezier(0.7,0,0.3,1) forwards;*/\n  animation: animLoadedHeader 1s cubic-bezier(0.7, 0, 0.3, 1) forwards; }\n\n@-webkit-keyframes animLoadedHeader {\n  to {\n    -webkit-transform: translate3d(0, -100%, 0); } }\n\n@keyframes animLoadedHeader {\n  to {\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0); } }\n\n/*---------------------MODAL AUTH------------------*/\n/* line 455, stdin */\n#modalNotAuthenticated button {\n  position: absolute;\n  right: 10px;\n  top: 10px; }")
 ;(function(){
 "use strict";
@@ -11750,18 +11941,18 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"ip-container",class:{'loading':_vm.loadingState==1,'loaded':_vm.loadingState==2},style:({"display":_vm.loadingState == 3 ? "none":"block"}),attrs:{"id":"ip-container"}},[_c('div',{staticClass:"ip-header"},[_c('div',{staticClass:"ip-logo",attrs:{"id":"ip-logo"}},[_c('svg',{staticClass:"ip-inner",attrs:{"xmlns:dc":"http://purl.org/dc/elements/1.1/","xmlns:cc":"http://creativecommons.org/ns#","xmlns:rdf":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","xmlns:svg":"http://www.w3.org/2000/svg","xmlns":"http://www.w3.org/2000/svg","xmlns:sodipodi":"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd","xmlns:inkscape":"http://www.inkscape.org/namespaces/inkscape","preserveAspectRatio":"xMidYMin meet","aria-labelledby":"logo_title","id":"svg2","version":"1.1","inkscape:version":"0.91 r13725","sodipodi:docname":"logo.svg","inkscape:export-filename":"/home/epatrois/Bureau/template/PagePreloadingEffect/PagePreloadingEffect/logo.png","inkscape:export-xdpi":"90","inkscape:export-ydpi":"90","width":"585.49298","height":"361.33768"}},[_c('metadata',{attrs:{"id":"metadata11"}},[_c('rdf:RDF',[_c('cc:Work',{attrs:{"rdf:about":""}},[_c('dc:format',[_vm._v("image/svg+xml")]),_vm._v(" "),_c('dc:type',{attrs:{"rdf:resource":"http://purl.org/dc/dcmitype/StillImage"}}),_vm._v(" "),_c('dc:title',[_vm._v("Delightful Demonstrations by Codrops")]),_vm._v(" "),_c('cc:license',{attrs:{"rdf:resource":""}})],1)],1)],1),_vm._v(" "),_c('defs',{attrs:{"id":"defs9"}}),_vm._v(" "),_c('sodipodi:namedview',{attrs:{"pagecolor":"#ffffff","bordercolor":"#666666","borderopacity":"1","objecttolerance":"10","gridtolerance":"10","guidetolerance":"10","inkscape:pageopacity":"0","inkscape:pageshadow":"2","inkscape:window-width":"1863","inkscape:window-height":"1059","id":"namedview7","showgrid":"false","inkscape:zoom":"1.28","inkscape:cx":"293.23471","inkscape:cy":"262.39241","inkscape:window-x":"57","inkscape:window-y":"21","inkscape:window-maximized":"1","inkscape:current-layer":"g4147","units":"mm","fit-margin-top":"0","fit-margin-left":"0","fit-margin-right":"0","fit-margin-bottom":"0"}}),_vm._v(" "),_c('title',{attrs:{"id":"logo_title"}},[_vm._v("Delightful Demonstrations by Codrops")]),_vm._v(" "),_c('g',{staticStyle:{"fill-opacity":"1"},attrs:{"id":"g4147","transform":"matrix(2.2581816,0,0,2.2581816,0,43.192013)"}},[_c('path',{staticStyle:{"fill-opacity":"1"},attrs:{"sodipodi:nodetypes":"cccccccccccccccccccccccccsccccccccccccccccsccccccccccccccccccccccccccsccsccccscscccccccccccccccccccccccccscccccccccccccccccccccccccccccccc","inkscape:connector-curvature":"0","id":"path5","d":"m 259.10262,96.291774 -10.334,-14.733 8.756,-20.404 c 0.139,-0.322 0.09,-0.696 -0.126,-0.972 -0.217,-0.278 -0.565,-0.413 -0.914,-0.358 l -19.896,3.227 0.005,-13.346 c 0,-0.284 -0.125,-0.553 -0.341,-0.736 -0.217,-0.183 -0.502,-0.262 -0.781,-0.215 l -14.866,2.476 -0.002,-13.066 c 0,-0.284 -0.126,-0.552 -0.341,-0.735 -0.216,-0.183 -0.501,-0.263 -0.782,-0.215 l -178.027997,29.794 c -0.464,0.077 -0.804,0.479 -0.805,0.949 l -0.011,13.692 -17.223,2.824 c -0.466,0.076 -0.808,0.479 -0.808,0.951 l 0.003,13.872 -21.80300046,3.605996 c -0.327,0.054 -0.603,0.272 -0.73,0.578 -0.129,0.304 -0.091,0.654 0.099,0.925 l 10.33300046,14.734 -8.7550005,20.402 c -0.139,0.324 -0.09,0.698 0.129,0.976 0.184,0.234 0.464,0.368 0.756,0.368 0.054,0 0.108,-0.005 0.162,-0.014 l 52.7510005,-8.97 c 0.477,-0.082 0.808,-0.501 0.798,-0.971 0,-0.039 -0.005,-0.079 -0.009,-0.118 -0.001,-0.008 0,-0.015 -0.001,-0.022 -10e-4,-0.003 -0.002,-0.008 -0.003,-0.011 -0.006,-0.045 -0.006,-0.09 -0.019,-0.134 l -3.55,-12.769 20.414,-3.433 c 0.004,-0.001 0.008,-0.003 0.014,-0.004 0.035,-0.007 0.067,-0.018 0.101,-0.028 0.028,-0.008 0.057,-0.014 0.083,-0.025 0.026,-0.009 0.051,-0.024 0.077,-0.037 0.031,-0.016 0.062,-0.03 0.091,-0.048 0.021,-0.015 0.04,-0.032 0.06,-0.047 0.029,-0.024 0.06,-0.045 0.086,-0.071 0.002,-0.003 0.006,-0.004 0.009,-0.007 0.007,-0.007 0.011,-0.018 0.019,-0.025 0.044,-0.046 0.082,-0.097 0.116,-0.149 0.012,-0.021 0.023,-0.04 0.034,-0.061 0.029,-0.054 0.052,-0.11 0.07,-0.17 0.004,-0.014 0.011,-0.027 0.014,-0.041 0.019,-0.072 0.027,-0.147 0.029,-0.224 0,-0.021 -0.003,-0.042 -0.004,-0.062 -0.002,-0.037 -0.001,-0.073 -0.007,-0.11 -0.003,-0.021 -0.012,-0.04 -0.016,-0.06 -0.003,-0.013 -0.002,-0.026 -0.005,-0.039 l -3.49,-12.553 120.448997,-20.254996 0.809,13.004 c 0.001,0.013 0.005,0.023 0.006,0.035 0.003,0.022 0.001,0.043 0.006,0.064 0.007,0.045 0.021,0.089 0.034,0.132 0.002,0.008 0.004,0.018 0.006,0.025 0.025,0.072 0.061,0.14 0.102,0.202 0.008,0.014 0.019,0.027 0.027,0.04 0.039,0.055 0.084,0.106 0.134,0.151 l 0.021,0.021 c 0.057,0.048 0.119,0.088 0.187,0.123 0.007,0.003 0.014,0.01 0.021,0.015 0.011,0.004 0.023,0.007 0.033,0.011 0.044,0.021 0.089,0.034 0.136,0.047 0.018,0.006 0.035,0.012 0.055,0.016 0.062,0.014 0.127,0.021 0.193,0.021 l 0.001,0 10e-4,0 0.001,0 c 0.052,0 0.104,-0.004 0.158,-0.013 l 14.378,-2.412 0.363,13.290996 c 0.01,0.354 0.214,0.674 0.531,0.833 0.136,0.07 0.285,0.104 0.433,0.104 0.066,0 0.131,-0.016 0.196,-0.03 0.042,0.006 0.085,0.013 0.128,0.013 0.054,0 0.106,-0.005 0.161,-0.014 l 49.442,-8.313996 c 0.326,-0.056 0.602,-0.274 0.729,-0.578 0.126,-0.304 0.089,-0.652 -0.1,-0.923 z m -24.437,-45.451 -0.01,34.515 -37.923,6.362 23.118,-16.158 c 0.441,-0.095 0.761,-0.483 0.761,-0.939 l -0.006,-21.439 z m -192.090997,17.935 176.100997,-29.475 0.009,34.505 -176.137997,29.619996 z m -1.939,14.829 -0.018,20.958996 c 0,0.017 0.005,0.033 0.005,0.05 0.002,0.041 0.006,0.081 0.014,0.12 0.004,0.027 0.01,0.053 0.018,0.079 0.01,0.038 0.022,0.074 0.037,0.11 0.01,0.026 0.021,0.051 0.033,0.075 0.018,0.035 0.039,0.068 0.06,0.101 0.016,0.021 0.029,0.045 0.046,0.065 0.028,0.034 0.06,0.065 0.092,0.097 0.013,0.013 0.023,0.027 0.037,0.039 0.003,0.003 0.007,0.005 0.011,0.007 0.018,0.016 0.038,0.027 0.057,0.041 0.03,0.021 0.061,0.043 0.092,0.061 0.021,0.011 0.043,0.021 0.065,0.03 0.034,0.016 0.069,0.03 0.104,0.041 0.01,0.003 0.02,0.009 0.03,0.012 l 27.328,7.764 -44.104,7.417 -0.009,-34.427996 z m -28.144,35.801996 c 0.131,-0.306 0.095,-0.659 -0.097,-0.933 l -9.7620005,-13.919 19.9790005,-3.306 0.005,20.562 c 0,0.283 0.125,0.552 0.342,0.735 0.125,0.105 0.274,0.175 0.431,0.206 0.088,0.064 0.187,0.117 0.298,0.148 l 27.451,7.799 -46.9160005,7.978 z m 200.040997,-15.841 23.354,-16.321996 c 0.105,-0.073 0.189,-0.165 0.255,-0.266 0.268,-0.174 0.441,-0.472 0.441,-0.806 l 0.006,-21.169 18.473,-2.996 -8.275,19.285 c -0.132,0.307 -0.095,0.66 0.097,0.934 l 9.766,13.923 z"}}),_vm._v(" "),_c('path',{staticStyle:{"font-style":"normal","font-variant":"normal","font-weight":"bold","font-stretch":"normal","font-size":"27.99750137px","line-height":"125%","font-family":"Bitter","-inkscape-font-specification":"'Bitter, Bold'","text-align":"start","letter-spacing":"0px","word-spacing":"10.77916241px","writing-mode":"lr-tb","text-anchor":"start","fill-opacity":"1","stroke":"none","stroke-width":"1px","stroke-linecap":"butt","stroke-linejoin":"miter","stroke-opacity":"1"},attrs:{"inkscape:connector-curvature":"0","id":"path4204","d":"m 101.1059,68.845221 0.6465,4.85699 5.32855,-0.869299 0.42584,3.199215 -5.32856,0.869299 0.74714,5.613168 4.66908,-0.761712 0.2854,-2.512933 2.42687,-0.395918 0.77424,5.816753 -13.769828,2.246407 -0.336795,-2.530288 1.881645,-1.049854 -1.838821,-13.814791 -2.094561,-0.549753 -0.32131,-2.413954 6.04781,-1.135214 7.38612,-1.204969 0.74714,5.613168 -2.45324,0.400221 -0.94982,-2.073697 -4.2734,0.697161 z"}}),_vm._v(" "),_c('path',{staticStyle:{"font-style":"normal","font-variant":"normal","font-weight":"bold","font-stretch":"normal","font-size":"27.99750137px","line-height":"125%","font-family":"Bitter","-inkscape-font-specification":"'Bitter, Bold'","text-align":"start","letter-spacing":"0px","word-spacing":"10.77916241px","writing-mode":"lr-tb","text-anchor":"start","fill-opacity":"1","stroke":"none","stroke-width":"1px","stroke-linecap":"butt","stroke-linejoin":"miter","stroke-opacity":"1"},attrs:{"inkscape:connector-curvature":"0","id":"path4206","d":"m 120.63505,80.516901 0.3368,2.530287 -7.64991,1.248003 -0.33679,-2.530287 1.88164,-1.049854 -1.83882,-13.814791 -2.09456,-0.549754 -0.32131,-2.413953 6.3116,-1.178249 8.91082,12.274768 -1.33169,-10.004817 -2.0418,-0.558362 -0.32131,-2.413953 7.49865,-1.371904 0.34067,2.559372 -1.86229,1.195272 2.2724,17.072173 -4.40529,0.718678 -8.82322,-12.021621 1.32008,9.917566 2.15433,0.391426 z"}}),_vm._v(" "),_c('path',{staticStyle:{"font-style":"normal","font-variant":"normal","font-weight":"bold","font-stretch":"normal","font-size":"27.99750137px","line-height":"125%","font-family":"Bitter","-inkscape-font-specification":"'Bitter, Bold'","text-align":"start","letter-spacing":"0px","word-spacing":"10.77916241px","writing-mode":"lr-tb","text-anchor":"start","fill-opacity":"1","stroke":"none","stroke-width":"1px","stroke-linecap":"butt","stroke-linejoin":"miter","stroke-opacity":"1"},attrs:{"inkscape:connector-curvature":"0","id":"path4208","d":"m 136.54365,74.058586 0.72087,2.378483 q 1.13646,0.43862 2.66643,0.18902 1.34533,-0.219476 2.18731,-0.980857 0.83809,-0.790463 0.69099,-1.895647 -0.10453,-0.785262 -0.84143,-1.25935 -0.7369,-0.474089 -1.78188,-0.630479 -1.01861,-0.160694 -2.24896,-0.494849 -1.23423,-0.36324 -2.31792,-0.810468 -1.0612,-0.480614 -1.88326,-1.594546 -0.82594,-1.143015 -1.05047,-2.829874 -0.39099,-2.93746 1.24262,-4.838311 1.65612,-1.934237 4.63695,-2.420528 1.31895,-0.215172 2.80851,-0.161026 1.48955,0.05415 2.31963,0.215882 l 0.83009,0.161733 0.57266,5.314764 -2.42687,0.395918 -0.98853,-2.364532 q -1.24511,-0.242603 -2.37942,-0.05755 -1.34532,0.219476 -2.00651,0.921648 -0.63481,0.697869 -0.5148,1.599466 0.10452,0.785262 0.84142,1.25935 0.7369,0.47409 1.75938,0.663867 1.04498,0.15639 2.24896,0.494849 1.23036,0.334155 2.28768,0.785686 1.08369,0.447229 1.90189,1.532076 0.81819,1.084848 1.03111,2.684456 0.42196,3.17013 -1.34283,5.300387 -1.74229,2.096871 -4.88138,2.608982 -1.31895,0.215173 -2.83488,0.165329 -1.51207,-0.02076 -2.36854,-0.17819 l -0.8262,-0.13265 -0.74327,-5.584084 2.69065,-0.438952 z"}}),_vm._v(" "),_c('path',{staticStyle:{"font-style":"normal","font-variant":"normal","font-weight":"bold","font-stretch":"normal","font-size":"27.99750137px","line-height":"125%","font-family":"Bitter","-inkscape-font-specification":"'Bitter, Bold'","text-align":"start","letter-spacing":"0px","word-spacing":"10.77916241px","writing-mode":"lr-tb","text-anchor":"start","fill-opacity":"1","stroke":"none","stroke-width":"1px","stroke-linecap":"butt","stroke-linejoin":"miter","stroke-opacity":"1"},attrs:{"inkscape:connector-curvature":"0","id":"path4210","d":"m 159.56806,59.634591 q -1.30175,-0.263078 -3.01639,0.01665 -4.35253,0.710071 -3.40409,7.835594 0.89038,6.689268 5.37481,5.957679 1.16068,-0.189352 2.33468,-0.886039 1.19651,-0.730074 1.81268,-1.365473 l 0.59366,-0.602009 1.79926,2.380848 q -0.09,0.133549 -0.27009,0.400647 -0.18394,0.238014 -0.82262,0.9068 -0.6123,0.664481 -1.32309,1.196454 -0.7108,0.531974 -1.82502,1.070331 -1.08784,0.534054 -2.24852,0.723406 -4.03598,0.65843 -6.60023,-1.597618 -2.54173,-2.289436 -3.21145,-7.320929 -0.67746,-5.08966 1.33591,-8.389651 2.01336,-3.299992 6.10211,-3.96703 1.42446,-0.232386 3.0009,-0.132982 1.57256,0.07032 2.43677,0.285918 l 0.89058,0.211294 0.60364,5.547435 -2.58515,0.42174 -0.97835,-2.693062 z"}}),_vm._v(" "),_c('path',{staticStyle:{"fill-opacity":"1"},attrs:{"d":"M 157.84371,32.375771 C 156.8321,38.230806 153.35616,41.69093 147.467,42.705238 138.38173,44.27 130.47894,37.341413 130.30273,27.656815 c -0.0812,-4.463143 1.03716,-8.397814 4.17779,-14.698238 3.90532,-8.3093971 5.26426,-14.0881643 0.68902,-20.6455657 -8.6798,-12.3579443 -27.36149,-9.1035453 -31.39948,5.4699014 -2.19364,8.9671333 3.08502,14.8612983 7.47576,19.0665223 5.25277,5.010342 7.57359,8.187835 8.9648,12.27396 3.19013,9.369652 -1.85247,18.62583 -11.06712,20.314787 -7.31337,1.340461 -13.964907,-3.604112 -14.514438,-10.789622 -0.605584,-7.918695 7.708788,-13.559983 14.314838,-9.712565 3.21314,1.871357 4.86874,6.668811 3.40908,9.878412 -1.45044,3.189295 -5.47052,5.172255 -7.00972,3.457659 -0.88915,-0.990511 -0.28102,-2.287227 1.43823,-3.066707 2.84653,-1.290594 3.04007,-4.578209 0.39284,-6.672787 -1.3704,-1.0843 -1.88178,-1.206278 -3.62724,-0.865221 -5.377856,1.050849 -6.860512,7.274063 -2.76957,11.624813 2.12031,2.254994 4.91086,2.952872 8.42889,2.107916 3.37548,-0.8107 5.6408,-2.764946 7.30739,-6.303928 0.98734,-2.096572 1.00151,-2.448115 0.26766,-6.633392 -0.93496,-5.333295 -1.98741,-6.995657 -8.10789,-12.809012 -5.44244,-5.169304 -7.5744,-8.228656 -8.62188,-12.372266 -2.702998,-10.6924649 3.40668,-21.772406 13.96648,-25.328245 14.39119,-4.846005 29.6994,7.337574 27.78057,22.1101387 -0.38175,2.9391322 -1.29297,5.2564177 -5.04034,12.8179453 -2.4286,4.900498 -3.071,8.243104 -2.37208,12.342666 0.65634,3.849995 1.79734,5.908544 4.3114,7.778668 6.87563,5.114562 16.63018,0.330322 15.25439,-7.481701 -0.68138,-3.868127 -3.44151,-5.939336 -7.15977,-5.372343 -1.71496,0.261521 -2.16612,0.558876 -3.08449,2.03291 -1.78505,2.865108 -0.49331,5.894512 2.62178,6.148733 1.88142,0.153533 2.89147,1.168935 2.38878,2.401393 -0.87023,2.133474 -5.32369,1.623563 -7.76536,-0.889115 -0.94667,-0.974193 -1.40664,-1.989817 -1.72154,-3.801237 -0.49334,-2.837876 -0.0371,-4.705063 1.63587,-6.694617 6.28767,-7.477573 18.6887,-0.881898 16.97633,9.029107 z M 131.74051,3.7636933 c -1.01375,1.4403874 -4.0037,0.8335426 -4.30032,-0.8728122 -0.24419,-1.4046913 0.51949,-2.61850571 1.78596,-2.83867921 1.58422,-0.27540038 2.49458,0.3434955 2.76119,1.87714671 0.11372,0.6543702 0.003,1.4798232 -0.24683,1.8343447 z m -7.51104,5.9097771 c -0.34283,0.204812 -1.57769,0.5648186 -2.68982,0.6769756 -1.66485,0.167897 -2.00572,-0.05846 -2.13672,-0.8119606 -0.13977,-0.803997 0.31325,-0.0055 2.51872,-0.389345 2.02883,-0.3526931 2.39966,-1.2499676 2.6372,-0.6233978 0.16165,0.4264398 0.0139,0.9429018 -0.32938,1.1477138 z m -10.793,-2.7277685 c -1.01377,1.4403874 -4.00369,0.8335426 -4.30033,-0.8728121 -0.24419,-1.4047053 0.51949,-2.6185198 1.78598,-2.8386794 1.58419,-0.2754004 2.49455,0.3434955 2.76116,1.8771329 0.11373,0.6543841 0.003,1.4798232 -0.24681,1.8343586 z","id":"path4148","inkscape:connector-curvature":"0","sodipodi:nodetypes":"cssccccssssssssssssssssssssssssssssccssssscsssscsssss"}}),_vm._v(" "),_c('path',{staticStyle:{"font-style":"italic","font-variant":"normal","font-weight":"300","font-stretch":"normal","font-size":"13.6476717px","line-height":"125%","font-family":"Lato","-inkscape-font-specification":"'Lato, Light Italic'","text-align":"start","letter-spacing":"0px","word-spacing":"5.25441837px","writing-mode":"lr-tb","text-anchor":"start","fill-opacity":"1","stroke":"none","stroke-width":"1px","stroke-linecap":"butt","stroke-linejoin":"miter","stroke-opacity":"1"},attrs:{"inkscape:connector-curvature":"0","id":"path4214","d":"m 105.70087,100.75288 q 0.46631,-0.0652 0.89163,0.02 0.43209,0.0843 0.77494,0.31886 0.34285,0.23457 0.57714,0.62901 0.23334,0.38767 0.30987,0.93508 0.0869,0.62176 -0.0305,1.16182 -0.11743,0.54007 -0.37757,1.04497 -0.26015,0.5049 -0.6245,1.0037 -0.36529,0.49204 -0.77411,1.01774 l -2.71941,3.5152 q 0.20288,-0.0766 0.42888,-0.13579 0.23181,-0.0668 0.46835,-0.0999 l 3.74399,-0.52341 q 0.10813,-0.0151 0.1707,0.0381 0.0626,0.0532 0.0632,0.15654 l 0.004,0.37154 -5.69709,0.79645 0.003,-0.22773 q -0.004,-0.0753 0.0265,-0.1553 0.0369,-0.081 0.0902,-0.14352 l 2.93639,-3.7867 q 0.40207,-0.52474 0.73641,-0.99179 0.34015,-0.47474 0.56447,-0.94018 0.23107,-0.46639 0.32997,-0.94186 0.0989,-0.47547 0.0243,-1.00935 -0.0624,-0.44605 -0.24287,-0.75154 -0.18146,-0.31225 -0.44823,-0.49544 -0.26,-0.18413 -0.58505,-0.24205 -0.31923,-0.0656 -0.6639,-0.0174 -0.41224,0.0576 -0.75734,0.25057 -0.34604,0.18618 -0.60844,0.4778 -0.26335,0.28486 -0.43142,0.65976 -0.16808,0.3749 -0.23209,0.80415 -0.0342,0.14948 -0.11547,0.20907 -0.0745,0.0587 -0.20478,0.0631 l -0.32425,-0.003 q 0.0704,-0.62996 0.29393,-1.15041 0.22352,-0.52045 0.57595,-0.90734 0.35244,-0.38689 0.81446,-0.63063 0.46201,-0.24374 1.00942,-0.32026 z"}}),_vm._v(" "),_c('path',{staticStyle:{"font-style":"italic","font-variant":"normal","font-weight":"300","font-stretch":"normal","font-size":"13.6476717px","line-height":"125%","font-family":"Lato","-inkscape-font-specification":"'Lato, Light Italic'","text-align":"start","letter-spacing":"0px","word-spacing":"5.25441837px","writing-mode":"lr-tb","text-anchor":"start","fill-opacity":"1","stroke":"none","stroke-width":"1px","stroke-linecap":"butt","stroke-linejoin":"miter","stroke-opacity":"1"},attrs:{"inkscape:connector-curvature":"0","id":"path4216","d":"m 116.63349,103.14503 q 0.21069,1.50705 0.0489,2.66654 -0.15498,1.15856 -0.58589,1.96983 -0.4251,0.80357 -1.07017,1.26582 -0.64601,0.45549 -1.40292,0.56131 -0.56768,0.0794 -1.08733,-0.0892 -0.5206,-0.17527 -0.9391,-0.60596 -0.4185,-0.43071 -0.72139,-1.11872 -0.29708,-0.69572 -0.43124,-1.65537 -0.20974,-1.5003 -0.0548,-2.65885 0.16174,-1.1595 0.5859,-1.96982 0.43091,-0.81127 1.06921,-1.27258 0.64507,-0.462258 1.40874,-0.569018 0.56768,-0.07936 1.08152,0.09685 0.51966,0.168515 0.93816,0.599208 0.42525,0.42975 0.72233,1.12547 0.30384,0.69478 0.438,1.65444 z m -0.6535,0.0569 q -0.11905,-0.85153 -0.36721,-1.44383 -0.24236,-0.60002 -0.58195,-0.95907 -0.33377,-0.36675 -0.73962,-0.50983 -0.3991,-0.14402 -0.83162,-0.0836 -0.60147,0.0841 -1.12569,0.47433 -0.51746,0.38929 -0.86415,1.11299 -0.33993,0.72277 -0.45989,1.78684 -0.11996,1.06408 0.0803,2.49681 0.11905,0.85152 0.3614,1.45153 0.24912,0.59908 0.58289,0.96583 0.33958,0.35904 0.73867,0.50306 0.40491,0.13633 0.83743,0.0759 0.60148,-0.0841 1.11894,-0.47337 0.52422,-0.39024 0.8651,-1.10624 0.34669,-0.72371 0.46665,-1.78779 0.11996,-1.06409 -0.0813,-2.50356 z"}}),_vm._v(" "),_c('path',{staticStyle:{"font-style":"italic","font-variant":"normal","font-weight":"300","font-stretch":"normal","font-size":"13.6476717px","line-height":"125%","font-family":"Lato","-inkscape-font-specification":"'Lato, Light Italic'","text-align":"start","letter-spacing":"0px","word-spacing":"5.25441837px","writing-mode":"lr-tb","text-anchor":"start","fill-opacity":"1","stroke":"none","stroke-width":"1px","stroke-linecap":"butt","stroke-linejoin":"miter","stroke-opacity":"1"},attrs:{"inkscape:connector-curvature":"0","id":"path4218","d":"m 119.55122,108.18727 2.00716,-0.2806 -0.13157,-7.939785 q -0.003,-0.116766 0.002,-0.234497 0.003,-0.124485 0.0133,-0.249912 l -1.88643,2.179204 q -0.0977,0.0895 -0.18843,0.0815 -0.0907,-0.008 -0.1388,-0.0564 l -0.19228,-0.24183 2.5041,-2.837443 0.49334,-0.06897 0.15361,9.280293 1.91254,-0.26737 0.006,0.48832 -4.55497,0.63679 4.6e-4,-0.48927 z"}}),_vm._v(" "),_c('path',{staticStyle:{"font-style":"italic","font-variant":"normal","font-weight":"300","font-stretch":"normal","font-size":"13.6476717px","line-height":"125%","font-family":"Lato","-inkscape-font-specification":"'Lato, Light Italic'","text-align":"start","letter-spacing":"0px","word-spacing":"5.25441837px","writing-mode":"lr-tb","text-anchor":"start","fill-opacity":"1","stroke":"none","stroke-width":"1px","stroke-linecap":"butt","stroke-linejoin":"miter","stroke-opacity":"1"},attrs:{"inkscape:connector-curvature":"0","id":"path4220","d":"m 132.1231,97.169303 0.006,0.288561 q 0.003,0.116765 -0.0267,0.203543 -0.0224,0.08583 -0.0487,0.144598 l -3.86428,9.421695 q -0.0466,0.10987 -0.13858,0.19162 -0.0851,0.0808 -0.22709,0.10061 l -0.42577,0.0595 3.89023,-9.383969 q 0.0409,-0.10214 0.0913,-0.185009 0.0504,-0.08288 0.10762,-0.166635 l -5.04155,0.704809 q -0.0744,0.0104 -0.12827,-0.03033 -0.0481,-0.04841 -0.0517,-0.12368 l -0.008,-0.40534 5.86603,-0.820071 z"}}),_vm._v(" "),_c('path',{staticStyle:{"font-style":"italic","font-variant":"normal","font-weight":"300","font-stretch":"normal","font-size":"13.6476717px","line-height":"125%","font-family":"Lato","-inkscape-font-specification":"'Lato, Light Italic'","text-align":"start","letter-spacing":"0px","word-spacing":"5.25441837px","writing-mode":"lr-tb","text-anchor":"start","fill-opacity":"1","stroke":"none","stroke-width":"1px","stroke-linecap":"butt","stroke-linejoin":"miter","stroke-opacity":"1"},attrs:{"inkscape:connector-curvature":"0","id":"path4222","d":"m 134.10742,102.28691 2.89248,-0.40436 0.0129,0.53563 -2.90599,0.40626 6.8e-4,-0.53753 z"}}),_vm._v(" "),_c('path',{staticStyle:{"font-style":"italic","font-variant":"normal","font-weight":"300","font-stretch":"normal","font-size":"13.6476717px","line-height":"125%","font-family":"Lato","-inkscape-font-specification":"'Lato, Light Italic'","text-align":"start","letter-spacing":"0px","word-spacing":"5.25441837px","writing-mode":"lr-tb","text-anchor":"start","fill-opacity":"1","stroke":"none","stroke-width":"1px","stroke-linecap":"butt","stroke-linejoin":"miter","stroke-opacity":"1"},attrs:{"inkscape:connector-curvature":"0","id":"path4224","d":"m 141.86734,95.696808 q 0.46631,-0.06519 0.89164,0.02004 0.43208,0.0843 0.77494,0.318858 0.34285,0.23457 0.57714,0.629011 0.23334,0.387677 0.30987,0.935083 0.0869,0.621754 -0.0305,1.161823 -0.11743,0.54007 -0.37757,1.04497 -0.26014,0.504907 -0.62449,1.003707 -0.3653,0.49203 -0.77412,1.01773 l -2.7194,3.5152 q 0.20287,-0.0766 0.42888,-0.13579 0.23181,-0.0668 0.46834,-0.0999 l 3.744,-0.52341 q 0.10813,-0.0151 0.17069,0.0381 0.0626,0.0533 0.0632,0.15654 l 0.004,0.37155 -5.69709,0.79645 0.003,-0.22773 q -0.003,-0.0753 0.0266,-0.1553 0.0369,-0.081 0.0902,-0.14352 l 2.93639,-3.7867 q 0.40206,-0.52474 0.73641,-0.99179 0.34014,-0.47474 0.56446,-0.94018 0.23108,-0.466395 0.32998,-0.941857 0.0989,-0.475471 0.0242,-1.009359 -0.0624,-0.446042 -0.24286,-0.751533 -0.18146,-0.312254 -0.44822,-0.495444 -0.26001,-0.184134 -0.58506,-0.242048 -0.31923,-0.06561 -0.6639,-0.01743 -0.41224,0.05763 -0.75734,0.25057 -0.34605,0.186174 -0.60845,0.477803 -0.26333,0.284854 -0.43142,0.659756 -0.16807,0.374901 -0.23208,0.804148 -0.0342,0.14948 -0.11547,0.20907 -0.0745,0.05868 -0.20478,0.06306 l -0.32425,-0.0029 q 0.0704,-0.629966 0.29392,-1.150415 0.22353,-0.52045 0.57596,-0.907342 0.35243,-0.386891 0.81446,-0.630628 0.46201,-0.243734 1.00942,-0.320262 z"}}),_vm._v(" "),_c('path',{staticStyle:{"font-style":"italic","font-variant":"normal","font-weight":"300","font-stretch":"normal","font-size":"13.6476717px","line-height":"125%","font-family":"Lato","-inkscape-font-specification":"'Lato, Light Italic'","text-align":"start","letter-spacing":"0px","word-spacing":"5.25441837px","writing-mode":"lr-tb","text-anchor":"start","fill-opacity":"1","stroke":"none","stroke-width":"1px","stroke-linecap":"butt","stroke-linejoin":"miter","stroke-opacity":"1"},attrs:{"inkscape:connector-curvature":"0","id":"path4226","d":"m 152.79996,98.088957 q 0.21069,1.507054 0.0489,2.666543 -0.15498,1.15856 -0.58589,1.96983 -0.4251,0.80357 -1.07017,1.26582 -0.64601,0.45549 -1.40292,0.56131 -0.56767,0.0794 -1.08733,-0.0891 -0.52059,-0.17527 -0.93909,-0.60596 -0.41851,-0.43071 -0.7214,-1.11872 -0.29708,-0.69572 -0.43124,-1.65537 -0.20974,-1.500303 -0.0548,-2.658849 0.16174,-1.159501 0.58589,-1.969821 0.43091,-0.811274 1.06922,-1.272583 0.64507,-0.462254 1.40873,-0.569014 0.56768,-0.07936 1.08152,0.09685 0.51966,0.168515 0.93816,0.59921 0.42525,0.429751 0.72233,1.12547 0.30384,0.694774 0.438,1.654431 z m -0.6535,0.05693 q -0.11904,-0.851529 -0.36721,-1.443834 -0.24236,-0.600023 -0.58194,-0.959065 -0.33377,-0.36675 -0.73962,-0.509837 -0.3991,-0.144021 -0.83162,-0.08356 -0.60147,0.08409 -1.12569,0.474324 -0.51747,0.389294 -0.86416,1.112995 -0.33993,0.722766 -0.45989,1.786843 -0.11996,1.064077 0.0803,2.496807 0.11905,0.85152 0.3614,1.45153 0.24912,0.59908 0.58289,0.96583 0.33958,0.35904 0.73868,0.50307 0.40491,0.13632 0.83742,0.0759 0.60148,-0.0841 1.11894,-0.47337 0.52423,-0.39024 0.8651,-1.10624 0.34669,-0.72371 0.46665,-1.78779 0.11996,-1.064086 -0.0813,-2.503558 z"}}),_vm._v(" "),_c('path',{staticStyle:{"font-style":"italic","font-variant":"normal","font-weight":"300","font-stretch":"normal","font-size":"13.6476717px","line-height":"125%","font-family":"Lato","-inkscape-font-specification":"'Lato, Light Italic'","text-align":"start","letter-spacing":"0px","word-spacing":"5.25441837px","writing-mode":"lr-tb","text-anchor":"start","fill-opacity":"1","stroke":"none","stroke-width":"1px","stroke-linecap":"butt","stroke-linejoin":"miter","stroke-opacity":"1"},attrs:{"inkscape:connector-curvature":"0","id":"path4228","d":"m 155.7177,103.1312 2.00716,-0.2806 -0.13158,-7.939783 q -0.003,-0.116766 0.002,-0.234497 0.003,-0.124486 0.0133,-0.249912 l -1.88643,2.1792 q -0.0977,0.08949 -0.18843,0.08147 -0.0907,-0.008 -0.13881,-0.05643 l -0.19227,-0.241838 2.50409,-2.837438 0.49334,-0.06897 0.15361,9.280288 1.91255,-0.26737 0.006,0.48832 -4.55496,0.63679 4.6e-4,-0.48927 z"}}),_vm._v(" "),_c('path',{staticStyle:{"font-style":"italic","font-variant":"normal","font-weight":"300","font-stretch":"normal","font-size":"13.6476717px","line-height":"125%","font-family":"Lato","-inkscape-font-specification":"'Lato, Light Italic'","text-align":"start","letter-spacing":"0px","word-spacing":"5.25441837px","writing-mode":"lr-tb","text-anchor":"start","fill-opacity":"1","stroke":"none","stroke-width":"1px","stroke-linecap":"butt","stroke-linejoin":"miter","stroke-opacity":"1"},attrs:{"inkscape:connector-curvature":"0","id":"path4230","d":"m 165.47181,102.36702 q -0.5812,0.0812 -1.0837,-0.0139 -0.49574,-0.0961 -0.87522,-0.34618 -0.37366,-0.25782 -0.61565,-0.65807 -0.242,-0.40025 -0.31569,-0.92738 -0.085,-0.608238 0.0187,-1.098163 0.10282,-0.49669 0.35198,-0.882927 0.255,-0.393939 0.63606,-0.674582 0.38783,-0.281598 0.86605,-0.458695 -0.70699,-0.128542 -1.13021,-0.59303 -0.41647,-0.465431 -0.51284,-1.154757 -0.0794,-0.56768 0.0602,-1.097075 0.13959,-0.529385 0.46702,-0.947233 0.33325,-0.425549 0.83015,-0.715499 0.4969,-0.28996 1.13216,-0.378769 0.54065,-0.07558 0.98327,0.0348 0.44939,0.109434 0.78061,0.359403 0.33798,0.249034 0.5424,0.626972 0.21023,0.370238 0.27259,0.81628 0.0642,0.459551 -0.007,0.882988 -0.0717,0.423437 -0.27548,0.789545 -0.19793,0.358397 -0.52211,0.651765 -0.32511,0.286603 -0.75995,0.478315 0.38492,0.04262 0.71361,0.175842 0.33543,0.132252 0.58854,0.365585 0.25216,0.22657 0.42294,0.560986 0.17077,0.334417 0.23218,0.773695 0.0964,0.689326 -0.0694,1.277504 -0.16582,0.58818 -0.54448,1.03386 -0.37867,0.44568 -0.93734,0.73738 -0.55962,0.28493 -1.24894,0.3813 z m -0.009,-0.5086 q 0.54741,-0.0765 0.98239,-0.31648 0.43499,-0.23996 0.72079,-0.61064 0.29256,-0.37163 0.41849,-0.85087 0.12497,-0.486009 0.0456,-1.053698 -0.0746,-0.533888 -0.30623,-0.859802 -0.23254,-0.332668 -0.55244,-0.501545 -0.32082,-0.175632 -0.68453,-0.214358 -0.36464,-0.04545 -0.70256,0.0018 -0.26355,0.03684 -0.54754,0.124811 -0.27722,0.08702 -0.545,0.241554 -0.26103,0.153629 -0.49139,0.378752 -0.22453,0.217432 -0.37502,0.52096 -0.15049,0.30354 -0.21342,0.691297 -0.0629,0.387756 0.004,0.867589 0.0586,0.419 0.24191,0.74477 0.18917,0.31806 0.47999,0.52545 0.29758,0.20645 0.68141,0.29059 0.38383,0.0842 0.84339,0.0199 z m -0.0876,-4.914245 q 0.54741,-0.07653 0.93414,-0.316634 0.3858,-0.246852 0.61942,-0.596466 0.23268,-0.356366 0.31791,-0.781693 0.0843,-0.432081 0.0229,-0.87136 -0.0501,-0.358186 -0.20842,-0.652993 -0.15159,-0.29576 -0.39998,-0.495301 -0.24838,-0.199543 -0.59071,-0.282596 -0.33653,-0.09076 -0.75554,-0.03218 -0.51361,0.0718 -0.9013,0.305147 -0.38187,0.225644 -0.62319,0.569437 -0.24133,0.343793 -0.33913,0.777775 -0.092,0.426271 -0.0258,0.899331 0.0472,0.337914 0.18528,0.635558 0.14388,0.289941 0.3874,0.503946 0.24257,0.207252 0.5868,0.303822 0.34423,0.09657 0.79026,0.03422 z"}})])],1),_vm._v(" "),_c('div',{staticClass:"ip-loader",attrs:{"id":"ip-loader"}},[_c('svg',{staticClass:"ip-inner",attrs:{"width":"80px","height":"80px","viewBox":"0 0 80 80"}},[_c('path',{staticClass:"ip-loader-circlebg",attrs:{"d":"M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z"}}),_vm._v(" "),_c('path',{staticClass:"ip-loader-circle",style:({'strokeDasharray':_vm.lenghtLoader,'strokeDashoffset':_vm.loadingProgress}),attrs:{"id":"ip-loader-circle","d":"M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z"}})])])])])]),_vm._v(" "),_c('header',{staticClass:"navbar navbar-light navbar-toggleable-md bd-navbar main-navbar"},[_c('nav',{staticClass:"container"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"navbar-collapse collapse justify-content-center",attrs:{"id":"bd-main-nav","aria-expanded":"false"}},[_c('ul',{staticClass:"nav navbar-nav"},[_c('li',{staticClass:"nav-item"},[_c('router-link',{staticClass:"nav-item nav-link",attrs:{"to":{name:'index'}}},[_vm._v("\n                    Accueil\n                ")])],1),_vm._v(" "),_c('li',{staticClass:"nav-item"},[_c('router-link',{staticClass:"nav-item nav-link",attrs:{"to":{name:'indexEvents'}}},[_vm._v("\n                      Evenements\n                  ")])],1),_vm._v(" "),_c('li',{staticClass:"nav-item"},[_c('router-link',{staticClass:"nav-item nav-link",attrs:{"to":{name:'associations'}}},[_vm._v("\n                    Les assos\n                ")])],1),_vm._v(" "),_vm._m(1)])])])]),_vm._v(" "),_c('div',{staticClass:"content"},[_c('main',[_c('transition',{attrs:{"name":"fade"}},[_c('router-view',{staticClass:"view",attrs:{"keep-alive":"","transition":"","transition-mode":"out-in"}})],1)],1)]),_vm._v(" "),_vm._m(2)])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"d-flex justify-content-between hidden-lg-up"},[_c('a',{staticClass:"navbar-brand",attrs:{"href":"/"}},[_vm._v("\n          Assos\n        ")]),_vm._v(" "),_c('button',{staticClass:"navbar-toggler collapsed",attrs:{"type":"button","data-toggle":"collapse","data-target":"#bd-main-nav","aria-controls":"bd-main-nav","aria-expanded":"false","aria-label":"Toggle navigation"}},[_c('span',{staticClass:"navbar-toggler-icon"})])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',{staticClass:"nav-item"},[_c('a',{staticClass:"nav-link"},[_vm._v("\n                    Jeux\n                ")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"modal fade",attrs:{"id":"modalNotAuthenticated","tabindex":"-1","role":"dialog","aria-labelledby":"exampleModalLabel","aria-hidden":"true"}},[_c('div',{staticClass:"modal-dialog",attrs:{"role":"document"}},[_c('div',{staticClass:"modal-content"},[_c('div',{staticClass:"modal-body text-center"},[_c('button',{staticClass:"close",attrs:{"type":"button","data-dismiss":"modal","aria-label":"Close"}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("×")])]),_vm._v(" "),_c('div',{staticStyle:{"padding":"20px"}},[_vm._v("Veuillez vous identifier")]),_vm._v(" "),_c('a',{staticClass:"btn btn-primary",attrs:{"href":"/login/google"}},[_vm._v("Se connecter")])])])])])}]
-if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-08bb676b", __vue__options__)
+    hotAPI.createRecord("data-v-ba555e24", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-08bb676b", __vue__options__)
+    hotAPI.rerender("data-v-ba555e24", __vue__options__)
   }
 })()}
-},{"vue":6,"vue-hot-reload-api":3,"vueify/lib/insert-css":7}],11:[function(require,module,exports){
+},{"vue":5,"vueify/lib/insert-css":6,"vueify/node_modules/vue-hot-reload-api":7}],11:[function(require,module,exports){
 ;(function(){
 "use strict";
 })()
@@ -11770,17 +11961,17 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c("div")}
 __vue__options__.staticRenderFns = []
-if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0c7632ef", __vue__options__)
+    hotAPI.createRecord("data-v-f088709c", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-0c7632ef", __vue__options__)
+    hotAPI.rerender("data-v-f088709c", __vue__options__)
   }
 })()}
-},{"vue":6,"vue-hot-reload-api":3}],12:[function(require,module,exports){
+},{"vue":5,"vueify/node_modules/vue-hot-reload-api":7}],12:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("/* line 126, stdin */\n.events-header {\n  /*height: 200px;*/\n  background: #e96656;\n  color: white;\n  margin-bottom: 20px; }\n  /* line 130, stdin */\n  .events-header h1 {\n    padding-top: 30px;\n    padding-bottom: 30px;\n    margin: 0px; }\n\n/* line 138, stdin */\n.events-header-2 {\n  /*height: 200px;*/\n  /*background: $mainColor;*/\n  color: #e96656; }\n  /* line 142, stdin */\n  .events-header-2 h1 {\n    padding-top: 30px;\n    padding-bottom: 30px;\n    margin: 0px; }\n\n/* line 153, stdin */\n.post-preview {\n  position: relative;\n  margin-bottom: 30px;\n  transition: transform 500ms; }\n  /* line 158, stdin */\n  .post-preview:focus, .post-preview:hover {\n    text-decoration: none;\n    transform: translateY(-5px); }\n\n/* line 164, stdin */\n.post-box {\n  position: relative;\n  transition: transform 0.5s; }\n  /* line 169, stdin */\n  .post-box:focus, .post-box:hover {\n    text-decoration: none;\n    /*transform: scale(1.1);*/ }\n  /* line 176, stdin */\n  .post-box > figure {\n    position: relative;\n    max-height: 200px;\n    overflow: hidden;\n    margin: 0px;\n    /*background: $mainColor;*/\n    border-radius: 4px 4px 0 0; }\n    /* line 183, stdin */\n    .post-box > figure img {\n      border-radius: 4px 4px 0 0;\n      /*position: absolute;*/\n      /*left: 0px;*/\n      /*top: 0px;*/\n      width: 100%; }\n  /* line 192, stdin */\n  .post-box > .post-box-content {\n    text-decoration: none;\n    background: #f6f6f6;\n    border: 1px solid #ececec;\n    border-radius: 0 0 4px 4px;\n    border-top: 0;\n    color: #333;\n    font-size: 12px;\n    padding: 8px;\n    line-height: 1.5em;\n    min-height: 50px;\n    text-align: center;\n    /*\n\t\tul{\n\t\t\tpadding: 0px;\n\t\t\tlist-style-type: none;\n\t\t}*/ }\n    /* line 204, stdin */\n    .post-box > .post-box-content h5 {\n      margin: 0px;\n      display: inline-block;\n      /*border-bottom: 1px solid $mainColor;*/\n      margin-bottom: 10px; }\n      /* line 209, stdin */\n      .post-box > .post-box-content h5 + h6 {\n        font-weight: 300; }\n    /* line 214, stdin */\n    .post-box > .post-box-content .post-box-title {\n      /*font-size: 30px;\n\t\t\tfont-weight: 300;*/ }\n    /* line 218, stdin */\n    .post-box > .post-box-content .short-description {\n      height: 30px;\n      overflow: hidden;\n      margin-bottom: 5px; }\n    /* line 223, stdin */\n    .post-box > .post-box-content .badge-info {\n      background-color: #e96656;\n      font-size: 14px;\n      margin-bottom: 14px; }")
 ;(function(){
 'use strict';
@@ -11828,18 +12019,18 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"tab-content text-center container"},[_c('div',{staticClass:"row"},_vm._l((_vm.evenements),function(evenement){return _c('div',{key:evenement.id,staticClass:"col-md-4"},[_c('div',{staticClass:"post-preview"},[_c('router-link',{staticClass:"post-box",attrs:{"to":{ name: 'showEvent', params: { id: evenement.id }}}},[_c('figure',[_c('img',{attrs:{"src":evenement.affiche}})]),_vm._v(" "),_c('div',{staticClass:"post-box-content text-left clearfix"},[_c('span',{staticClass:"badge badge-info"},[_vm._v(_vm._s(evenement.categorie.nom))]),_vm._v(" "),_c('span',{staticClass:"pull-right"},[_vm._v("\n\t                                 "+_vm._s(evenement.prix)+" "),_c('i',{staticClass:"fa fa-euro"})]),_vm._v(" "),_c('div',{staticClass:"post-box-title"},[_c('h5',[_vm._v(_vm._s(evenement.titre))]),_vm._v(" "),_c('h6',[_vm._v(_vm._s(evenement.lieu))])]),_vm._v(" "),_c('div',{staticClass:"short-description",domProps:{"innerHTML":_vm._s(evenement.description)}}),_vm._v(" "),_c('div',{staticClass:"pull-right"},[_c('div',{staticClass:"date"},[_vm._v("\n\t\t\t\t\t        \t   \t\t"+_vm._s(evenement.dateDeb.substring(0,10))+"\n\t\t\t\t\t        \t   ")])])])])],1)])}))])])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('section',{staticClass:"events-header-2"},[_c('div',{staticClass:"container text-left"},[_c('h1',[_c('div',[_c('i',{staticClass:"fa fa-calendar"}),_vm._v(" Les évenements")])])])])}]
-if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2d4c5e3a", __vue__options__)
+    hotAPI.createRecord("data-v-74eaeac0", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-2d4c5e3a", __vue__options__)
+    hotAPI.rerender("data-v-74eaeac0", __vue__options__)
   }
 })()}
-},{"../components/Evenement/evenement.services.js":8,"vue":6,"vue-hot-reload-api":3,"vueify/lib/insert-css":7}],13:[function(require,module,exports){
+},{"../components/Evenement/evenement.services.js":8,"vue":5,"vueify/lib/insert-css":6,"vueify/node_modules/vue-hot-reload-api":7}],13:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("/* line 237, stdin */\n.cmt {\n  display: block; }\n  /* line 239, stdin */\n  .cmt h4 {\n    margin: 0px; }\n  /* line 242, stdin */\n  .cmt p {\n    margin: 0px; }\n  /* line 246, stdin */\n  .cmt .avatar img {\n    width: 60px;\n    border-radius: 50%;\n    border: 1px solid;\n    padding: 6px;\n    margin-right: 10px; }\n\n/* line 256, stdin */\n.event-post {\n  width: 900px;\n  max-width: 100%;\n  margin: 0 auto;\n  background: white;\n  /*padding: 20px 0px;*/\n  margin-top: 30px; }\n  /* line 264, stdin */\n  .event-post .header {\n    padding: 20px;\n    text-align: center;\n    position: relative;\n    /*min-height: 100px;*/ }\n    /* line 270, stdin */\n    .event-post .header .title {\n      /*max-width: 350px;*/\n      font-size: 27px;\n      font-weight: 600;\n      line-height: 1.4;\n      /*margin: 20px;*/\n      text-transform: uppercase;\n      display: inline-block;\n      /*  .line{\n            border-bottom: 2px solid $mainColor;\n          }*/ }\n    /* line 283, stdin */\n    .event-post .header .time {\n      position: absolute;\n      /*right: 25px;*/\n      right: 25px;\n      margin-left: 10px;\n      margin-right: 10px;\n      display: block;\n      font-size: 17px;\n      font-weight: 600;\n      font-style: italic;\n      text-align: center;\n      margin-bottom: 10px; }\n      /* line 296, stdin */\n      .event-post .header .time.right {\n        left: initial;\n        right: 25px; }\n      /* line 301, stdin */\n      .event-post .header .time .month {\n        color: #e96656;\n        text-transform: uppercase; }\n  /* line 309, stdin */\n  .event-post .event-img-container img {\n    width: 100%; }\n  /* line 314, stdin */\n  .event-post .event-content {\n    margin: 35px auto 0 auto;\n    width: 70%; }\n  /* line 319, stdin */\n  .event-post .event-description {\n    margin-top: 20px;\n    text-align: justify; }\n\n/* line 328, stdin */\n.comment-container {\n  margin-bottom: 25px;\n  overflow: hidden;\n  position: relative; }\n\n/* line 334, stdin */\n.rf-avatar {\n  float: left;\n  height: 50px;\n  margin-right: 20px;\n  min-height: 50px;\n  min-width: 50px;\n  width: 50px; }\n  /* line 341, stdin */\n  .rf-avatar img {\n    border-radius: 50%;\n    width: 100%; }\n\n/* line 347, stdin */\n.comment-text-container {\n  width: calc(100% - 70px); }\n\n/* line 351, stdin */\n.comment-text-container {\n  float: left;\n  position: relative; }\n\n/* line 356, stdin */\n.comment-container .user-name-link {\n  color: #3c3c3c;\n  font-size: 14px;\n  font-weight: bold; }\n\n/* line 362, stdin */\n.comment-date {\n  color: #a9a9a9;\n  font-size: 11px; }\n\n/* line 367, stdin */\n.comments-list {\n  padding: 0 20px;\n  margin-top: 20px; }\n\n/* line 372, stdin */\n.comment-date::before {\n  content: '\\2022';\n  margin: 0 4px 0 2px; }\n\n/* line 377, stdin */\n.comment-actions {\n  float: left;\n  width: calc(100% - 70px);\n  margin-left: 70px; }\n  /* line 381, stdin */\n  .comment-actions .comment-likes {\n    padding: 0px;\n    /*margin: 0px;*/ }\n\n/* line 387, stdin */\n.comments-to-comment {\n  float: left;\n  width: calc(100% - 70px);\n  margin-left: 70px; }\n  /* line 391, stdin */\n  .comments-to-comment .comment-container {\n    margin-bottom: 5px; }\n  /* line 394, stdin */\n  .comments-to-comment .comment-likes {\n    padding: 0px;\n    /*margin: 0px;*/ }\n\n/* line 400, stdin */\n.btn-icon {\n  background: none;\n  color: #e96656;\n  vertical-align: top;\n  margin-right: 10px; }\n\n/* line 407, stdin */\n.event-img-container {\n  position: relative; }\n  /* line 409, stdin */\n  .event-img-container .event-actions {\n    /*margin-top: 10px;*/\n    position: absolute;\n    bottom: 17px;\n    background: white;\n    padding: 20px;\n    right: 0px;\n    border-radius: 4px 0px 0px 4px; }")
 ;(function(){
 'use strict';
@@ -11928,33 +12119,33 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"container"},[_c('div',{staticClass:"event-post"},[_c('header',{staticClass:"header"},[_c('div',{staticClass:"time"},[_c('div',{staticClass:"month"},[_vm._v(_vm._s(_vm.evenement.monthBegin))]),_vm._v(" "),_c('div',{staticClass:"day"},[_vm._v(_vm._s(_vm.evenement.dayBegin))])]),_vm._v(" "),_c('h1',{staticClass:"title text-center"},[_c('span',{staticClass:"line"},[_vm._v(_vm._s(_vm.evenement.titre))])])]),_vm._v(" "),_c('div',{staticClass:"event-img-container"},[_c('img',{staticClass:"img-responsive",attrs:{"src":_vm.evenement.affiche}}),_vm._v(" "),_vm._m(0)]),_vm._v(" "),_c('div',{staticClass:"event-content"},[_c('div',{staticClass:"row"},[_c('div',{staticClass:"col-md-8"},[_c('div',[_c('strong',[_vm._v("Prix :")]),_vm._v(" "+_vm._s(_vm.evenement.prix)+" €")]),_vm._v(" "),_c('div',[_c('strong',[_vm._v("Lieu :")]),_vm._v(" "+_vm._s(_vm.evenement.lieu))]),_vm._v(" "),_c('div',[_c('strong',[_vm._v("Place restantes :")]),_vm._v(" "+_vm._s(_vm.evenement.nbMaxParticipants))])]),_vm._v(" "),_vm._m(1)]),_vm._v(" "),_c('div',{staticClass:"event-description"},[_vm._m(2),_vm._v(" "),_c('div',{domProps:{"innerHTML":_vm._s(_vm.evenement.description)}})]),_vm._v(" "),_c('hr'),_vm._v(" "),_c('div',{staticClass:"post-comment"},[_c('div',{staticClass:"cmt-body"},[_c('div',{staticClass:"form-group is-empty"},[_c('textarea',{directives:[{name:"model",rawName:"v-model",value:(_vm.commentText),expression:"commentText"}],staticClass:"form-control",attrs:{"placeholder":"Commenter cet évenement...","rows":"6"},domProps:{"value":(_vm.commentText)},on:{"input":function($event){if($event.target.composing){ return; }_vm.commentText=$event.target.value}}}),_c('span',{staticClass:"material-input"})]),_vm._v(" "),_c('div',{staticClass:"cmt-footer text-right"},[_c('button',{staticClass:"btn btn-primary",on:{"click":_vm.postComment}},[_vm._v("Commenter")])])])]),_vm._v(" "),_c('h5',{staticClass:"title text-center"},[_vm._v(_vm._s(_vm.comments.length)+" Commentaires")]),_vm._v(" "),_c('ul',{staticClass:"js-comments-list comments-list"},_vm._l((_vm.comments),function(comment){return _c('li',{staticClass:"comment-container cfix user-comment"},[_c('a',{staticClass:"rf-avatar js-mini-profile",attrs:{"target":"_blank","href":"https://www.behance.net/seb90grado8237","data-id":"44063465"}},[_c('img',{staticClass:"rf-avatar__image js-avatar__image",attrs:{"src":comment.user.avatar}})]),_vm._v(" "),_c('div',{staticClass:"comment-text-container left relative"},[_c('div',{staticClass:"comment-user-date-wrap ui-corner cfix"},[_c('a',{staticClass:"user-name-link bold js-mini-profile",attrs:{"data-id":"44063465","href":"https://www.behance.net/seb90grado8237"}},[_vm._v(_vm._s(comment.user.name))]),_vm._v(" "),_c('span',{staticClass:"comment-date js-format-timestamp",attrs:{"data-timestamp":"1501963744"}},[_vm._v(_vm._s(comment.updated_at))])]),_vm._v(" "),_c('div',{staticClass:"comment-text-wrap"},[_c('div',{staticClass:"comment-text",domProps:{"innerHTML":_vm._s(comment.texte)}})])]),_vm._v(" "),_vm._m(3,true),_vm._v(" "),_c('div',{staticClass:"comment-actions comments-to-comment"},[_c('ul',_vm._l((comment.comments),function(commentToComment){return _c('li',{staticClass:"comment-container cfix user-comment"},[_c('a',{staticClass:"rf-avatar js-mini-profile",attrs:{"target":"_blank","href":"https://www.behance.net/seb90grado8237","data-id":"44063465"}},[_c('img',{staticClass:"rf-avatar__image js-avatar__image",attrs:{"src":commentToComment.user.avatar}})]),_vm._v(" "),_c('div',{staticClass:"comment-text-container left relative"},[_c('div',{staticClass:"comment-user-date-wrap ui-corner cfix"},[_c('a',{staticClass:"user-name-link bold js-mini-profile",attrs:{"data-id":"44063465","href":"https://www.behance.net/seb90grado8237"}},[_vm._v(_vm._s(commentToComment.user.name))]),_vm._v(" "),_c('span',{staticClass:"comment-date js-format-timestamp",attrs:{"data-timestamp":"1501963744"}},[_vm._v(_vm._s(commentToComment.updated_at))])]),_vm._v(" "),_c('div',{staticClass:"comment-text-wrap"},[_c('div',{staticClass:"comment-text",domProps:{"innerHTML":_vm._s(commentToComment.texte)}})])]),_vm._v(" "),_vm._m(4,true)])}))])])}))])])])])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"event-actions text-center",staticStyle:{"display":"none"}},[_c('button',{staticClass:"btn btn-icon"},[_c('i',{staticClass:"fa fa-heart-o"}),_vm._v(" "),_c('i',[_vm._v(" 243")])]),_vm._v(" "),_c('button',{staticClass:"btn btn-icon"},[_c('i',{staticClass:"fa fa-check"}),_vm._v(" "),_c('i',[_vm._v(" 23")])]),_vm._v(" "),_c('button',{staticClass:"btn btn-primary"},[_vm._v("\n                Je m'inscris\n            ")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-md-4 text-right"},[_c('button',{staticClass:"btn btn-primary"},[_vm._v("\n                Je m'inscris\n              ")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('strong',[_vm._v("Description")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"comment-actions"},[_c('button',{staticClass:"btn btn-icon comment-likes"},[_c('i',{staticClass:"fa fa-heart-o"}),_vm._v(" "),_c('i',[_vm._v(" 243")])]),_vm._v(" "),_c('button',{staticClass:"btn btn-icon comment-likes"},[_c('i',{staticClass:"fa fa-reply"})])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"comment-actions"},[_c('button',{staticClass:"btn btn-icon comment-likes"},[_c('i',{staticClass:"fa fa-heart-o"}),_vm._v(" "),_c('i',[_vm._v(" 243")])]),_vm._v(" "),_c('button',{staticClass:"btn btn-icon comment-likes"},[_c('i',{staticClass:"fa fa-reply"})])])}]
-if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-05d83508", __vue__options__)
+    hotAPI.createRecord("data-v-d38cc802", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-05d83508", __vue__options__)
+    hotAPI.rerender("data-v-d38cc802", __vue__options__)
   }
 })()}
-},{"../components/Evenement/evenement.services.js":8,"./user.services.js":15,"vue":6,"vue-hot-reload-api":3,"vueify/lib/insert-css":7}],14:[function(require,module,exports){
+},{"../components/Evenement/evenement.services.js":8,"./user.services.js":15,"vue":5,"vueify/lib/insert-css":6,"vueify/node_modules/vue-hot-reload-api":7}],14:[function(require,module,exports){
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _vm._m(0)}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"page-header clear-filter"},[_c('div',{staticClass:"page-header-image",staticStyle:{"background-image":"url('/images/office.jpg')"}}),_vm._v(" "),_c('div',{staticClass:"container"},[_c('div',{staticClass:"content-center brand"},[_c('h1',{staticClass:"h1-seo"},[_vm._v("Bienvenue sur le site du BDE")])])])])}]
-if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7cec511c", __vue__options__)
+    hotAPI.createRecord("data-v-0f9c3442", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-7cec511c", __vue__options__)
+    hotAPI.rerender("data-v-0f9c3442", __vue__options__)
   }
 })()}
-},{"vue":6,"vue-hot-reload-api":3}],15:[function(require,module,exports){
+},{"vue":5,"vueify/node_modules/vue-hot-reload-api":7}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11982,6 +12173,6 @@ exports.default = {
   }
 };
 
-},{"vue":6}]},{},[9]);
+},{"vue":5}]},{},[9]);
 
 //# sourceMappingURL=front.js.map
