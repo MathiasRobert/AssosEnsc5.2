@@ -59,8 +59,8 @@
       <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="107" column="11" lean-forward="false" selection-start-line="107" selection-start-column="11" selection-end-line="107" selection-end-column="11" />
+            <state relative-caret-position="515">
+              <caret line="106" column="0" lean-forward="true" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
               <folding>
                 <element signature="e#230#296#0#HTML" expanded="true" />
               </folding>
@@ -504,7 +504,7 @@
       <workItem from="1508527758496" duration="7758000" />
       <workItem from="1508626691785" duration="678000" />
       <workItem from="1508628467810" duration="635000" />
-      <workItem from="1508662491662" duration="18900000" />
+      <workItem from="1508662491662" duration="19042000" />
     </task>
     <task id="LOCAL-00001" summary="Site en version 5.2">
       <created>1508626418938</created>
@@ -569,11 +569,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508706597956</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="logo">
+      <created>1508707416694</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1508707416694</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27971000" />
+    <option name="totallyTimeSpent" value="28113000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -638,9 +645,9 @@
     <MESSAGE value="Grosse update et beaucoup de bugs résolus" />
     <MESSAGE value="Logo asso" />
     <MESSAGE value="Redirect et calabar accueil" />
-    <MESSAGE value="logo" />
     <MESSAGE value="Ajout tout npm c'est relou" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout tout npm c'est relou" />
+    <MESSAGE value="logo" />
+    <option name="LAST_COMMIT_MESSAGE" value="logo" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1062,8 +1069,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="107" column="11" lean-forward="false" selection-start-line="107" selection-start-column="11" selection-end-line="107" selection-end-column="11" />
+        <state relative-caret-position="515">
+          <caret line="106" column="0" lean-forward="true" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
           <folding>
             <element signature="e#230#296#0#HTML" expanded="true" />
           </folding>
