@@ -105,10 +105,11 @@ class PagesController extends Controller
         $max = Famille::max('points');
         if($max == 0)
             $max = 1;
-        $cpt = 0;
+        $cpt = 1;
         foreach ($familles as $f)
         {
-            $f->classement = $cpt++;
+            $f->classement = $cpt;
+            $cpt++;
             $f->pourcentage = round((float)($f->points/$max) * 100 );
         }
         return view('pages.famille', compact('familles', 'actions'));
