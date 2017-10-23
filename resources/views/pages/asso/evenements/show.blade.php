@@ -79,7 +79,7 @@
                           <div class="comment-text-container left relative">
                             <div class="comment-user-date-wrap ui-corner">
                               <a class="user-name-link bold js-mini-profile" data-id="44063465" href="https://www.behance.net/seb90grado8237">@{{comment.user.name}}</a>
-                              <span class="comment-date js-format-timestamp dateIlya" data-timestamp="1501963744">@{{comment.updated_at}}</span>
+                              <span class="comment-date js-format-timestamp" data-timestamp="1501963744">@{{comment.updated_at}}</span>
                             </div>
                             <div class="comment-text-wrap"><div class="comment-text" v-html="comment.texte">@{{comment.texte}}</div></div>
                           </div>
