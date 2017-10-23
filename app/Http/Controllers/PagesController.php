@@ -77,6 +77,8 @@ class PagesController extends Controller
         }
         $familles = Famille::orderBy('points','desc')->get();
         $max = Famille::max('points');
+        if($max == 0)
+            $max == 1;
         foreach ($familles as $f)
         {
             $f->pourcentage = round((float)($f->points/$max) * 100 );
