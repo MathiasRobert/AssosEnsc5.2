@@ -10,7 +10,7 @@
                     <div id="chart">
                         <img src="/images/crown.png" class="crown">
                         @foreach($familles as $f)
-                            <div class="bar {{ $f->nom }}" style="width: 50px; height: {{ $f->pourcentage }}%; left: {{ $f->cpt * 70 }}px;"><span class="points-graph">{{ $f->points }}</span></div>
+                            <div class="bar {{ $f->nom }}" style="width: 50px; height: {{ $f->pourcentage }}%; left: {{ $f->classements * 70 }}px;"><span class="points-graph">{{ $f->points }}</span></div>
                         @endforeach
                     </div>
                     <ul id="chart-inline">
