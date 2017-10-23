@@ -22,9 +22,7 @@
 @endsection
 
 @section('content')
-    <div class="avatar">
-        <img alt="Circle Image" class="rounded-circle img-raised" src="{{ asset($association->logo) }}">
-    </div>
+
     <div class="section section-asso">
         <div class="container">
 
@@ -63,56 +61,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('scripts')
-    <script>
-        var pos = $(".avatar").position();
-        var mainPos = $(".main").position();
-        var width = $(".avatar").outerWidth();
-
-
-        // si on redimensionne la page, on repositionne le logo de l'association
-        $(window).resize(function() {
-            var pos = $(".avatar").position();
-            $(".avatar-nav").css({
-                position: "absolute",
-                left: (pos.left) - width/2 - 15 + "px"
-            });
-        });
-
-        // Lors du défilement de la page, si le logo de l'association arrive sur la barre de navigation, on le fixe dessus
-        $(window).scroll(function() {
-
-            if(($('.avatar-nav').css("display") == "none") && ($(window).scrollTop() > $('.avatar').offset().top -10)) {
-                $('.avatar-nav').css("display", "block");
-                $('.avatar').css("opacity", "0");
-
-            }
-            else if (($('.avatar-nav').css("display") == "block") && ($(window).scrollTop() < $('.avatar').position().top - 80)) {
-                $('.avatar-nav').css("display", "none");
-                $('.avatar').css("opacity", "1");
-            }
-        });
-
-        // lors du chargement de la page
-            // on positionne le logo de l'association
-            $(".avatar-nav").css({
-                position: "absolute",
-                left: (pos.left) - width/2 - 15 + "px"
-            });
-            $(".avatar").css({
-                top: (mainPos.top - ($(".avatar").outerHeight())/2) + "px"
-            });
-
-
-            if(($('.avatar-nav').css("display") == "none") && ($(window).scrollTop() > $('.avatar').offset().top -10)) {
-                $('.avatar-nav').css("display", "block");
-                $('.avatar').css("opacity", "0");
-            }
-            else if (($('.avatar-nav').css("display") == "block") && ($(window).scrollTop() < $('.avatar').position().top - 80)) {
-                $('.avatar-nav').css("display", "none");
-                $('.avatar').css("opacity", "1");
-            }
-    </script>
 @endsection

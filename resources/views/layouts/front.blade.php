@@ -43,9 +43,6 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <div class="avatar-nav">
-                <img alt="Circle Image" class="rounded-circle img-raised" src="@if(isset($association)){{asset($association->logo) }}@endif">
-            </div>
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
