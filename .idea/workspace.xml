@@ -30,9 +30,9 @@
         <entry file="file://$PROJECT_DIR$/resources/views/pages/famille.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
-              <caret line="12" column="135" lean-forward="false" selection-start-line="12" selection-start-column="135" selection-end-line="12" selection-end-column="135" />
+              <caret line="12" column="134" lean-forward="false" selection-start-line="12" selection-start-column="134" selection-end-line="12" selection-end-column="134" />
               <folding>
-                <element signature="e#900#906#0#HTML" expanded="true" />
+                <element signature="e#899#905#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -450,7 +450,7 @@
       <workItem from="1508626691785" duration="678000" />
       <workItem from="1508628467810" duration="635000" />
       <workItem from="1508662491662" duration="19602000" />
-      <workItem from="1508784823876" duration="1761000" />
+      <workItem from="1508784823876" duration="1849000" />
     </task>
     <task id="LOCAL-00001" summary="Site en version 5.2">
       <created>1508626418938</created>
@@ -578,11 +578,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508789204067</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Tri classement">
+      <created>1508789275027</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1508789275028</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30434000" />
+    <option name="totallyTimeSpent" value="30522000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -1053,9 +1060,9 @@
     <entry file="file://$PROJECT_DIR$/resources/views/pages/famille.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="12" column="135" lean-forward="false" selection-start-line="12" selection-start-column="135" selection-end-line="12" selection-end-column="135" />
+          <caret line="12" column="134" lean-forward="false" selection-start-line="12" selection-start-column="134" selection-end-line="12" selection-end-column="134" />
           <folding>
-            <element signature="e#900#906#0#HTML" expanded="true" />
+            <element signature="e#899#905#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
