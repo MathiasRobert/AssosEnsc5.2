@@ -30,7 +30,7 @@
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PagesController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="321">
-              <caret line="80" column="22" lean-forward="false" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+              <caret line="80" column="17" lean-forward="false" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
               <folding>
                 <element signature="e#40#62#0#PHP" expanded="true" />
               </folding>
@@ -428,7 +428,7 @@
       <workItem from="1508626691785" duration="678000" />
       <workItem from="1508628467810" duration="635000" />
       <workItem from="1508662491662" duration="19602000" />
-      <workItem from="1508784823876" duration="1014000" />
+      <workItem from="1508784823876" duration="1165000" />
     </task>
     <task id="LOCAL-00001" summary="Site en version 5.2">
       <created>1508626418938</created>
@@ -528,11 +528,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508785542920</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Bug /0">
+      <created>1508786627625</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1508786627625</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29687000" />
+    <option name="totallyTimeSpent" value="29838000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -602,7 +609,8 @@
     <MESSAGE value="logo fix" />
     <MESSAGE value="connexion fix" />
     <MESSAGE value="Format date" />
-    <option name="LAST_COMMIT_MESSAGE" value="Format date" />
+    <MESSAGE value="Bug /0" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug /0" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -999,7 +1007,7 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PagesController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="321">
-          <caret line="80" column="22" lean-forward="false" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+          <caret line="80" column="17" lean-forward="false" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
           <folding>
             <element signature="e#40#62#0#PHP" expanded="true" />
           </folding>
