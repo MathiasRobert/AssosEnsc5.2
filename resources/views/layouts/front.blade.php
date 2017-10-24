@@ -120,8 +120,7 @@
             </script>
             , Réalisé par
             <a href="http://www.linkedin.com/in/mathias-robert-7a5589148" target="_blank">Mathias Robert</a>,
-             avec l'aide de
-            <a href="https://www.linkedin.com/in/emmanuel-patrois-716365a8/" target="_blank">Emmanuel Patrois</a>.
+             avec l'aide de Emmanuel Patrois.
         </div>
     </div>
 </footer>

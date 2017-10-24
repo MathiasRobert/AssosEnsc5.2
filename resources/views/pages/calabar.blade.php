@@ -43,7 +43,7 @@
                                         {!! $b->nom !!}
                                     </td>
                                     <td>
-                                        {!! $b->description !!}
+                                        <p>{!! $b->description !!}</p>
                                     </td>
                                     <td>
                                         {!! $b->couleur !!}

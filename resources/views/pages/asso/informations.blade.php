@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-8 offset-md-2 text-center">
                 <h2 class="title">L'équipe</h2>
-                <h4 class="description">This is the paragraph where you can write more details about your team. Keep you user engaged by providing meaningful information.</h4>
+                <h4 class="description">{{ $association->description_longue }}</h4>
             </div>
         </div>
         <div class="row">

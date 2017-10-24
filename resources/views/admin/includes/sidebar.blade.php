@@ -32,9 +32,6 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                         <li>
                             <a href="{{ route('admin.associations.edit', 'equipe') }}">Mon équipe</a>
                         </li>
-                        <li>
-                            <a href="{{ route('admin.associations.edit', 'parametres') }}">Paramètres</a>
-                        </li>
                     </ul>
                 </div>
             </div>

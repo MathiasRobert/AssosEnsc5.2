@@ -18,12 +18,6 @@
                                 <div class="ripple-container"></div>
                             </a>
                         </li>
-                        <li class="{{ !empty($tab) && $tab == 'parametres' ? 'active' : '' }}">
-                            <a href="#parametres" data-toggle="tab">
-                                <i class="material-icons">settings</i> Paramètres
-                                <div class="ripple-container"></div>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -185,77 +179,6 @@
                                 </td>
                             </tr>
                         @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tab-pane {{ !empty($tab) && $tab == 'parametres' ? 'active' : '' }}" id="parametres">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="optionsCheckboxes"><span class="checkbox-material"><span
-                                                    class="check"></span></span>
-                                    </label>
-                                </div>
-                            </td>
-                            <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                            <td class="td-actions text-right">
-                                <button type="button" rel="tooltip" title="" class="btn btn-primary btn-simple btn-xs"
-                                        data-original-title="Edit Task">
-                                    <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="" class="btn btn-danger btn-simple btn-xs"
-                                        data-original-title="Remove">
-                                    <i class="material-icons">close</i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="optionsCheckboxes" checked=""><span
-                                                class="checkbox-material"><span class="check"></span></span>
-                                    </label>
-                                </div>
-                            </td>
-                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain
-                                swept through metro Detroit
-                            </td>
-                            <td class="td-actions text-right">
-                                <button type="button" rel="tooltip" title="" class="btn btn-primary btn-simple btn-xs"
-                                        data-original-title="Edit Task">
-                                    <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="" class="btn btn-danger btn-simple btn-xs"
-                                        data-original-title="Remove">
-                                    <i class="material-icons">close</i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="optionsCheckboxes"><span class="checkbox-material"><span
-                                                    class="check"></span></span>
-                                    </label>
-                                </div>
-                            </td>
-                            <td>Sign contract for "What are conference organizers afraid of?"</td>
-                            <td class="td-actions text-right">
-                                <button type="button" rel="tooltip" title="" class="btn btn-primary btn-simple btn-xs"
-                                        data-original-title="Edit Task">
-                                    <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="" class="btn btn-danger btn-simple btn-xs"
-                                        data-original-title="Remove">
-                                    <i class="material-icons">close</i>
-                                </button>
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
