@@ -75,16 +75,16 @@ Route::post('inscription', 'InscriptionController@inscription');
 Route::post('desinscription', 'InscriptionController@desinscription');
 
 //POUR TEST
-Route::get('logintest', function() {
-    $user = App\User::where('email', 'bde@ensc.fr')->first();
-    Auth::login($user);
-    return back();
-})->name('logintest');
-
-
-Route::get('/back/{all}', function () {
-    return view('pages.back');
-})->where(['all' => '.*']);;
+//Route::get('logintest', function() {
+//    $user = App\User::where('email', 'bde@ensc.fr')->first();
+//    Auth::login($user);
+//    return back();
+//})->name('logintest');
+//
+//
+//Route::get('/back/{all}', function () {
+//    return view('pages.back');
+//})->where(['all' => '.*']);;
 
 
 Route::get('/front/{all}', function () {
