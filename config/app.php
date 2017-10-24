@@ -150,6 +150,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         'Jenssegers\Date\DateServiceProvider',
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -213,7 +214,7 @@ return [
         'Html'  => Collective\Html\HtmlFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Date' => Jenssegers\Date\Date::class,
-
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];
