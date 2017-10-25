@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3c11653d-bf48-40c7-9e9a-96009907c7fb" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php" afterPath="$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/MembreController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/MembreController.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,7 +14,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="informations.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="informations.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
@@ -36,12 +36,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MembreController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MembreController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MembreController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="84" column="26" lean-forward="false" selection-start-line="84" selection-start-column="26" selection-end-line="84" selection-end-column="26" />
-              <folding />
+            <state relative-caret-position="192">
+              <caret line="84" column="28" lean-forward="true" selection-start-line="83" selection-start-column="14" selection-end-line="84" selection-end-column="28" />
+              <folding>
+                <element signature="e#40#81#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AssociationController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AssociationController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+              <folding>
+                <element signature="e#40#60#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -49,7 +63,7 @@
       <file leaf-file-name="LoginController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
+            <state relative-caret-position="675">
               <caret line="52" column="26" lean-forward="false" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
               <folding />
             </state>
@@ -71,16 +85,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="495">
               <caret line="33" column="29" lean-forward="false" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="calabar.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/pages/calabar.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="44" column="39" lean-forward="false" selection-start-line="44" selection-start-column="39" selection-end-line="44" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -179,10 +183,10 @@
         <option value="$PROJECT_DIR$/resources/views/admin/includes/sidebar.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/pages/calabar.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/routes.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/MembreController.php" />
         <option value="$PROJECT_DIR$/config/app.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" />
         <option value="$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/MembreController.php" />
       </list>
     </option>
   </component>
@@ -518,7 +522,7 @@
       <workItem from="1508784823876" duration="2180000" />
       <workItem from="1508850606335" duration="866000" />
       <workItem from="1508882782929" duration="898000" />
-      <workItem from="1508943242204" duration="1083000" />
+      <workItem from="1508943242204" duration="1199000" />
     </task>
     <task id="LOCAL-00001" summary="Site en version 5.2">
       <created>1508626418938</created>
@@ -723,11 +727,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508944599421</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="surnom">
+      <created>1508945140575</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1508945140575</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33700000" />
+    <option name="totallyTimeSpent" value="33816000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -806,21 +817,14 @@
     <MESSAGE value="//" />
     <MESSAGE value="test" />
     <MESSAGE value="redirect" />
-    <option name="LAST_COMMIT_MESSAGE" value="redirect" />
+    <MESSAGE value="surnom" />
+    <option name="LAST_COMMIT_MESSAGE" value="surnom" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/database/migrations/2017_10_21_194850_create_evenements_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="26" column="25" lean-forward="true" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2017_10_21_194528_create_familles_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1162,14 +1166,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MembreController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="84" column="26" lean-forward="false" selection-start-line="84" selection-start-column="26" selection-end-line="84" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Kernel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1186,20 +1182,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="52" column="26" lean-forward="false" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="20" column="95" lean-forward="false" selection-start-line="20" selection-start-column="95" selection-end-line="20" selection-end-column="95" />
           <folding>
             <marker date="1508945132000" expanded="true" signature="1001:1649" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="52" column="26" lean-forward="false" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AssociationController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding>
+            <element signature="e#40#60#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MembreController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="84" column="28" lean-forward="true" selection-start-line="83" selection-start-column="14" selection-end-line="84" selection-end-column="28" />
+          <folding>
+            <element signature="e#40#81#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

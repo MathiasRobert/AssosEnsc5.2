@@ -47,8 +47,8 @@ class MembreController extends Controller
         if (isset($request->photo) && $request->file('photo')->isValid()) {
             $imageName = $membre->id .'.'.$request->file('photo')->getClientOriginalExtension();
             $membre->photo = $request->photo->move('uploads/membres', $imageName);
-            $img = Image::make(asset($membre->photo));
-            $img->fit(50);
+//            $img = Image::make(asset($membre->photo));
+//            $img->fit(50);
         }
         $membre->save();
         return redirect('admin/association/equipe/edit');
@@ -81,8 +81,8 @@ class MembreController extends Controller
         if (isset($request->photo) && $request->file('photo')->isValid()) {
             $imageName = $membre->id .'.'.$request->file('photo')->getClientOriginalExtension();
             $membre->photo = $request->photo->move('uploads/membres', $imageName);
-            $img = Image::make(asset($membre->photo));
-            $img->fit(50);
+//            $img = Image::make(asset($membre->photo));
+//            $img->fit(50);
         }
         $membre->save();
         return redirect('admin/association/equipe/edit');
