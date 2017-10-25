@@ -44,7 +44,7 @@
                             </div>
                             <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="card-block">
-                                    <p>{{ $evenement->description }}</p>
+                                    <p>{!! $evenement->description !!}</p>
                                 </div>
                             </div>
                         </div>
