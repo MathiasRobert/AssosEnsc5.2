@@ -47,6 +47,7 @@ class LoginController extends Controller
         $client->setDeveloperKey(env('GOOGLE_SERVER_KEY'));
         $client->setAccessToken(json_encode($google_client_token));
 
+        dd($client);
         $authUser = $this->findOrCreateUser($user);
         Auth::login($authUser, 1);
         return redirect(Session::get('url'));
