@@ -51,7 +51,7 @@ class MembreController extends Controller
 //            $img->fit(50);
         }
         $membre->save();
-        return redirect('admin/association/equipe/edit');
+        return redirect('admin/association');
     }
 
     /**
@@ -85,7 +85,7 @@ class MembreController extends Controller
 //            $img->fit(50);
         }
         $membre->save();
-        return redirect('admin/association/');
+        return redirect('admin/association');
     }
 
     /**
