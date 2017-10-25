@@ -48,8 +48,6 @@ class LoginController extends Controller
         $client->setAccessToken(json_encode($google_client_token));
 
         $authUser = $this->findOrCreateUser($user);
-        dd($client);
-
         Auth::login($authUser, 1);
         dd($authUser);
 
