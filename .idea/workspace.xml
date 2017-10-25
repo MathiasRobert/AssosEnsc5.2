@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3c11653d-bf48-40c7-9e9a-96009907c7fb" name="Default" comment="redirect">
+    <list default="true" id="3c11653d-bf48-40c7-9e9a-96009907c7fb" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php" afterPath="$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,12 +14,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="informations.blade.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="informations.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="49" lean-forward="false" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
-              <folding />
+            <state relative-caret-position="300">
+              <caret line="20" column="95" lean-forward="false" selection-start-line="20" selection-start-column="95" selection-end-line="20" selection-end-column="95" />
+              <folding>
+                <marker date="1508945132000" expanded="true" signature="1001:1649" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -44,7 +46,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoginController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="404">
@@ -177,10 +179,10 @@
         <option value="$PROJECT_DIR$/resources/views/admin/includes/sidebar.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/pages/calabar.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/routes.php" />
-        <option value="$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/MembreController.php" />
         <option value="$PROJECT_DIR$/config/app.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" />
+        <option value="$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php" />
       </list>
     </option>
   </component>
@@ -516,7 +518,7 @@
       <workItem from="1508784823876" duration="2180000" />
       <workItem from="1508850606335" duration="866000" />
       <workItem from="1508882782929" duration="898000" />
-      <workItem from="1508943242204" duration="853000" />
+      <workItem from="1508943242204" duration="1083000" />
     </task>
     <task id="LOCAL-00001" summary="Site en version 5.2">
       <created>1508626418938</created>
@@ -714,11 +716,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508944425878</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="redirect">
+      <created>1508944599421</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1508944599421</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33470000" />
+    <option name="totallyTimeSpent" value="33700000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -796,7 +805,8 @@
     <MESSAGE value="erreur login" />
     <MESSAGE value="//" />
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="redirect" />
+    <option name="LAST_COMMIT_MESSAGE" value="redirect" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -807,6 +817,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="26" column="25" lean-forward="true" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -838,6 +849,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="13" column="48" lean-forward="false" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -853,6 +865,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -996,6 +1009,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1070,6 +1084,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="24" column="55" lean-forward="false" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1147,14 +1162,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="49" lean-forward="false" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MembreController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="302">
@@ -1184,6 +1191,16 @@
         <state relative-caret-position="404">
           <caret line="52" column="26" lean-forward="false" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="95" lean-forward="false" selection-start-line="20" selection-start-column="95" selection-end-line="20" selection-end-column="95" />
+          <folding>
+            <marker date="1508945132000" expanded="true" signature="1001:1649" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
