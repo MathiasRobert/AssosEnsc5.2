@@ -39,8 +39,8 @@
       <file leaf-file-name="MembreController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MembreController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="84" column="28" lean-forward="true" selection-start-line="83" selection-start-column="14" selection-end-line="84" selection-end-column="28" />
+            <state relative-caret-position="243">
+              <caret line="87" column="46" lean-forward="true" selection-start-line="87" selection-start-column="46" selection-end-line="87" selection-end-column="46" />
               <folding>
                 <element signature="e#40#81#0#PHP" expanded="true" />
               </folding>
@@ -51,7 +51,7 @@
       <file leaf-file-name="AssociationController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AssociationController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
+            <state relative-caret-position="-948">
               <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
               <folding>
                 <element signature="e#40#60#0#PHP" expanded="true" />
@@ -103,7 +103,7 @@
       <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1155">
+            <state relative-caret-position="659">
               <caret line="86" column="30" lean-forward="false" selection-start-line="77" selection-start-column="2" selection-end-line="86" selection-end-column="30" />
               <folding />
             </state>
@@ -522,7 +522,7 @@
       <workItem from="1508784823876" duration="2180000" />
       <workItem from="1508850606335" duration="866000" />
       <workItem from="1508882782929" duration="898000" />
-      <workItem from="1508943242204" duration="1199000" />
+      <workItem from="1508943242204" duration="1352000" />
     </task>
     <task id="LOCAL-00001" summary="Site en version 5.2">
       <created>1508626418938</created>
@@ -734,11 +734,18 @@
       <option name="project" value="LOCAL" />
       <updated>1508945140575</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="image commenté">
+      <created>1508945257971</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1508945257971</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33816000" />
+    <option name="totallyTimeSpent" value="33969000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -818,7 +825,8 @@
     <MESSAGE value="test" />
     <MESSAGE value="redirect" />
     <MESSAGE value="surnom" />
-    <option name="LAST_COMMIT_MESSAGE" value="surnom" />
+    <MESSAGE value="image commenté" />
+    <option name="LAST_COMMIT_MESSAGE" value="image commenté" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1124,14 +1132,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="86" column="30" lean-forward="false" selection-start-line="77" selection-start-column="2" selection-end-line="86" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Middleware/IsBDE.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1200,9 +1200,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="659">
+          <caret line="86" column="30" lean-forward="false" selection-start-line="77" selection-start-column="2" selection-end-line="86" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AssociationController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
+        <state relative-caret-position="-948">
           <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
           <folding>
             <element signature="e#40#60#0#PHP" expanded="true" />
@@ -1212,8 +1220,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MembreController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="84" column="28" lean-forward="true" selection-start-line="83" selection-start-column="14" selection-end-line="84" selection-end-column="28" />
+        <state relative-caret-position="243">
+          <caret line="87" column="46" lean-forward="true" selection-start-line="87" selection-start-column="46" selection-end-line="87" selection-end-column="46" />
           <folding>
             <element signature="e#40#81#0#PHP" expanded="true" />
           </folding>
