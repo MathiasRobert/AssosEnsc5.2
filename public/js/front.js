@@ -11968,7 +11968,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-f088709c", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-f088709c", __vue__options__)
+    hotAPI.reload("data-v-f088709c", __vue__options__)
   }
 })()}
 },{"vue":5,"vueify/node_modules/vue-hot-reload-api":7}],12:[function(require,module,exports){
