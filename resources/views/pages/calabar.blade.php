@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="section">
+    <div class="section section-calabar">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">

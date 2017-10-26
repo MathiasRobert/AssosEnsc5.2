@@ -405,6 +405,10 @@ body .main-product {
   }
 }
 
+.section-calabar {
+  padding-top: 10px;
+}
+
 /*
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
     background-color: rgba(255,255,255,.2);
