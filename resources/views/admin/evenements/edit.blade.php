@@ -109,12 +109,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label class="col-sm-2 label-on-left">Description</label>
-                        <div class="col-sm-7">
-                            <div class="form-group label-floating is-empty">
-                                <label class="control-label"></label>
-                                <textarea class="form-control" name="description" rows="6" cols="50">{{ $evenement->description }}</textarea>
-                                <span class="material-input"></span></div>
+                        <label class="col-sm-12">Description</label>
+                        <div class="col-sm-12">
+                            <textarea id="description-textarea" name="description" rows="20">{!! $evenement->description !!}</textarea>
                         </div>
                     </div>
                 </div>
@@ -124,4 +121,21 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src='/js/tinymce.min.js'></script>
+    <script>
+        tinymce.init({
+            selector: '#description-textarea',
+            language: 'fr_FR',
+            menubar: 'edit insert view format',
+            format: 'html',
+            toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent | link image | preview',
+            plugins : 'advlist autolink link image lists charmap preview',
+            content_css: [
+                '/css/bootstrap4.min.css',
+                '/css/now-ui-kit.css']
+        });
+    </script>
 @endsection

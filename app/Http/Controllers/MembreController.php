@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Association;
 use App\Membre;
 use Auth;
+use Image;
 
 class MembreController extends Controller
 {
@@ -47,7 +48,7 @@ class MembreController extends Controller
         if (isset($request->photo) && $request->file('photo')->isValid()) {
             $imageName = $membre->id .'.'.$request->file('photo')->getClientOriginalExtension();
             $membre->photo = $request->photo->move('uploads/membres', $imageName);
-//            $img = Image::make(asset($membre->photo));
+//            $img = Image::make(\Storage::disk('public')->get($membre->photo));
 //            $img->fit(50);
         }
         $membre->save();
@@ -81,8 +82,8 @@ class MembreController extends Controller
         if (isset($request->photo) && $request->file('photo')->isValid()) {
             $imageName = $membre->id .'.'.$request->file('photo')->getClientOriginalExtension();
             $membre->photo = $request->photo->move('uploads/membres', $imageName);
+
 //            $img = Image::make(asset($membre->photo));
-//            $img->fit(50);
         }
         $membre->save();
         return redirect('admin/associations/infos/edit');

@@ -30,4 +30,8 @@
   max-width: 80px;
 }
 
+#description-textarea {
+  border: 1px solid lightslategray;
+}
+
 /*# sourceMappingURL=admin.css.map */

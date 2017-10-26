@@ -29,5 +29,6 @@
 </body>
 
 @include('admin.includes.script')
+@yield('scripts')
 
 </html>

@@ -36,9 +36,9 @@ return [
     ],
 
     'google' => [
-        'client_id' => '1096079681177-bja5umgc4353a46gj51fs1jdlo02u5to.apps.googleusercontent.com',
-        'client_secret' => 'SrftAAJYRw4I1wOAfVGe5OZD',
-        'redirect' => 'http://www.assosensc.fr/login/google/callback',
+        'client_id' => '1096079681177-ocdrb4rm10sml5f2hbbs1hqrorls6a1k.apps.googleusercontent.com',
+        'client_secret' => 'eRUnOn7dzSc-vo3CUAlqUxyk',
+        'redirect' => 'http://localhost:8000/login/google/callback',
     ],
 
 ];
