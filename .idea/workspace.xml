@@ -6,7 +6,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/app.css" afterPath="$PROJECT_DIR$/public/css/app.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/app.css.map" afterPath="$PROJECT_DIR$/public/css/app.css.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/sass/app.scss" afterPath="$PROJECT_DIR$/resources/assets/sass/app.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/pages/calabar.blade.php" afterPath="$PROJECT_DIR$/resources/views/pages/calabar.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -559,7 +558,7 @@
       <workItem from="1508943242204" duration="2384000" />
       <workItem from="1508965784455" duration="799000" />
       <workItem from="1508969676195" duration="2494000" />
-      <workItem from="1509008650545" duration="2183000" />
+      <workItem from="1509008650545" duration="2345000" />
     </task>
     <task id="LOCAL-00001" summary="Site en version 5.2">
       <created>1508626418938</created>
@@ -834,11 +833,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509011461083</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="paddingtop">
+      <created>1509011677949</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1509011677949</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40477000" />
+    <option name="totallyTimeSpent" value="40639000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -897,8 +903,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Fin correction routes" />
-    <MESSAGE value="Grosse update et beaucoup de bugs résolus" />
     <MESSAGE value="Logo asso" />
     <MESSAGE value="Redirect et calabar accueil" />
     <MESSAGE value="Ajout tout npm c'est relou" />
@@ -922,7 +926,9 @@
     <MESSAGE value="affichage" />
     <MESSAGE value="Ajout editeur de texte articles et evenements" />
     <MESSAGE value="Plugins tinymce" />
-    <option name="LAST_COMMIT_MESSAGE" value="Plugins tinymce" />
+    <MESSAGE value="paddingtop" />
+    <MESSAGE value="paddingtop calabar" />
+    <option name="LAST_COMMIT_MESSAGE" value="paddingtop calabar" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
