@@ -35,6 +35,10 @@ $white: #ffffff;
   text-transform: capitalize;
 }
 
+.card-avatar > img {
+  height: auto;
+}
+
 .navbar {
   .navbar-nav {
     .profile-photo {
@@ -344,16 +348,3 @@ only screen and (max-width: 760px),
 #comments-section {
   padding-top: 50px;
 }
-
-/*
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
-    background-color: rgba(255,255,255,.2);
-    transition: background-color .1s .2s;
-}
-
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
-    color: #555;
-    cursor: default;
-    border: 1px solid #ddd;
-    border-bottom-color: transparent;
-}*/
