@@ -47,9 +47,11 @@
       <file leaf-file-name="informations.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="80" lean-forward="false" selection-start-line="25" selection-start-column="80" selection-end-line="25" selection-end-column="80" />
-              <folding />
+            <state relative-caret-position="330">
+              <caret line="22" column="32" lean-forward="false" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+              <folding>
+                <element signature="e#1062#1068#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -532,7 +534,7 @@
       <workItem from="1508969676195" duration="2494000" />
       <workItem from="1509008650545" duration="2649000" />
       <workItem from="1509101211414" duration="591000" />
-      <workItem from="1509103135163" duration="3528000" />
+      <workItem from="1509103135163" duration="3663000" />
     </task>
     <task id="LOCAL-00001" summary="Site en version 5.2">
       <created>1508626418938</created>
@@ -870,11 +872,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509127026484</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="nouvel onglet">
+      <created>1509127079449</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1509127079449</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45062000" />
+    <option name="totallyTimeSpent" value="45197000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -933,7 +942,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Format date" />
     <MESSAGE value="Bug /0" />
     <MESSAGE value="Tri classement" />
     <MESSAGE value="Tri classement done" />
@@ -958,7 +966,8 @@
     <MESSAGE value="Afichage partie admin" />
     <MESSAGE value="Scrollbar admin" />
     <MESSAGE value="Maintenance + email infos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Maintenance + email infos" />
+    <MESSAGE value="nouvel onglet" />
+    <option name="LAST_COMMIT_MESSAGE" value="nouvel onglet" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1358,9 +1367,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="80" lean-forward="false" selection-start-line="25" selection-start-column="80" selection-end-line="25" selection-end-column="80" />
-          <folding />
+        <state relative-caret-position="330">
+          <caret line="22" column="32" lean-forward="false" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+          <folding>
+            <element signature="e#1062#1068#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -18,7 +18,11 @@
                     </div>
                     <div class="card-block">
                         <h3 class="card-title">{!! $m->prenom !!} {!! $m->nom !!}</h3>
-                        <h6 class="category text-primary">{!! $m->poste !!} - <i>{!! $m->surnom !!}</i></h6>
+                        <h6 class="category text-primary">{!! $m->poste !!}
+                            @if(isset($m->surnom))
+                                &nbsp;- <i>{!! $m->surnom !!}</i>
+                            @endif
+                        </h6>
                         <p class="card-description">
                             {!! $m->description !!}
                         </p>
