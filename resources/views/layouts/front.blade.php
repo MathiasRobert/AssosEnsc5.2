@@ -46,18 +46,16 @@
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
                         <p>
                             Les Assos
                         </p>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         @foreach($assoDiminutifs as $diminutif)
-                            <li>
-                                <a class="dropdown-item" href="/asso/{!! $diminutif !!}">{!! $diminutif !!}</a>
-                            </li>
+                            <a class="dropdown-item" href="/asso/{!! $diminutif !!}">{!! $diminutif !!}</a>
                         @endforeach
-                    </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/famille"><i class="now-ui-icons sport_trophy"></i> Coupe des Familles</a>
@@ -76,7 +74,7 @@
                                      alt="avatar">
                             </div>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2">
                             <li>
                                 <a class="dropdown-item" href="/monCompte">Mon compte</a>
                             </li>
