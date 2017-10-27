@@ -15,15 +15,8 @@ class AdminController extends Controller
     public function dashboard()
     {
         $association = Association::where('email', Auth::user()->email)->first();
-        return view('admin.dashboard', compact('association'));
-    }
-
-    public function association($tab)
-    {
-        $association = Association::where('email', Auth::user()->email)->first();
         $couleurs = Couleur::all();
         $membres = $association->membres->all();
-        return view('admin.associations.edit', compact( 'association', 'couleurs', 'membres', 'tab'));
-
+        return view('admin.dashboard', compact( 'association', 'couleurs', 'membres'));
     }
 }

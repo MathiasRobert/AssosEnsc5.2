@@ -20,20 +20,9 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                 <img src="{{ asset($association->logo) }}" />
             </div>
             <div class="info">
-                <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                <a href="{{ route('admin') }}">
                     {{ $association->email }}
-                    <b class="caret"></b>
                 </a>
-                <div class="collapse" id="collapseExample">
-                    <ul class="nav">
-                        <li>
-                            <a href="{{ route('admin.associations.edit', 'infos') }}">Mes informations</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.associations.edit', 'equipe') }}">Mon équipe</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
         <ul class="nav">
@@ -61,7 +50,7 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                     <p>Jeux des familles</p>
                 </a>
             </li>
-            <li class="@if(Route::currentRouteName() === 'admin.bieres.index') active @endif">
+            <li class="@if(Auth::user()->isBDE() && Route::currentRouteName() === 'admin.bieres.index') active @endif">
                 <a href="{{ route('admin.bieres.index') }}">
                     <i class="material-icons">local_drink</i>
                     <p>Bières</p>

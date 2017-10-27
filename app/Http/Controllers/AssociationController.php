@@ -71,7 +71,7 @@ class AssociationController extends Controller
         $association = Association::where('email', Auth::user()->email)->first();
         $couleurs = Couleur::all();
         $membres = $association->membres->all();
-        return view('admin.associations.edit', compact('association', 'couleurs', 'membres'));
+        return view('admin.dashboard', compact('association', 'couleurs', 'membres'));
     }
 
 
@@ -99,7 +99,7 @@ class AssociationController extends Controller
             $association->photo = $request->photo->move('uploads/associations/photo', $imageName);
         }
         $association->save();
-        return redirect('admin/associations/infos/edit');
+        return redirect('admin/');
     }
 
 }

@@ -52,7 +52,7 @@ class MembreController extends Controller
 //            $img->fit(50);
         }
         $membre->save();
-        return redirect('admin/associations/infos/edit');
+        return redirect('admin/');
     }
 
     /**
@@ -86,7 +86,7 @@ class MembreController extends Controller
 //            $img = Image::make(asset($membre->photo));
         }
         $membre->save();
-        return redirect('admin/associations/infos/edit');
+        return redirect('admin/');
     }
 
     /**
