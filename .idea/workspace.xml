@@ -47,10 +47,10 @@
       <file leaf-file-name="informations.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="26" lean-forward="true" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+            <state relative-caret-position="285">
+              <caret line="19" column="47" lean-forward="false" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
               <folding>
-                <element signature="e#1063#1069#0#HTML" expanded="true" />
+                <element signature="e#986#992#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -534,14 +534,7 @@
       <workItem from="1508969676195" duration="2494000" />
       <workItem from="1509008650545" duration="2649000" />
       <workItem from="1509101211414" duration="591000" />
-      <workItem from="1509103135163" duration="3768000" />
-    </task>
-    <task id="LOCAL-00003" summary="Routes admin.">
-      <created>1508663722238</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1508663722239</updated>
+      <workItem from="1509103135163" duration="4034000" />
     </task>
     <task id="LOCAL-00004" summary="Fin correction routes">
       <created>1508663810160</created>
@@ -879,11 +872,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509127273040</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Trait surnom">
+      <created>1509127316742</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1509127316742</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45302000" />
+    <option name="totallyTimeSpent" value="45568000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -1367,10 +1367,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="26" lean-forward="true" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+        <state relative-caret-position="285">
+          <caret line="19" column="47" lean-forward="false" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
           <folding>
-            <element signature="e#1063#1069#0#HTML" expanded="true" />
+            <element signature="e#986#992#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>

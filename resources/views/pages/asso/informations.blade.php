@@ -12,14 +12,12 @@
             <div class="col-md-4">
                 <div class="card card-profile card-plain">
                     <div class="card-avatar">
-                        <a href="#pablo">
-                            <img class="img rounded-circle img-raised" src="{!! asset($m->photo) !!}">
-                        </a>
+                        <img class="img rounded-circle img-raised" src="{!! asset($m->photo) !!}">
                     </div>
                     <div class="card-block">
                         <h3 class="card-title">{!! $m->prenom !!} {!! $m->nom !!}</h3>
                         <h6 class="category text-primary">{!! $m->poste !!}
-                            @if($m->surnom == null)
+                            @if($m->surnom != '')
                                 &nbsp;- <i>{!! $m->surnom !!}</i>
                             @endif
                         </h6>
