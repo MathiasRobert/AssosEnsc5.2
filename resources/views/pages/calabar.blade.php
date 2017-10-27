@@ -23,8 +23,7 @@
                         <table class="table table-shopping table-center">
                             <thead>
                             <th class="text-center">Image</th>
-                            <th>Nom</th>
-                            <th>Description</th>
+                            <th>Bière</th>
                             <th>Couleur</th>
                             <th>Degré</th>
                             <th>Contenance</th>
@@ -41,8 +40,6 @@
                                     </td>
                                     <td class="td-name">
                                         {!! $b->nom !!}
-                                    </td>
-                                    <td>
                                         <p>{!! $b->description !!}</p>
                                     </td>
                                     <td>
