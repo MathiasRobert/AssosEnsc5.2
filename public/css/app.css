@@ -350,6 +350,10 @@ body .main-product {
   padding-top: 50px;
 }
 
+.td-prix {
+  min-width: 30px;
+}
+
 .td-biere {
   min-width: 180px;
   font-weight: 400;

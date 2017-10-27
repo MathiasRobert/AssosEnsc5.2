@@ -54,7 +54,7 @@
                                     <td>
                                         {!! $b->origine !!}
                                     </td>
-                                    <td class="number text-right">
+                                    <td class="number text-right td-prix">
                                         {!! $b->prix !!} €
                                     </td>
                                 </tr>
