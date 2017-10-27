@@ -3,6 +3,7 @@
 <script src="/js/tether.min.js" type="text/javascript"></script>
 <script src="/js/bootstrap3.min.js" type="text/javascript"></script>
 <script src="/js/material.min.js" type="text/javascript"></script>
+<script src="/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
 <!-- Forms Validations Plugin -->
 <script src="/js/jquery.validate.min.js"></script>
 <!--  Plugin for Date Time Picker and Full Calendar Plugin-->

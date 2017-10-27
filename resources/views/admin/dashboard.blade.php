@@ -160,7 +160,7 @@
                             <th class="sorting">Prénom</th>
                             <th class="sorting">Poste</th>
                             <th class="sorting">Email</th>
-                            <th class="disabled-sorting text-right sorting">Actions</th>
+                            <th class="disabled-sorting text-right">Actions</th>
                         </tr>
                         </thead>
                         <tbody>

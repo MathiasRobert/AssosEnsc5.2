@@ -32,7 +32,7 @@
                                             <th class="sorting">Categorie</th>
                                             <th class="sorting_desc">Création</th>
                                             <th class="sorting">Dernière modifs</th>
-                                            <th class="disabled-sorting text-right sorting">Actions</th>
+                                            <th class="disabled-sorting text-right">Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
