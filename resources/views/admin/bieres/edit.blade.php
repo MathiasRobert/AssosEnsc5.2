@@ -99,7 +99,7 @@
                         <div class="col-sm-7">
                             <div class="form-group label-floating is-empty">
                                 <label class="control-label"></label>
-                                <input class="form-control" type="text" name="description" value="{{ $biere->description }}">
+                                <textarea class="form-control" type="text" rows="3" name="description">{{ $biere->description }}</textarea>
                                 <span class="material-input"></span></div>
                         </div>
                     </div>
