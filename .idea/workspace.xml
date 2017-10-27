@@ -47,10 +47,10 @@
       <file leaf-file-name="informations.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="32" lean-forward="false" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+            <state relative-caret-position="360">
+              <caret line="24" column="29" lean-forward="true" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
               <folding>
-                <element signature="e#1062#1068#0#HTML" expanded="true" />
+                <element signature="e#1072#1078#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -534,14 +534,7 @@
       <workItem from="1508969676195" duration="2494000" />
       <workItem from="1509008650545" duration="2649000" />
       <workItem from="1509101211414" duration="591000" />
-      <workItem from="1509103135163" duration="3663000" />
-    </task>
-    <task id="LOCAL-00001" summary="Site en version 5.2">
-      <created>1508626418938</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1508626418938</updated>
+      <workItem from="1509103135163" duration="3725000" />
     </task>
     <task id="LOCAL-00002" summary="Site en version 5.2">
       <created>1508626732045</created>
@@ -879,11 +872,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509127079449</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Trait surnom">
+      <created>1509127216596</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1509127216597</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45197000" />
+    <option name="totallyTimeSpent" value="45259000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -942,7 +942,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Bug /0" />
     <MESSAGE value="Tri classement" />
     <MESSAGE value="Tri classement done" />
     <MESSAGE value="Footer + ajustements" />
@@ -967,7 +966,8 @@
     <MESSAGE value="Scrollbar admin" />
     <MESSAGE value="Maintenance + email infos" />
     <MESSAGE value="nouvel onglet" />
-    <option name="LAST_COMMIT_MESSAGE" value="nouvel onglet" />
+    <MESSAGE value="Trait surnom" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trait surnom" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1367,10 +1367,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/informations.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="32" lean-forward="false" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+        <state relative-caret-position="360">
+          <caret line="24" column="29" lean-forward="true" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
           <folding>
-            <element signature="e#1062#1068#0#HTML" expanded="true" />
+            <element signature="e#1072#1078#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>

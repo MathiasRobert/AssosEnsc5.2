@@ -19,7 +19,7 @@
                     <div class="card-block">
                         <h3 class="card-title">{!! $m->prenom !!} {!! $m->nom !!}</h3>
                         <h6 class="category text-primary">{!! $m->poste !!}
-                            @if(isset($m->surnom))
+                            @if($m->surnom == emptyString())
                                 &nbsp;- <i>{!! $m->surnom !!}</i>
                             @endif
                         </h6>
