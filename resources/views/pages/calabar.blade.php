@@ -38,7 +38,7 @@
                                             <img src="{!! asset($b->image) !!}" alt="image">
                                         </div>
                                     </td>
-                                    <td class="td-name">
+                                    <td class="td-biere">
                                         {!! $b->nom !!}
                                         <p>{!! $b->description !!}</p>
                                     </td>

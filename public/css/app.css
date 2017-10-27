@@ -350,4 +350,15 @@ body .main-product {
   padding-top: 50px;
 }
 
+.td-biere {
+  min-width: 200px;
+  font-weight: 400;
+  font-size: 1.5em !important;
+}
+
+.td-biere p {
+  font-weight: 200;
+  font-size: 1em !important;
+}
+
 /*# sourceMappingURL=app.css.map */
