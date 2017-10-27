@@ -2,8 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="author" content="Mathias Robert <3 Le plus beau">
+    <meta name="description" content="Site regroupant les association de l'Ecole Nationale Supérieure de Cognitique (ENSC).
+            Chaque assos y poste ses événements et articles afin d'animer la vie étudiante de cette école d'ingénieur.">
+    <meta name="author" content="Mathias Robert">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     @yield('meta')
