@@ -6,6 +6,14 @@ $('.dateIlya').each(function () {
 });
 
 jQuery(document).ready(function($) {
+    $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+        localStorage.setItem('activeTab', $(e.target).attr('href'));
+    });
+    var activeTab = localStorage.getItem('activeTab');
+    if(activeTab){
+        $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
+    }
+
     $(".clickable-row").click(function() {
         window.location = $(this).data("href");
     });

@@ -13,6 +13,13 @@ $(document).ready(function () {
 
     });
 
+    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+        localStorage.setItem('activeTab', $(e.target).attr('href'));
+    });
+    var activeTab = localStorage.getItem('activeTab');
+    if (activeTab) {
+        $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
+    }
 
     var table = $('#datatables').DataTable();
 
@@ -47,7 +54,7 @@ $(document).ready(function () {
                         icon: "done",
                         message: "Article supprimé"
 
-                    },{
+                    }, {
                         type: "success",
                         timer: 2000,
                         placement: {
@@ -61,7 +68,7 @@ $(document).ready(function () {
                         icon: "danger",
                         message: "Erreur : article non supprimé"
 
-                    },{
+                    }, {
                         type: "danger",
                         timer: 2000,
                         placement: {
@@ -107,7 +114,7 @@ $(document).ready(function () {
                         icon: "done",
                         message: "Bière supprimée"
 
-                    },{
+                    }, {
                         type: "success",
                         timer: 2000,
                         placement: {
@@ -121,7 +128,7 @@ $(document).ready(function () {
                         icon: "danger",
                         message: "Erreur : bière non supprimée"
 
-                    },{
+                    }, {
                         type: "danger",
                         timer: 2000,
                         placement: {
@@ -167,7 +174,7 @@ $(document).ready(function () {
                         icon: "done",
                         message: "Evènement supprimé"
 
-                    },{
+                    }, {
                         type: "success",
                         timer: 2000,
                         placement: {
@@ -181,7 +188,7 @@ $(document).ready(function () {
                         icon: "danger",
                         message: "Erreur : évènement non supprimé"
 
-                    },{
+                    }, {
                         type: "danger",
                         timer: 2000,
                         placement: {
@@ -225,7 +232,7 @@ $(document).ready(function () {
                         icon: "done",
                         message: "Membre supprimé"
 
-                    },{
+                    }, {
                         type: "success",
                         timer: 2000,
                         placement: {
@@ -239,7 +246,7 @@ $(document).ready(function () {
                         icon: "danger",
                         message: "Erreur : membre non supprimé"
 
-                    },{
+                    }, {
                         type: "danger",
                         timer: 2000,
                         placement: {
@@ -283,7 +290,7 @@ $(document).ready(function () {
                         icon: "done",
                         message: "Action supprimé"
 
-                    },{
+                    }, {
                         type: "success",
                         timer: 2000,
                         placement: {
@@ -297,7 +304,7 @@ $(document).ready(function () {
                         icon: "danger",
                         message: "Erreur : action non supprimé"
 
-                    },{
+                    }, {
                         type: "danger",
                         timer: 2000,
                         placement: {
@@ -309,7 +316,6 @@ $(document).ready(function () {
             });
         });
     });
-
 
 
     $('.card .material-datatables label').addClass('form-group');
@@ -338,15 +344,15 @@ $(document).ready(function () {
         }
     });
 
-    var color = $( "#select-couleur option:selected" ).text();
+    var color = $("#select-couleur option:selected").text();
     $('[data-id="select-couleur"]').css("background-color", color);
 
-    $("#select-couleur" ).change(function() {
-        color = $("#select-couleur option:selected" ).text();
+    $("#select-couleur").change(function () {
+        color = $("#select-couleur option:selected").text();
         console.log(color);
 
         $('[data-id="select-couleur"]').css({
-            'background-color' : color, // couleur rouge
+            'background-color': color, // couleur rouge
 
         });
     });
