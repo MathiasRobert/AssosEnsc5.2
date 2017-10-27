@@ -20,6 +20,8 @@ class PagesController extends Controller
     public function index(Request $request, $diminutif)
     {
         $association = Association::where('diminutif', $diminutif)->first();
+        if($association == null)
+            abort(404);
         $association->couleur = $association->couleur->code;
 
         $articles = $association->articles;
