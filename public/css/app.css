@@ -30,7 +30,7 @@
 }
 
 .card-avatar > img {
-  height: auto;
+  max-height: inherit;
 }
 
 .navbar .navbar-nav .profile-photo {

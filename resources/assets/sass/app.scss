@@ -36,7 +36,7 @@ $white: #ffffff;
 }
 
 .card-avatar > img {
-  height: auto;
+  max-height: inherit;
 }
 
 .navbar {
