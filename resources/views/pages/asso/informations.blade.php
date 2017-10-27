@@ -24,7 +24,7 @@
                         </p>
                         <div class="card-footer">
                             <a href="{!! $m->lien_facebook !!}" class="btn btn-icon btn-primary btn-round"><i class="fa fa-facebook-square"></i></a>
-                            <a href="{!! $m->email !!}" class="btn btn-icon btn-primary btn-round"><i class="now-ui-icons ui-1_email-85"></i></a>
+                            <a href="mailto:{!! $m->email !!}" target="_blank" class="btn btn-icon btn-primary btn-round"><i class="now-ui-icons ui-1_email-85"></i></a>
                         </div>
                     </div>
                 </div>
