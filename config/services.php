@@ -38,7 +38,7 @@ return [
     'google' => [
         'client_id' => '1096079681177-bja5umgc4353a46gj51fs1jdlo02u5to.apps.googleusercontent.com',
         'client_secret' => 'SrftAAJYRw4I1wOAfVGe5OZD',
-        'redirect' => 'http://assosensc.fr/login/google/callback',
+        'redirect' => 'http://www.assosensc.fr/login/google/callback',
     ],
 
 ];
