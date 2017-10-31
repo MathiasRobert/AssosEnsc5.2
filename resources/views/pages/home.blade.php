@@ -77,7 +77,7 @@
                                                     {{ $a->titre }}
                                                 </h5>
                                                 <p class="card-description">
-                                                    {{ $a->texte }} …
+                                                    {!! $a->texte !!} …
                                                 </p>
                                                 <div class="card-footer">
                                                     <div class="stats stats-right dateIlya">

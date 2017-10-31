@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3c11653d-bf48-40c7-9e9a-96009907c7fb" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/pages/asso/articles/show.blade.php" afterPath="$PROJECT_DIR$/resources/views/pages/asso/articles/show.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/pages/home.blade.php" afterPath="$PROJECT_DIR$/resources/views/pages/home.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -57,22 +57,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="show.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/articles/show.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="28" column="27" lean-forward="false" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
+            <state relative-caret-position="173">
+              <caret line="24" column="3" lean-forward="true" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/index.blade.php">
+      <file leaf-file-name="home.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/pages/home.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="35" column="40" lean-forward="false" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
-              <folding />
+            <state relative-caret-position="282">
+              <caret line="79" column="68" lean-forward="false" selection-start-line="79" selection-start-column="68" selection-end-line="79" selection-end-column="68" />
+              <folding>
+                <marker date="1509463903000" expanded="true" signature="4231:7752" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -166,7 +168,6 @@
         <option value="$PROJECT_DIR$/resources/views/admin/evenements/edit.blade.php" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/config/services.php" />
-        <option value="$PROJECT_DIR$/resources/views/pages/home.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/front.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/AssociationController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/MembreController.php" />
@@ -189,6 +190,7 @@
         <option value="$PROJECT_DIR$/resources/views/errors/404.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/PagesController.php" />
         <option value="$PROJECT_DIR$/resources/views/pages/asso/articles/show.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/pages/home.blade.php" />
       </list>
     </option>
   </component>
@@ -582,14 +584,7 @@
       <workItem from="1509008650545" duration="2649000" />
       <workItem from="1509101211414" duration="591000" />
       <workItem from="1509103135163" duration="7112000" />
-      <workItem from="1509463449189" duration="204000" />
-    </task>
-    <task id="LOCAL-00017" summary="Tri classement">
-      <created>1508789147769</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1508789147769</updated>
+      <workItem from="1509463449189" duration="361000" />
     </task>
     <task id="LOCAL-00018" summary="Tri classement">
       <created>1508789204067</created>
@@ -927,11 +922,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509131867630</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Affichage article">
+      <created>1509463728201</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1509463728201</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48850000" />
+    <option name="totallyTimeSpent" value="49007000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -990,7 +992,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="redirect" />
     <MESSAGE value="surnom" />
     <MESSAGE value="image commenté" />
     <MESSAGE value="redirection edit" />
@@ -1015,7 +1016,8 @@
     <MESSAGE value="Textarea description bière" />
     <MESSAGE value="Nouvel onglet lien" />
     <MESSAGE value="Gestion erreur 404" />
-    <option name="LAST_COMMIT_MESSAGE" value="Gestion erreur 404" />
+    <MESSAGE value="Affichage article" />
+    <option name="LAST_COMMIT_MESSAGE" value="Affichage article" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1188,13 +1190,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="585">
           <caret line="39" column="32" lean-forward="false" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/pages/home.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="111" column="70" lean-forward="true" selection-start-line="111" selection-start-column="70" selection-end-line="111" selection-end-column="70" />
         </state>
       </provider>
     </entry>
@@ -1398,9 +1393,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/pages/asso/articles/show.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="28" column="27" lean-forward="false" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
+        <state relative-caret-position="173">
+          <caret line="24" column="3" lean-forward="true" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/pages/home.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="79" column="68" lean-forward="false" selection-start-line="79" selection-start-column="68" selection-end-line="79" selection-end-column="68" />
+          <folding>
+            <marker date="1509463903000" expanded="true" signature="4231:7752" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
