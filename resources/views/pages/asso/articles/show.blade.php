@@ -22,12 +22,10 @@
 @section('content')
 
     <div class="section">
-        <div class="section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                        {!! $article->texte !!}
-                    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    {!! $article->texte !!}
                 </div>
             </div>
         </div>
@@ -36,11 +34,14 @@
 
             <div class="cmt-body">
                 <div class="form-group is-empty">
-                    <textarea class="form-control" placeholder="Commenter cet évenement..." rows="6" v-model="commentText"></textarea>
+                    <textarea class="form-control" placeholder="Commenter cet évenement..." rows="6"
+                              v-model="commentText"></textarea>
                     <span class="material-input"></span>
                 </div>
                 <div class="cmt-footer text-right">
-                    <button class="btn btn-primary" v-on:click="postComment" v-bind:disabled="commentText==''">Commenter</button>
+                    <button class="btn btn-primary" v-on:click="postComment" v-bind:disabled="commentText==''">
+                        Commenter
+                    </button>
                 </div>
             </div>
 
@@ -54,10 +55,13 @@
                     </a>
                     <div class="comment-text-container left relative">
                         <div class="comment-user-date-wrap ui-corner">
-                            <a class="user-name-link bold js-mini-profile" data-id="44063465" href="https://www.behance.net/seb90grado8237">@{{comment.user.name}}</a>
+                            <a class="user-name-link bold js-mini-profile" data-id="44063465"
+                               href="https://www.behance.net/seb90grado8237">@{{comment.user.name}}</a>
                             <span class="comment-date js-format-timestamp" data-timestamp="1501963744">@{{comment.updated_at}}</span>
                         </div>
-                        <div class="comment-text-wrap"><div class="comment-text" v-html="comment.texte">@{{comment.texte}}</div></div>
+                        <div class="comment-text-wrap">
+                            <div class="comment-text" v-html="comment.texte">@{{comment.texte}}</div>
+                        </div>
                     </div>
                     <div class="comment-actions">
                         <!-- <button class="btn btn-primary btn-simple btn-round">
@@ -67,15 +71,22 @@
                     <div class="comments-to-comment">
                         <ul>
                             <li class="comment-container user-comment" v-for="commentToComment in comment.comments">
-                                <a target="_blank" href="https://www.behance.net/seb90grado8237" class="rf-avatar js-mini-profile" data-id="44063465">
-                                    <img v-bind:src="commentToComment.user.avatar" class="rf-avatar__image js-avatar__image">
+                                <a target="_blank" href="https://www.behance.net/seb90grado8237"
+                                   class="rf-avatar js-mini-profile" data-id="44063465">
+                                    <img v-bind:src="commentToComment.user.avatar"
+                                         class="rf-avatar__image js-avatar__image">
                                 </a>
                                 <div class="comment-text-container left relative">
                                     <div class="comment-user-date-wrap ui-corner">
-                                        <a class="user-name-link bold js-mini-profile" data-id="44063465" href="https://www.behance.net/seb90grado8237">@{{commentToComment.user.name}}</a>
+                                        <a class="user-name-link bold js-mini-profile" data-id="44063465"
+                                           href="https://www.behance.net/seb90grado8237">@{{commentToComment.user.name}}</a>
                                         <span class="comment-date js-format-timestamp" data-timestamp="1501963744">@{{commentToComment.updated_at}}</span>
                                     </div>
-                                    <div class="comment-text-wrap"><div class="comment-text" v-html="commentToComment.texte">@{{commentToComment.texte}}</div></div>
+                                    <div class="comment-text-wrap">
+                                        <div class="comment-text" v-html="commentToComment.texte">
+                                            @{{commentToComment.texte}}
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- <div class="comment-actions">
                                    <button class="btn btn-primary btn-simple btn-round">
@@ -90,7 +101,8 @@
         </section>
     </div>
 
-    <div class="modal fade" id="modalNotAuthenticated" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalNotAuthenticated" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <!-- <div class="modal-header" style="border-bottom: none;">
@@ -126,13 +138,13 @@
         Vue.http.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;
 
         var userService = {
-            currentUser : null,
+            currentUser: null,
 
-            getCurrentUser () {
+            getCurrentUser() {
 
                 var vm = this;
-                return Vue.http.get('/api/user').then(function(data) {
-                    if(data.body != ""){
+                return Vue.http.get('/api/user').then(function (data) {
+                    if (data.body != "") {
                         vm.currentUser = data.body;
                         console.log(data);
                     }
@@ -142,37 +154,37 @@
 
         var articleService = {
 
-            getAll () {
+            getAll() {
                 return Vue.http.get('/api/admin/articles');
             },
-            getAllCategoriesArticle(){
+            getAllCategoriesArticle() {
                 return Vue.http.get('/api/admin/getAllCategoriesArticle/');
             },
-            show (id) {
-                return Vue.http.get('/api/admin/articles/'+id);
+            show(id) {
+                return Vue.http.get('/api/admin/articles/' + id);
             },
-            getCommentsArticle(id){
-                return Vue.http.get('/api/admin/articles/'+id+'/comments');
+            getCommentsArticle(id) {
+                return Vue.http.get('/api/admin/articles/' + id + '/comments');
             },
-            postCommentArticle(data){
-                return Vue.http.post('/api/comments',data);
+            postCommentArticle(data) {
+                return Vue.http.post('/api/comments', data);
             }
 
         };
 
         var app = new Vue({
 
-            el:"#comments-section",
+            el: "#comments-section",
 
-            data:{
+            data: {
                 articles: {},
-                comments:[],
-                commentText:''
+                comments: [],
+                commentText: ''
             },
 
-            created: function() {
+            created: function () {
                 var vm = this;
-                vm.getArticles().then(function(){
+                vm.getArticles().then(function () {
                     vm.getComments();
                 });
 
@@ -181,32 +193,31 @@
             },
 
             methods: {
-                getArticles(idArticle){
+                getArticles(idArticle) {
                     var vm = this;
-                    return articleService.show({{$article->id}}).then(function(response) {
+                    return articleService.show({{$article->id}}).then(function (response) {
                         vm.article = response.body;
                     });
                 },
-                getComments(){
+                getComments() {
                     var vm = this;
-                    return articleService.getCommentsArticle(vm.article.id).then(function(response){
+                    return articleService.getCommentsArticle(vm.article.id).then(function (response) {
                         vm.comments = response.body;
                     });
                 },
-                postComment(){
+                postComment() {
                     var vm = this;
 
-                    if(userService.currentUser == null){
+                    if (userService.currentUser == null) {
                         $('#modalNotAuthenticated').modal('show');
                     }
-                    else
-                    {
+                    else {
                         var data = {
-                            'texte' : vm.commentText,
-                            'commentable_id'   : vm.article.id,
-                            'commentable_type' : vm.article.commentable_type,
+                            'texte': vm.commentText,
+                            'commentable_id': vm.article.id,
+                            'commentable_type': vm.article.commentable_type,
                         };
-                        return articleService.postCommentArticle(data).then(function(response){
+                        return articleService.postCommentArticle(data).then(function (response) {
                             vm.commentText = '';
                             vm.getComments();
                         });
@@ -225,12 +236,10 @@
 
     <style type="text/css">
 
-        #comments-section{
+        #comments-section {
             max-width: 685px;
             margin: 0 auto;
         }
-
-
 
         .event-post {
             width: 900px;
@@ -240,12 +249,14 @@
             /*padding: 20px 0px;*/
             margin-top: 30px;
         }
+
         .event-post .header {
             padding: 20px;
             text-align: center;
             position: relative;
             /*min-height: 100px;*/
         }
+
         .event-post .header .title {
             /*max-width: 350px;*/
             font-size: 27px;
@@ -258,6 +269,7 @@
                 border-bottom: 2px solid $mainColor;
               }*/
         }
+
         .event-post .header .time {
             position: absolute;
             /*right: 25px;*/
@@ -271,21 +283,26 @@
             text-align: center;
             margin-bottom: 10px;
         }
+
         .event-post .header .time.right {
             left: initial;
             right: 25px;
         }
+
         .event-post .header .time .month {
             color: #e96656;
             text-transform: uppercase;
         }
+
         .event-post .event-img-container img {
             width: 100%;
         }
+
         .event-post .event-content {
             margin: 35px auto 0 auto;
             width: 70%;
         }
+
         .event-post .event-description {
             margin-top: 20px;
             text-align: justify;
@@ -305,6 +322,7 @@
             min-width: 50px;
             width: 50px;
         }
+
         .rf-avatar img {
             border-radius: 50%;
             width: 100%;
@@ -345,6 +363,7 @@
             width: calc(100% - 70px);
             margin-left: 70px;
         }
+
         .comment-actions .comment-likes {
             padding: 0px;
             /*margin: 0px;*/
@@ -355,9 +374,11 @@
             width: calc(100% - 70px);
             margin-left: 70px;
         }
+
         .comments-to-comment .comment-container {
             margin-bottom: 5px;
         }
+
         .comments-to-comment .comment-likes {
             padding: 0px;
             /*margin: 0px;*/
@@ -373,6 +394,7 @@
         .event-img-container {
             position: relative;
         }
+
         .event-img-container .event-actions {
             /*margin-top: 10px;*/
             position: absolute;
@@ -383,7 +405,7 @@
             border-radius: 4px 0px 0px 4px;
         }
 
-        .user-comment{
+        .user-comment {
             margin-top: 10px;
         }
 
