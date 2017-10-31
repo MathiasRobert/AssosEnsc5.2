@@ -76,6 +76,7 @@ class PagesController extends Controller
         foreach($articles as $entries){
             $entries->categorie = $entries->categorie->nom;
             $entries->texte = substr($entries->texte, 0, 100);
+            $entries->texte = strip_tags($entries->texte);
         }
         $familles = Famille::orderBy('points','desc')->get();
         $max = Famille::max('points');
