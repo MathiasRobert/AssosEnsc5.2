@@ -26,7 +26,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 offset-md-2">
-                        {{ $article->texte }}
+                        {!! $article->texte !!}
                     </div>
                 </div>
             </div>
