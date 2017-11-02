@@ -16,7 +16,7 @@
                                 <h3 class="card-title">
                                     <a href="{{ route('articles.show', $article->id) }}">{{ $article->titre }}</a>
                                 </h3>
-                                <p class="card-description">{{ $article->texte }} …<a href="{{ route('articles.show', $article->id) }}"> Lire Plus </a></p>
+                                <p class="card-description">{!! $article->texte !!} …<a href="{{ route('articles.show', $article->id) }}"> Lire Plus </a></p>
                                 <p class="dateIlya">
                                     {{ $article->created_at }}
                                 </p>

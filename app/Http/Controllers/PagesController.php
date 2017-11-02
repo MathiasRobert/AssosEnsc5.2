@@ -28,6 +28,7 @@ class PagesController extends Controller
         foreach($articles as $entries){
             $entries->categorie = $entries->categorie->nom;
             $entries->texte = substr($entries->texte, 0, 250);
+            $entries->texte = strip_tags($entries->texte);
         }
 
         $evenements = $association->evenements;
