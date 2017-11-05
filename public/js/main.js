@@ -74018,7 +74018,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-354b4465", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-354b4465", __vue__options__)
+    hotAPI.reload("data-v-354b4465", __vue__options__)
   }
 })()}
 },{"./Association/association.services.js":15,"vue":8,"vueify/lib/insert-css":9,"vueify/node_modules/vue-hot-reload-api":10}],12:[function(require,module,exports){
@@ -74083,7 +74083,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-70a123c5", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-70a123c5", __vue__options__)
+    hotAPI.reload("data-v-70a123c5", __vue__options__)
   }
 })()}
 },{"./article.services.js":14,"vue":8,"vueify/lib/insert-css":9,"vueify/node_modules/vue-hot-reload-api":10}],13:[function(require,module,exports){
@@ -74149,7 +74149,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-26f52853", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-26f52853", __vue__options__)
+    hotAPI.reload("data-v-26f52853", __vue__options__)
   }
 })()}
 },{"./article.services.js":14,"vue":8,"vueify/node_modules/vue-hot-reload-api":10}],14:[function(require,module,exports){
@@ -74224,7 +74224,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-8c8371c6", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-8c8371c6", __vue__options__)
+    hotAPI.reload("data-v-8c8371c6", __vue__options__)
   }
 })()}
 },{"vue":8,"vueify/node_modules/vue-hot-reload-api":10}],17:[function(require,module,exports){
@@ -74325,7 +74325,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-f2b81f1a", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-f2b81f1a", __vue__options__)
+    hotAPI.reload("data-v-f2b81f1a", __vue__options__)
   }
 })()}
 },{"./evenement.services.js":20,"vue":8,"vueify/node_modules/vue-hot-reload-api":10}],18:[function(require,module,exports){
@@ -74428,7 +74428,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-0fd3b241", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-0fd3b241", __vue__options__)
+    hotAPI.reload("data-v-0fd3b241", __vue__options__)
   }
 })()}
 },{"./evenement.services.js":20,"vue":8,"vueify/lib/insert-css":9,"vueify/node_modules/vue-hot-reload-api":10}],19:[function(require,module,exports){
@@ -74534,7 +74534,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-2c5a4fab", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-2c5a4fab", __vue__options__)
+    hotAPI.reload("data-v-2c5a4fab", __vue__options__)
   }
 })()}
 },{"./evenement.services.js":20,"vue":8,"vueify/lib/insert-css":9,"vueify/node_modules/vue-hot-reload-api":10}],20:[function(require,module,exports){
@@ -74637,7 +74637,7 @@ if (module.hot) {(function () {  var hotAPI = require("vueify/node_modules/vue-h
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-65c91004", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-65c91004", __vue__options__)
+    hotAPI.reload("data-v-65c91004", __vue__options__)
   }
 })()}
 },{"tinymce":5,"tinymce/themes/modern":3,"vue":8,"vueify/node_modules/vue-hot-reload-api":10}],22:[function(require,module,exports){
@@ -74738,3 +74738,4 @@ var app = new _vue2.default({
 },{"./components/App.vue":11,"./components/Article/article.index.vue":12,"./components/Article/article.new.vue":13,"./components/Dashboard/dashboard.vue":16,"./components/Evenement/evenement.create.vue":17,"./components/Evenement/evenement.edit.vue":18,"./components/Evenement/evenement.index.vue":19,"./components/plugins/tinymce.vue":21,"vue":8,"vue-resource":6,"vue-router":7}]},{},[22]);
 
 //# sourceMappingURL=main.js.map
+URL=main.js.map

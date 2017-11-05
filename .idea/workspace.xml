@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="3c11653d-bf48-40c7-9e9a-96009907c7fb" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/admin.css" afterPath="$PROJECT_DIR$/public/css/admin.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/admin.css.map" afterPath="$PROJECT_DIR$/public/css/admin.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/main.js" afterPath="$PROJECT_DIR$/public/js/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/main.js.map" afterPath="$PROJECT_DIR$/public/js/main.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/sass/admin.scss" afterPath="$PROJECT_DIR$/resources/assets/sass/admin.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/layouts/bdf.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/bdf.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/resources/assets/sass/admin.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="522">
-              <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+              <caret line="40" column="6" lean-forward="false" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -504,14 +507,7 @@
       <workItem from="1509463449189" duration="870000" />
       <workItem from="1509656591662" duration="318000" />
       <workItem from="1509888370624" duration="4529000" />
-      <workItem from="1509901402868" duration="473000" />
-    </task>
-    <task id="LOCAL-00027" summary="test">
-      <created>1508944381840</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1508944381840</updated>
+      <workItem from="1509901402868" duration="566000" />
     </task>
     <task id="LOCAL-00028" summary="test">
       <created>1508944425878</created>
@@ -849,11 +845,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509902162823</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="fix bug">
+      <created>1509902282724</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1509902282725</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54836000" />
+    <option name="totallyTimeSpent" value="54929000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -1325,7 +1328,7 @@
     <entry file="file://$PROJECT_DIR$/resources/assets/sass/admin.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="522">
-          <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+          <caret line="40" column="6" lean-forward="false" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
           <folding />
         </state>
       </provider>
