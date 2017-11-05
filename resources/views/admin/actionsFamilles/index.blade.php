@@ -29,7 +29,7 @@
                                             <tr>
                                                 <th class="sorting">Qui</th>
                                                 <th class="sorting">Quoi</th>
-                                                <th class="sorting_desc">Quand</th>
+                                                <th class="sorting_asc">Quand</th>
                                                 <th class="sorting">Points</th>
                                                 <th class="sorting">Famille</th>
                                                 <th class="disabled-sorting text-right sorting">Actions</th>
