@@ -34,4 +34,9 @@
   border: 1px solid lightslategray;
 }
 
+.main-panel {
+  width: 100%;
+  float: none;
+}
+
 /*# sourceMappingURL=admin.css.map */

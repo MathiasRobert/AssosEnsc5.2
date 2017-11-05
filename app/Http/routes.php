@@ -63,12 +63,12 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('admin', ['uses' => 'AdminController@dashboard'])->name('admin');
     Route::resource('admin/articles', 'ArticleController', ['except' => ['show']]);
     Route::resource('admin/evenements', 'EvenementController', ['except' => ['show']]);
-    Route::resource('admin/actionsFamilles', 'ActionFamilleController', ['except' => ['show']]);
     Route::resource('admin/bieres', 'BiereController', ['except' => ['show']]);
     Route::resource('admin/membres', 'MembreController', ['except' => ['show', 'index']]);
     Route::resource('admin/associations', 'AssociationController', ['except' => ['show', 'index', 'destroy']]);
-
 });
+Route::resource('admin/actionsFamilles', 'ActionFamilleController', ['except' => ['show']]);
+
 
 Route::post('inscription', 'InscriptionController@inscription');
 Route::post('desinscription', 'InscriptionController@desinscription');

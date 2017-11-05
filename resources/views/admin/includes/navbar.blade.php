@@ -1,11 +1,11 @@
 <nav class="navbar navbar-transparent navbar-absolute">
     <div class="container-fluid">
-        <div class="navbar-minimize">
-            <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
-                <i class="material-icons visible-on-sidebar-regular">more_vert</i>
-                <i class="material-icons visible-on-sidebar-mini">view_list</i>
-            </button>
-        </div>
+        {{--<div class="navbar-minimize">--}}
+            {{--<button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">--}}
+                {{--<i class="material-icons visible-on-sidebar-regular">more_vert</i>--}}
+                {{--<i class="material-icons visible-on-sidebar-mini">view_list</i>--}}
+            {{--</button>--}}
+        {{--</div>--}}
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -22,6 +22,8 @@
                     Listes des articles
                 @elseif(Route::currentRouteName() === 'admin.evenements.index')
                     Listes des évènements
+                @elseif(Route::currentRouteName() === 'admin.actionsFamilles.index')
+                    Gestion de la coupe des familles
                 @endif
             </a>
         </div>

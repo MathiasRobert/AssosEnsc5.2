@@ -96,6 +96,11 @@
                         <a class="nav-link" href="{{ route('admin') }}">Admin</a>
                     </li>
                 @endif
+                @if(Auth::check() && Auth::user()->isBDF())
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin/actionsFamilles">Admin Famille</a>
+                    </li>
+                @endif
             </ul>
 
         </div>

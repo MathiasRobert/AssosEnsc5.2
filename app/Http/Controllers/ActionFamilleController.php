@@ -12,6 +12,10 @@ use App\ActionFamille;
 
 class ActionFamilleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('adminBDF');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +23,8 @@ class ActionFamilleController extends Controller
      */
     public function index()
     {
-        $association = Association::where('email', Auth::user()->email)->first();
-        $actions = $association->actionsFamilles->all();
-        return view('admin.actionsFamilles.index', compact('actions', 'association'));
+        $actions = ActionFamille::all();
+        return view('admin.actionsFamilles.index', compact('actions'));
     }
 
     /**
@@ -31,9 +34,8 @@ class ActionFamilleController extends Controller
      */
     public function create()
     {
-        $association = Association::where('email', Auth::user()->email)->first();
         $familles = Famille::all();
-        return view('admin.actionsFamilles.create', compact('association', 'familles'));
+        return view('admin.actionsFamilles.create', compact( 'familles'));
     }
 
     /**
@@ -45,8 +47,6 @@ class ActionFamilleController extends Controller
     public function store(StoreActionFamilleRequest $request)
     {
         $action = new ActionFamille($request->all());
-        $association = Association::where('email', Auth::user()->email)->first();
-        $action->association_id = $association->id;
         $action->save();
         $famille = Famille::find($action->famille_id);
         $famille->points = $famille->points + $action->points;
@@ -62,10 +62,9 @@ class ActionFamilleController extends Controller
      */
     public function edit($id)
     {
-        $association = Association::where('email', Auth::user()->email)->first();
         $action = ActionFamille::find($id);
         $familles = Famille::all();
-        return view('admin.actionsFamilles.edit', compact('action', 'association', 'familles'));
+        return view('admin.actionsFamilles.edit', compact('action', 'familles'));
     }
 
     /**

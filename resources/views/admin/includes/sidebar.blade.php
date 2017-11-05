@@ -44,12 +44,12 @@ Tip 3: you can change the color of the sidebar with data-background-color="white
                     <p>Evenements</p>
                 </a>
             </li>
-            <li class="@if(Route::currentRouteName() === 'admin.actionsFamilles.index') active @endif">
-                <a href="{{ route('admin.actionsFamilles.index') }}">
-                    <i class="material-icons">games</i>
-                    <p>Jeux des familles</p>
-                </a>
-            </li>
+            {{--<li class="@if(Route::currentRouteName() === 'admin.actionsFamilles.index') active @endif">--}}
+                {{--<a href="{{ route('admin.actionsFamilles.index') }}">--}}
+                    {{--<i class="material-icons">games</i>--}}
+                    {{--<p>Jeux des familles</p>--}}
+                {{--</a>--}}
+            {{--</li>--}}
             <li class="@if(Auth::user()->isBDE() && Route::currentRouteName() === 'admin.bieres.index') active @endif">
                 <a href="{{ route('admin.bieres.index') }}">
                     <i class="material-icons">local_drink</i>

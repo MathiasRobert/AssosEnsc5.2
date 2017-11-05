@@ -1,4 +1,4 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.bdf')
 
 @section('content')
     @if ($errors->any())

@@ -41,6 +41,10 @@ class User extends Authenticatable
         return (Auth::check() && Auth::user()->email == "bde@ensc.fr");
     }
 
+    public function isBDF() {
+        return (Auth::check() && BureauDesFamilles::where('email', '=', Auth::user()->email)->first());
+    }
+
     public function estInscrit($evenement_id){
         return Inscription::where([
             ['user_id', '=', Auth::user()->id],
