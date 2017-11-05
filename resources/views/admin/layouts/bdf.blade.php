@@ -6,7 +6,7 @@
 <body>
 <div class="wrapper">
 
-    <div class="main-panel">
+    <div class="main-panel main">
 
         @include('admin.includes.navbar')
 

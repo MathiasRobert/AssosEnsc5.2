@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3c11653d-bf48-40c7-9e9a-96009907c7fb" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/includes/navbar.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/includes/navbar.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/sass/admin.scss" afterPath="$PROJECT_DIR$/resources/assets/sass/admin.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/layouts/bdf.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/bdf.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,27 +19,17 @@
         <entry file="file://$PROJECT_DIR$/resources/views/admin/layouts/bdf.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
-              <caret line="8" column="26" lean-forward="false" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+              <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="front.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/layouts/front.blade.php">
+      <file leaf-file-name="admin.scss" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/assets/sass/admin.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1500">
-              <caret line="100" column="71" lean-forward="false" selection-start-line="100" selection-start-column="71" selection-end-line="100" selection-end-column="71" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Biere.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Biere.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="522">
+              <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -94,11 +85,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="navbar.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="navbar.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/admin/includes/navbar.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
               <caret line="7" column="14" lean-forward="false" selection-start-line="2" selection-start-column="8" selection-end-line="7" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="default.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/admin/layouts/default.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="465">
+              <caret line="31" column="14" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="33" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -180,12 +181,12 @@
         <option value="$PROJECT_DIR$/resources/views/layouts/front.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/actionsFamilles/edit.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/actionsFamilles/create.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/layouts/bdf.blade.php" />
-        <option value="$PROJECT_DIR$/resources/assets/sass/admin.scss" />
         <option value="$PROJECT_DIR$/database/migrations/2017_11_05_160831_dropAssociationIdAction.php" />
         <option value="$PROJECT_DIR$/config/services.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/actionsFamilles/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/includes/navbar.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/layouts/bdf.blade.php" />
+        <option value="$PROJECT_DIR$/resources/assets/sass/admin.scss" />
       </list>
     </option>
   </component>
@@ -503,14 +504,7 @@
       <workItem from="1509463449189" duration="870000" />
       <workItem from="1509656591662" duration="318000" />
       <workItem from="1509888370624" duration="4529000" />
-      <workItem from="1509901402868" duration="349000" />
-    </task>
-    <task id="LOCAL-00026" summary="test">
-      <created>1508944314534</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1508944314534</updated>
+      <workItem from="1509901402868" duration="473000" />
     </task>
     <task id="LOCAL-00027" summary="test">
       <created>1508944381840</created>
@@ -848,11 +842,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509901468353</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="fix bug">
+      <created>1509902162823</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1509902162823</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54712000" />
+    <option name="totallyTimeSpent" value="54836000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -911,7 +912,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="biere responsive" />
     <MESSAGE value="affichage" />
     <MESSAGE value="Ajout editeur de texte articles et evenements" />
     <MESSAGE value="Plugins tinymce" />
@@ -936,7 +936,8 @@
     <MESSAGE value="Admin bdf" />
     <MESSAGE value="Admin bdf fix" />
     <MESSAGE value="Admin bdf sort" />
-    <option name="LAST_COMMIT_MESSAGE" value="Admin bdf sort" />
+    <MESSAGE value="fix bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1039,6 +1040,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1500">
           <caret line="100" column="114" lean-forward="false" selection-start-line="100" selection-start-column="114" selection-end-line="100" selection-end-column="114" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1191,13 +1193,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/layouts/default.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="14" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="33" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
@@ -1235,14 +1230,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="27" lean-forward="false" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/sass/admin.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" column="14" lean-forward="false" selection-start-line="42" selection-start-column="14" selection-end-line="42" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -1295,14 +1282,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/layouts/bdf.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="26" lean-forward="false" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/actionsFamilles/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
@@ -1323,6 +1302,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="14" lean-forward="false" selection-start-line="2" selection-start-column="8" selection-end-line="7" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/layouts/default.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="14" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="33" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/layouts/bdf.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/assets/sass/admin.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
           <folding />
         </state>
       </provider>
