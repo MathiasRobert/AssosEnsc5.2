@@ -4,8 +4,6 @@
     <list default="true" id="3c11653d-bf48-40c7-9e9a-96009907c7fb" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/AssociationController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/AssociationController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/pages/asso/contact.blade.php" afterPath="$PROJECT_DIR$/resources/views/pages/asso/contact.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -69,8 +67,8 @@
       <file leaf-file-name="AssociationController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AssociationController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="507">
-              <caret line="108" column="100" lean-forward="false" selection-start-line="108" selection-start-column="100" selection-end-line="108" selection-end-column="100" />
+            <state relative-caret-position="492">
+              <caret line="107" column="32" lean-forward="false" selection-start-line="107" selection-start-column="32" selection-end-line="107" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -475,14 +473,7 @@
       <workItem from="1509656591662" duration="318000" />
       <workItem from="1509888370624" duration="4529000" />
       <workItem from="1509901402868" duration="684000" />
-      <workItem from="1510058048250" duration="1200000" />
-    </task>
-    <task id="LOCAL-00029" summary="redirect">
-      <created>1508944599421</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1508944599421</updated>
+      <workItem from="1510058048250" duration="1226000" />
     </task>
     <task id="LOCAL-00030" summary="surnom">
       <created>1508945140575</created>
@@ -820,11 +811,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509902386027</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="Email">
+      <created>1510059306644</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1510059306645</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56247000" />
+    <option name="totallyTimeSpent" value="56273000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -883,7 +881,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="affichage" />
     <MESSAGE value="Ajout editeur de texte articles et evenements" />
     <MESSAGE value="Plugins tinymce" />
     <MESSAGE value="paddingtop" />
@@ -908,7 +905,8 @@
     <MESSAGE value="Admin bdf fix" />
     <MESSAGE value="Admin bdf sort" />
     <MESSAGE value="fix bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bug" />
+    <MESSAGE value="Email" />
+    <option name="LAST_COMMIT_MESSAGE" value="Email" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1298,8 +1296,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AssociationController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="108" column="100" lean-forward="false" selection-start-line="108" selection-start-column="100" selection-end-line="108" selection-end-column="100" />
+        <state relative-caret-position="492">
+          <caret line="107" column="32" lean-forward="false" selection-start-line="107" selection-start-column="32" selection-end-line="107" selection-end-column="32" />
           <folding />
         </state>
       </provider>
