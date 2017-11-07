@@ -45,6 +45,8 @@ Route::post('api/desinscription', 'InscriptionController@desinscription');
 Route::resource('api/admin/articles', 'ArticleControllerApi');
 Route::resource('api/admin/evenements', 'EvenementController');
 Route::resource('api/comments', 'CommentController');
+Route::post('/api/sendEmailAsso', ['uses' => 'AssociationController@sendEmail'])->name('sendEmailAsso');
+
 
 Route::get('/', ['uses' => 'PagesController@home']);
 

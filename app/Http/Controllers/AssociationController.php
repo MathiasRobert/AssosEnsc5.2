@@ -102,4 +102,11 @@ class AssociationController extends Controller
         return redirect('admin/');
     }
 
+    public function sendEmail(Request $request, $id)
+    {
+        $association = Association::find($id);
+        mail($association->id, '[AssosENSC]'.' '.$request->prenom.' '.$request->nom,
+            $request->prenom.' '.$request->nom.'\nEmail : '.$request->email.'\n'.$request->message);
+    }
+
 }

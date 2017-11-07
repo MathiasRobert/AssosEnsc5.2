@@ -4,7 +4,8 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card card-contact card-raised">
-                    <form role="form" id="contact-form" method="post">
+                    <form role="form" id="contact-form" action="{{ route('sendEmailAsso') }}" method="post">
+                        {!! csrf_field() !!}
                         <div class="card-header text-center">
                             <h4 class="card-title">Contact</h4>
                         </div>
