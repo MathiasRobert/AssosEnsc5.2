@@ -99,7 +99,7 @@ class PagesController extends Controller
 
     public function famille()
     {
-        $actions = ActionFamille::orderBy('quand', 'desc')->take(10)->get();
+        $actions = ActionFamille::orderBy('quand', 'desc')->paginate(10);
         Date::setLocale('fr');
         foreach ($actions as $a)
         {
