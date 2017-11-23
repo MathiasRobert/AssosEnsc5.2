@@ -97,13 +97,16 @@ class PagesController extends Controller
         return view('pages.calabar', compact('bieres'));
     }
 
-    public function famille()
+    public function famille(Request $request)
     {
         $actions = ActionFamille::orderBy('quand', 'desc')->paginate(10);
         Date::setLocale('fr');
         foreach ($actions as $a)
         {
             $a->quand = Carbon::parse($a->quand)->format('d/m/Y');
+        }
+        if ($request->ajax()) {
+            return view('data', compact('actions'));
         }
         $familles = Famille::orderBy('points','desc')->get();
         $max = Famille::max('points');
@@ -116,6 +119,7 @@ class PagesController extends Controller
             $cpt++;
             $f->pourcentage = round((float)($f->points/$max) * 100 );
         }
+
         return view('pages.famille', compact('familles', 'actions'));
     }
 
