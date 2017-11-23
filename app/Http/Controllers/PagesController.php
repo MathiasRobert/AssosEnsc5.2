@@ -8,12 +8,12 @@ use App\Evenement;
 use App\Article;
 use App\Famille;
 use DateTime;
-use Illuminate\Http\Request;
 use App\Association;
 use Carbon\Carbon;
 use Jenssegers\Date\Date;
 use DB;
 use Auth;
+use Request;
 
 class PagesController extends Controller
 {
@@ -97,17 +97,19 @@ class PagesController extends Controller
         return view('pages.calabar', compact('bieres'));
     }
 
-    public function famille(Request $request)
+    public function famille()
     {
-        $actions = ActionFamille::orderBy('quand', 'desc')->paginate(10);
+        $actions = ActionFamille::orderBy('quand', 'desc')->paginate(5);
         Date::setLocale('fr');
         foreach ($actions as $a)
         {
             $a->quand = Carbon::parse($a->quand)->format('d/m/Y');
         }
-        if ($request->ajax()) {
-            return view('data', compact('actions'));
+        if (Request::ajax()) {
+            return view('pages.actionsFamilles', compact('actions'))->render();
         }
+
+
         $familles = Famille::orderBy('points','desc')->get();
         $max = Famille::max('points');
         if($max == 0)

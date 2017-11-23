@@ -24,36 +24,7 @@
             </div>
             <div class="col-md-12">
                 <h4 class="title">Dernières actions</h4>
-                <table class="table table-shopping table-center">
-                    <thead>
-                        <th>Date</th>
-                        <th>Qui</th>
-                        <th>Action</th>
-                        <th class="text-right">Points</th>
-                    </thead>
-                    <tbody>
-                    @foreach ($actions as $a)
-
-                        <tr class="tr-actions" data-date="{!! $a->quand !!}">
-                            <td class="text-date ">
-                                {!! $a->quand !!}
-                            </td>
-                            <td>
-                                {!! $a->qui !!}
-                            </td>
-                            <td class="td-name">
-                                {!! $a->quoi !!}
-                            </td>
-                            <td class="td-number">
-                                {!! $a->points !!} points
-                            </td>
-                            <td class="td-famille {!! $a->famille->nom !!}">
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-                {!! $actions->render() !!}
+                @include('pages.actionsFamilles')
             </div>
         </div>
     </div>
@@ -78,14 +49,9 @@
         {
             $(document).on('click', '.pagination a',function(event)
             {
-                $('li').removeClass('active');
-                $(this).parent('li').addClass('active');
-                event.preventDefault();
-
-                var myurl = $(this).attr('href');
                 var page=$(this).attr('href').split('page=')[1];
-
                 getData(page);
+                event.preventDefault();
             });
         });
 
@@ -93,17 +59,16 @@
             $.ajax(
                 {
                     url: '?page=' + page,
-                    type: "get",
-                    datatype: "html",
+                    datatype: "json",
                 })
                 .done(function(data)
                 {
-                    $("#item-lists").empty().html(data);
+                    $("#actionsFamilles").html(data);
                     location.hash = page;
                 })
                 .fail(function(jqXHR, ajaxOptions, thrownError)
                 {
-                    alert('No response from server');
+                    alert('Erreur');
                 });
         }
 
